@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container my-3">
+    <!-- 질문 -->
+    <h2 class="border-bottom py-2" style="font-weight: bolder" > {{ student.num }} {{ student.name }}</h2>
+    <div class="card my-3">
+        <div class="card-body">
+            <div class="card-text" style="white-space: pre-line;">
+                {{ student.card_set.last.to }}
+                {{ student.card_set.last.why }}
+            </div>
+            <div class="d-flex justify-content-end">
+                <div class="badge bg-light text-dark p-2">
+                    {{ student.card_set.last.moving_date }}
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 답변 -->
+    <h5 class="border-bottom my-3 py-2">{{student.card_set.count}}개의 기록이 있습니다.</h5>
+    <div class="card my-3">
+        <table class="table">
+            <thead>
+            <tr class="table-dark">
+                <th>번호</th>
+                <th>상태</th>
+                <th>사유</th>
+                <th>등록일시</th>
+            </tr>
+            </thead>
+            <tbody>
+                {% for i in card %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ i.to }}</td>
+                    <td>{{ i.why }}</td>
+                    <td>{{ i.moving_date }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <!-- 페이징처리 시작 -->
+    <ul class="pagination justify-content-center">
+        <!-- 이전페이지 -->
+        {% if stu_list.has_previous %}
+        <li class="page-item">
+            <a class="page-link" href="?page={{ stu_list.previous_page_number }}">이전</a>
+        </li>
+        {% else %}
+        <li class="page-item disabled">
+            <a class="page-link" tabindex="-1" aria-disabled="true" href="#">이전</a>
+        </li>
+        {% endif %}
+        <!-- 페이지리스트 -->
+        {% for page_number in card.paginator.page_range %}
+        {% if page_number == card.number %}
+        <li class="page-item active" aria-current="page">
+            <a class="page-link" href="?page={{ page_number }}">{{ page_number }}</a>
+        </li>
+        {% else %}
+        <li class="page-item">
+            <a class="page-link" href="?page={{ page_number }}">{{ page_number }}</a>
+        </li>
+        {% endif %}
+        {% endfor %}
+        <!-- 다음페이지 -->
+        {% if card.has_next %}
+        <li class="page-item">
+            <a class="page-link" href="?page={{ card.next_page_number }}">다음</a>
+        </li>
+        {% else %}
+        <li class="page-item disabled">
+            <a class="page-link" tabindex="-1" aria-disabled="true" href="#">다음</a>
+        </li>
+        {% endif %}
+    </ul>
+    <!-- 페이징처리 끝 -->
+    </div>
+
+    <!-- 답변 -->
+    <h5 class="border-bottom my-3 py-2">이동 보고</h5>
+    <div class="container-sm">
+        <div class="container">
+            <div class="row">
+                <form action="{% url 'pybo:card_create' student.id %}" method="get" id="loc">
+                    {% csrf_token %}
+                        <div class="col-sm">
+                            <select name="loc" id="loc" class='form-select' size=3 multiple aria-label="multiple select example">
+                                <option value="화장실">화장실</option>
+                                <option value="장탁이용중">장탁</option>
+                                <option value="재실">복귀</option>
+                            </select>
+                        </div>
+
+                        <div class = 'col-sm'>
+                            <input type="submit" value="Sumbit" class = 'btn btn-primary my-1'>
+                        </div>
+                </form>
+                <div class="col-sm">
+                    <a href="{% url 'pybo:PreCard_create' student.id %}" class="btn btn-primary">특별실 이동 신청</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

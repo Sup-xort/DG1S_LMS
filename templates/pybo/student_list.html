@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container my-3">
+    <table class="table">
+        <thead>
+        <tr class="table-dark">
+            <th>학반</th>
+            <th>이름</th>
+            <th>상태</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% if stu_list %}
+            {% for student in stu_list %}
+            <tr>
+                <td>{{ student.num }}</td>
+                <td>
+                    <a href="{% url 'pybo:detail' student.id %}">{{ student.name }}</a>
+                </td>
+                <td>{{ student.card_set.last.to }}</td>
+            </tr>
+            {% endfor %}
+        {% else %}
+        <tr>
+            <td colspan="3">등록된 학생이 없습니다.</td>
+        </tr>
+        {% endif %}
+        </tbody>
+    </table>
+    <!-- 페이징처리 시작 -->
+    <ul class="pagination justify-content-center">
+        <!-- 이전페이지 -->
+        {% if stu_list.has_previous %}
+        <li class="page-item">
+            <a class="page-link" href="?page={{ stu_list.previous_page_number }}">이전</a>
+        </li>
+        {% else %}
+        <li class="page-item disabled">
+            <a class="page-link" tabindex="-1" aria-disabled="true" href="#">이전</a>
+        </li>
+        {% endif %}
+        <!-- 페이지리스트 -->
+        {% for page_number in stu_list.paginator.page_range %}
+        {% if page_number == stu_list.number %}
+        <li class="page-item active" aria-current="page">
+            <a class="page-link" href="?page={{ page_number }}">{{ page_number }}</a>
+        </li>
+        {% else %}
+        <li class="page-item">
+            <a class="page-link" href="?page={{ page_number }}">{{ page_number }}</a>
+        </li>
+        {% endif %}
+        {% endfor %}
+        <!-- 다음페이지 -->
+        {% if stu_list.has_next %}
+        <li class="page-item">
+            <a class="page-link" href="?page={{ stu_list.next_page_number }}">다음</a>
+        </li>
+        {% else %}
+        <li class="page-item disabled">
+            <a class="page-link" tabindex="-1" aria-disabled="true" href="#">다음</a>
+        </li>
+        {% endif %}
+    </ul>
+    <!-- 페이징처리 끝 -->
+</div>
+
+{% endblock %}

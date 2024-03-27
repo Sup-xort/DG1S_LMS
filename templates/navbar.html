@@ -1,0 +1,41 @@
+<!-- 네비게이션바 -->
+{% load static %}
+<nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+    <style>
+      .img-concert {
+
+      }
+    </style>
+    <div class="container-fluid align-content-center">
+        <a class="navbar-brand" href="{% url 'pybo:index' %}">
+            <img class="img-concert" src="https://dg1s.dge.hs.kr/upload/dg1sh/logo/img_6f5dv807b=ceve1=4fv9f=a1v29=3c97v21f1vd5d0_v5548.png" />
+        </a>
+        <button class="navbar-toggler " type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent"
+                aria-expanded="false"
+                aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'pybo:home' %}">홈</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'pybo:index' %}">명렬</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'pybo:event' %}">이벤트</a>
+                </li>
+            </ul>
+            <a class="nav-link" href="/admin">관리자</a>
+            <form class="d-flex" method="POST" action="{% url 'pybo:toQuick' %}">
+                {% csrf_token %}
+                <input class="form-control me-2" type="search" placeholder="Student No." name="num" aria-label="학번">
+                <button class="btn btn-outline-success" type="submit"> Move </button>
+            </form>
+        </div>
+    </div>
+</nav>

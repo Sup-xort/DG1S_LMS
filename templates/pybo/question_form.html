@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+    <h5 class="my-3 border-bottom pb-2">특별실 사용 신청</h5>
+    <form action="{% url 'pybo:PreCard_create' stu_id %}" method="post">
+        {% csrf_token %}
+        {{ form.to }}
+        {{ form.why }}
+
+        {{ form.time }}
+
+        <button type="submit" class="btn btn-primary">신청</button>
+    </form>
+</div>
+{% endblock %}
