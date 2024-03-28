@@ -16,32 +16,32 @@
             </div>
         </div>
     </div>
-</div>
+    <!-- 답변 -->
+    <h5 class="border-bottom my-3 py-2">이동 보고</h5>
+    <div class="container-sm">
+        <div class="container">
+            <div class="row">
+                <form action="{% url 'pybo:card_create' student.id %}" method="get" id="loc">
+                    {% csrf_token %}
+                        <div class="col-sm">
+                            <select name="loc" id="loc" class='form-select' size=3 multiple aria-label="multiple select example">
+                                <option value="화장실">화장실</option>
+                                <option value="장탁이용중">장탁</option>
+                                <option value="재실">복귀</option>
+                            </select>
+                        </div>
 
-<!-- 답변 -->
-<h5 class="border-bottom my-3 py-2">이동 보고</h5>
-<div class="container-sm">
-    <div class="container">
-        <div class="row">
-            <form action="{% url 'pybo:card_create' student.id %}" method="get" id="loc">
-                {% csrf_token %}
-                    <div class="col-sm">
-                        <select name="loc" id="loc" class='form-select' size=3 multiple aria-label="multiple select example">
-                            <option value="화장실">화장실</option>
-                            <option value="장탁이용중">장탁</option>
-                            <option value="재실">복귀</option>
-                        </select>
-                    </div>
-
-                    <div class = 'col-sm'>
-                        <input type="submit" value="Sumbit" class = 'btn btn-primary my-1'>
-                    </div>
-            </form>
-            <div class="col-sm">
-                <a href="{% url 'pybo:PreCard_create' student.id %}" class="btn btn-primary">특별실 이동 신청</a>
+                        <div class = 'col-sm'>
+                            <input type="submit" value="Sumbit" class = 'btn btn-primary my-1'>
+                        </div>
+                </form>
+                <div class="col-sm">
+                    <a href="{% url 'pybo:PreCard_create' student.id %}" class="btn btn-primary">특별실 이동 신청</a>
+                </div>
             </div>
         </div>
     </div>
 </div>
+
 
 {% endblock %}
