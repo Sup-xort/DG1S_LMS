@@ -1,44 +1,65 @@
 {% extends 'base.html' %}
 {% block content %}
-    <div class="container m-5">
-        <h1 class = 'text-md-center p-2' style="font-family: 'SUGANG'; font-size: xx-large;"> 창의적이고 따뜻한 과학인재</h1>
-        <h1 class = 'text-md-center' style="font-family: 'SUGANG'; font-size: xxx-large;">대구일과학고등학교</h1>
+    <div class="container my-4">
+        <h1 class = 'text p-2' style="font-family: 'SUGANG';text-align: center; font-size: 150%;"> 창의적이고 따뜻한 과학인재</h1>
+        <h1 class = 'text' style="font-family: 'SUGANG'; text-align: center; font-size:200%">대구일과학고등학교</h1>
     </div>
-    <div class="container fixed-bottom border">
-        <div class="row text-lg-center">
-            <div class="col col-lg-2">
-                <h5>아침</h5>
-            </div>
-            <div class="col col-lg-2">
-                <h5>점심</h5>
-            </div>
-            <div class="col col-lg-2">
-                <h5>저녁</h5>
+    <br>
+    <br><br>
+    <div class="container my-auto hstack">
+        <!-- 아코디언 -->
+        <div class="col mx-2" style="float:left">
+            <div class="accordion" id="accordionPanelsStayOpenExample">
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="panelsStayOpen-headingOne">
+                  <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+                    Breakfast
+                  </button>
+                </h2>
+                <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
+                  <div class="accordion-body">
+                    {% for i in b %}
+                        <li>{{ i }}</li>
+                    {% endfor %}
+                  </div>
+                </div>
+              </div>
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
+                    Lunch
+                  </button>
+                </h2>
+                <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingTwo">
+                  <div class="accordion-body">
+                    {% for i in l %}
+                        <li>{{ i }}</li>
+                    {% endfor %}
+                  </div>
+                </div>
+              </div>
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="panelsStayOpen-headingThree">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
+                      <li>Dinner</li>
+                  </button>
+                </h2>
+                <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingThree">
+                  <div class="accordion-body">
+                    {% for i in d %}
+                        <li>{{ i }}</li>
+                    {% endfor %}
+                  </div>
+                </div>
+              </div>
             </div>
         </div>
 
-        <div class="row">
-            <div class="col col-lg-2">
-                <ul class="list-group">
-                {% for i in b %}
-                  <li class="list-group-item">{{ i }}</li>
-                {% endfor %}
-                </ul>
-            </div>
-            <div class="col col-lg-2">
-                <ul class="list-group">
-                {% for i in l %}
-                  <li class="list-group-item">{{ i }}</li>
-                {% endfor %}
-                </ul>
-            </div>
-            <div class="col col-lg-2">
-                <ul class="list-group">
-                {% for i in d %}
-                  <li class="list-group-item">{{ i }}</li>
-                {% endfor %}
-                </ul>
-            </div>
+        <div class="vr"></div>
+
+        <!--준비중-->
+        <div class="col text-center" style="float:right">
+            <h3>새로운 기능을 준비 중이에요!</h3>
         </div>
     </div>
 {% endblock %}

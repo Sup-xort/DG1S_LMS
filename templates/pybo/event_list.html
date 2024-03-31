@@ -2,7 +2,7 @@
 {% block content %}
 
 <div class="container my-3">
-    <table class="table">
+    <table class="table table-hover">
         <thead>
         <tr class="table-dark">
             <th>번호</th>
@@ -15,12 +15,12 @@
         {% if card_list %}
             {% for card in card_list %}
             <tr>
-                <td>{{ forloop.counter }}</td>
-                <td class="border fw-bold"><a href="{% url 'pybo:detail' card.stu.id %}">{{ card.stu.num }}{{ card.stu.name }}</a></td>
-                <td class = "border">
-                    {{ card.to }}
-                </td>
-                <td>{{ card.why }}</td>
+                <td onClick="location.href='{% url 'pybo:detail' card.stu.id %}'">{{ forloop.counter }}</td>
+                <td class="border fw-bold" onClick="location.href='{% url 'pybo:detail' card.stu.id %}'">
+                    {{ card.stu.num }}{{ card.stu.name }}</td>
+                <td class = "border" onClick="location.href='{% url 'pybo:detail' card.stu.id %}'">
+                    {{ card.to }} </td>
+                <td onClick="location.href='{% url 'pybo:detail' card.stu.id %}'">{{ card.why }}</td>
             </tr>
             {% endfor %}
         {% else %}

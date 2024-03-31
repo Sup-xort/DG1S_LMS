@@ -1,4 +1,4 @@
-from .models import *
+from pybo.models import *
 from django.utils import timezone
 
 def load430():
@@ -7,10 +7,10 @@ def load430():
         a.save()
 
 def load620():
-    for card in PreCard.objects.get(moving_date=timezone.now().date, time="8, 9교시"):
+    for card in PreCard.objects.get(moving_date=timezone.now().date, time="1차야자"):
         a = Card(stu=card.stu, to_=card.to, why=card.why, moving_date=card.moving_date)
         a.save()
 def mstatu():
-    q = Student.objects.all()
-    a = Card(to='재실', why='초기상태', stu=q)
-    a.save()
+    for student in Student.objects.all():
+        a = Card(to='재실', why='초기상태', stu=student)
+        a.save()

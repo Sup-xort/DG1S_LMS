@@ -1,1021 +1,352 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<style>
-.seat_x1y1 {
-  height: 90px;
-  width: 110px;
-  background-color: #D4D4D4;
-  position: absolute;
-  top: 30px;
-  left: 330px;
-}
-.seat_x1y2 {
-  height: 90px;
-  width: 110px;
-  background-color: #D4D4D4;
-  position: absolute;
-  top: 130px;
-  left: 330px;
-}
-.seat_x1y3 {
-  height: 90px;
-  width: 110px;
-  background-color: #D4D4D4;
-  position: absolute;
-  top: 230px;
-  left: 330px;
-}
-.seat_x1y4 {
-  height: 90px;
-  width: 110px;
-  background-color: #D4D4D4;
-  position: absolute;
-  top: 330px;
-  left: 330px;
-}
-.seat_x1y5 {
-  height: 90px;
-  width: 110px;
-  background-color: #D4D4D4;
-  position: absolute;
-  top: 430px;
-  left: 330px;
-}
-.seat_x1y6 {
-  height: 90px;
-  width: 110px;
-  background-color: #D4D4D4;
-  position: absolute;
-  top: 530px;
-  left: 330px;
-}
-.seat_x1y7 {
-  height: 90px;
-  width: 110px;
-  background-color: #D4D4D4;
-  position: absolute;
-  top: 630px;
-  left: 330px;
-}
-.seat_x1y8 {
-  height: 90px;
-  width: 110px;
-  background-color: #D4D4D4;
-  position: absolute;
-  top: 730px;
-  left: 330px;
-}
-.seat_x1y9 {
-  height: 90px;
-  width: 110px;
-  background-color: #D4D4D4;
-  position: absolute;
-  top: 830px;
-  left: 330px;
-}
-.seat_x1y10 {
-  height: 90px;
-  width: 110px;
-  background-color: #D4D4D4;
-  position: absolute;
-  top: 930px;
-  left: 330px;
-}
-.seat_x1y11 {
-  height: 90px;
-  width: 110px;
-  background-color: #D4D4D4;
-  position: absolute;
-  top: 1030px;
-  left: 330px;
-}
-.seat_x1y12 {
-  height: 90px;
-  width: 110px;
-  background-color: #D4D4D4;
-  position: absolute;
-  top: 1180px;
-  left: 330px;
-}
-.seat_x1y13 {
-  height: 90px;
-  width: 110px;
-  background-color: #D4D4D4;
-  position: absolute;
-  top: 1280px;
-  left: 330px;
-}
-.seat_x1y14 {
-  height: 90px;
-  width: 110px;
-  background-color: #D4D4D4;
-  position: absolute;
-  top: 1380px;
-  left: 330px;
-}
-.seat_x1y15 {
-  height: 90px;
-  width: 110px;
-  background-color: #D4D4D4;
-  position: absolute;
-  top: 1480px;
-  left: 330px;
-}
+{% extends 'base.html' %}
+{% block content %}
 
+<div class="seat_x1y1" onclick="location.href='{% url 'pybo:Quick' '2115' %}'">
+    <span>2115<br>임준희</span>
+</div>
+<div class="seat_x1y2" onclick="location.href='{% url 'pybo:Quick' '2114' %}'">
+  <span>2114<br>이준범</span>
+</div>
+<div class="seat_x1y3" onclick="location.href='{% url 'pybo:Quick' '2113' %}'">
+  <span>2113<br>이재원</span>
+</div>
+<div class="seat_x1y4" onclick="location.href='{% url 'pybo:Quick' '2112' %}'">
+  <span>2112<br>이우혁</span>
+</div>
+<div class="seat_x1y5" onclick="location.href='{% url 'pybo:Quick' '2111' %}'">
+  <span>2111<br>이영헌</span>
+</div>
+<div class="seat_x1y6" onclick="location.href='{% url 'pybo:Quick' '2110' %}'">
+  <span>2110<br>윤태현</span>
+</div>
+<div class="seat_x1y7" onclick="location.href='{% url 'pybo:Quick' '2109' %}'">
+  <span>2109<br>윤수인</span>
+</div>
+<div class="seat_x1y8" onclick="location.href='{% url 'pybo:Quick' '2108' %}'">
+  <span>2108<br>신채원</span>
+</div>
+<div class="seat_x1y9" onclick="location.href='{% url 'pybo:Quick' '2107' %}'">
+  <span>2107<br>박경범</span>
+</div>
+<div class="seat_x1y10" onclick="location.href='{% url 'pybo:Quick' '2106' %}'">
+  <span>2106<br>도수현</span>
+</div>
+<div class="seat_x1y11" onclick="location.href='{% url 'pybo:Quick' '2105' %}'">
+  <span>2105<br>김정택</span>
+</div>
+<div class="seat_x1y12" onclick="location.href='{% url 'pybo:Quick' '2104' %}'">
+  <span>2104<br>김도연</span>
+</div>
+<div class="seat_x1y13" onclick="location.href='{% url 'pybo:Quick' '2103' %}'">
+  <span>2103<br>김도건</span>
+</div>
+<div class="seat_x1y14" onclick="location.href='{% url 'pybo:Quick' '2102' %}'">
+  <span>2102<br>강태인</span>
+</div>
+<div class="seat_x1y15" onclick="location.href='{% url 'pybo:Quick' '2101' %}'">
+  <span>2101<br>강정연</span>
+</div>
 
-.seat_x2y1 {
-  height: 90px;
-  width: 110px;
-  background-color: #333333;
-  position: absolute;
-  top: 30px;
-  left: 520px;
-}
-.seat_x2y2 {
-  height: 90px;
-  width: 110px;
-  background-color: #333333;
-  position: absolute;
-  top: 130px;
-  left: 520px;
-}
-.seat_x2y3 {
-  height: 90px;
-  width: 110px;
-  background-color: #D4D4D4;
-  position: absolute;
-  top: 230px;
-  left: 520px;
-}
-.seat_x2y4 {
-  height: 90px;
-  width: 110px;
-  background-color: #D4D4D4;
-  position: absolute;
-  top: 330px;
-  left: 520px;
-}
-.seat_x2y5 {
-  height: 90px;
-  width: 110px;
-  background-color: #D4D4D4;
-  position: absolute;
-  top: 430px;
-  left: 520px;
-}
-.seat_x2y6 {
-  height: 90px;
-  width: 110px;
-  background-color: #D4D4D4;
-  position: absolute;
-  top: 530px;
-  left: 520px;
-}
-.seat_x2y7 {
-  height: 90px;
-  width: 110px;
-  background-color: #D4D4D4;
-  position: absolute;
-  top: 630px;
-  left: 520px;
-}
-.seat_x2y8 {
-  height: 90px;
-  width: 110px;
-  background-color: #D4D4D4;
-  position: absolute;
-  top: 730px;
-  left: 520px;
-}
-.seat_x2y9 {
-  height: 90px;
-  width: 110px;
-  background-color: #D4D4D4;
-  position: absolute;
-  top: 830px;
-  left: 520px;
-}
-.seat_x2y10 {
-  height: 90px;
-  width: 110px;
-  background-color: #D4D4D4;
-  position: absolute;
-  top: 930px;
-  left: 520px;
-}
-.seat_x2y11 {
-  height: 90px;
-  width: 110px;
-  background-color: #D4D4D4;
-  position: absolute;
-  top: 1030px;
-  left: 520px;
-}
-.seat_x2y12 {
-  height: 90px;
-  width: 110px;
-  background-color: #D4D4D4;
-  position: absolute;
-  top: 1180px;
-  left: 520px;
-}
-.seat_x2y13 {
-  height: 90px;
-  width: 110px;
-  background-color: #D4D4D4;
-  position: absolute;
-  top: 1280px;
-  left: 520px;
-}
-.seat_x2y14 {
-  height: 90px;
-  width: 110px;
-  background-color: #D4D4D4;
-  position: absolute;
-  top: 1380px;
-  left: 520px;
-}
-.seat_x2y15 {
-  height: 90px;
-  width: 110px;
-  background-color: #D4D4D4;
-  position: absolute;
-  top: 1480px;
-  left: 520px;
-}
+<div class="seat_x2y1"
+  <span>X</span>
+</div>
+<div class="seat_x2y2">
+  <span>X</span>
+</div>
+<div class="seat_x2y3" onclick="location.href='{% url 'pybo:Quick' '2116' %}'">
+  <span>2116<br>정재윤</span>
+</div>
+<div class="seat_x2y4" onclick="location.href='{% url 'pybo:Quick' '2117' %}'">
+  <span>2117<br>최치우</span>
+</div>
+<div class="seat_x2y5" onclick="location.href='{% url 'pybo:Quick' '2118' %}'">
+  <span>2118<br>함세빈</span>
+</div>
+<div class="seat_x2y6" onclick="location.href='{% url 'pybo:Quick' '2119' %}'">
+  <span>2119<br>홍수현</span>
+</div>
+<div class="seat_x2y7" onclick="location.href='{% url 'pybo:Quick' '2120' %}'">
+  <span>2120<br>황재훈</span>
+</div>
+<div class="seat_x2y8" onclick="location.href='{% url 'pybo:Quick' '2201' %}'">
+  <span>2201<br>강도윤</span>
+</div>
+<div class="seat_x2y9" onclick="location.href='{% url 'pybo:Quick' '2202' %}'">
+  <span>2202<br>김대훈</span>
+</div>
+<div class="seat_x2y10" onclick="location.href='{% url 'pybo:Quick' '2203' %}'">
+  <span>2203<br>김도유</span>
+</div>
+<div class="seat_x2y11" onclick="location.href='{% url 'pybo:Quick' '2204' %}'">
+  <span>2204<br>김민준</span>
+</div>
+<div class="seat_x2y12" onclick="location.href='{% url 'pybo:Quick' '2205' %}'">
+  <span>2205<br>김세연</span>
+</div>
+<div class="seat_x2y13" onclick="location.href='{% url 'pybo:Quick' '2206' %}'">
+  <span>2206<br>김승민</span>
+</div>
+<div class="seat_x2y14" onclick="location.href='{% url 'pybo:Quick' '2207' %}'">
+  <span>2207<br>김태빈</span>
+</div>
+<div class="seat_x2y15" onclick="location.href='{% url 'pybo:Quick' '2208' %}'">
+  <span>2208<br>김한음</span>
+</div>
 
-
-.seat_x3y1 {
-  height: 90px;
-  width: 110px;
-  background-color: #333333;
-  position: absolute;
-  top: 30px;
-  left: 640px;
-}
-.seat_x3y2 {
-  height: 90px;
-  width: 110px;
-  background-color: #333333;
-  position: absolute;
-  top: 130px;
-  left: 640px;
-}
-.seat_x3y3 {
-  height: 90px;
-  width: 110px;
-  background-color: #D4D4D4;
-  position: absolute;
-  top: 230px;
-  left: 640px;
-}
-.seat_x3y4 {
-  height: 90px;
-  width: 110px;
-  background-color: #D4D4D4;
-  position: absolute;
-  top: 330px;
-  left: 640px;
-}
-.seat_x3y5 {
-  height: 90px;
-  width: 110px;
-  background-color: #D4D4D4;
-  position: absolute;
-  top: 430px;
-  left: 640px;
-}
-.seat_x3y6 {
-  height: 90px;
-  width: 110px;
-  background-color: #D4D4D4;
-  position: absolute;
-  top: 530px;
-  left: 640px;
-}
-.seat_x3y7 {
-  height: 90px;
-  width: 110px;
-  background-color: #D4D4D4;
-  position: absolute;
-  top: 630px;
-  left: 640px;
-}
-.seat_x3y8 {
-  height: 90px;
-  width: 110px;
-  background-color: #D4D4D4;
-  position: absolute;
-  top: 730px;
-  left: 640px;
-}
-.seat_x3y9 {
-  height: 90px;
-  width: 110px;
-  background-color: #D4D4D4;
-  position: absolute;
-  top: 830px;
-  left: 640px;
-}
-.seat_x3y10 {
-  height: 90px;
-  width: 110px;
-  background-color: #D4D4D4;
-  position: absolute;
-  top: 930px;
-  left: 640px;
-}
-.seat_x3y11 {
-  height: 90px;
-  width: 110px;
-  background-color: #D4D4D4;
-  position: absolute;
-  top: 1030px;
-  left: 640px;
-}
-.seat_x3y12 {
-  height: 90px;
-  width: 110px;
-  background-color: #D4D4D4;
-  position: absolute;
-  top: 1180px;
-  left: 640px;
-}
-.seat_x3y13 {
-  height: 90px;
-  width: 110px;
-  background-color: #D4D4D4;
-  position: absolute;
-  top: 1280px;
-  left: 640px;
-}
-.seat_x3y14 {
-  height: 90px;
-  width: 110px;
-  background-color: #D4D4D4;
-  position: absolute;
-  top: 1380px;
-  left: 640px;
-}
-.seat_x3y15 {
-  height: 90px;
-  width: 110px;
-  background-color: #D4D4D4;
-  position: absolute;
-  top: 1480px;
-  left: 640px;
-}
-
-
-.seat_x4y1 {
-  height: 90px;
-  width: 110px;
-  background-color: #333333;
-  position: absolute;
-  top: 30px;
-  left: 830px;
-}
-.seat_x4y2 {
-  height: 90px;
-  width: 110px;
-  background-color: #333333;
-  position: absolute;
-  top: 130px;
-  left: 830px;
-}
-.seat_x4y3 {
-  height: 90px;
-  width: 110px;
-  background-color: #333333;
-  position: absolute;
-  top: 230px;
-  left: 830px;
-}
-.seat_x4y4 {
-  height: 90px;
-  width: 110px;
-  background-color: #D4D4D4;
-  position: absolute;
-  top: 330px;
-  left: 830px;
-}
-.seat_x4y5 {
-  height: 90px;
-  width: 110px;
-  background-color: #D4D4D4;
-  position: absolute;
-  top: 430px;
-  left: 830px;
-}
-.seat_x4y6 {
-  height: 90px;
-  width: 110px;
-  background-color: #D4D4D4;
-  position: absolute;
-  top: 530px;
-  left: 830px;
-}
-.seat_x4y7 {
-  height: 90px;
-  width: 110px;
-  background-color: #D4D4D4;
-  position: absolute;
-  top: 630px;
-  left: 830px;
-}
-.seat_x4y8 {
-  height: 90px;
-  width: 110px;
-  background-color: #D4D4D4;
-  position: absolute;
-  top: 730px;
-  left: 830px;
-}
-.seat_x4y9 {
-  height: 90px;
-  width: 110px;
-  background-color: #D4D4D4;
-  position: absolute;
-  top: 830px;
-  left: 830px;
-}
-.seat_x4y10 {
-  height: 90px;
-  width: 110px;
-  background-color: #D4D4D4;
-  position: absolute;
-  top: 930px;
-  left: 830px;
-}
-.seat_x4y11 {
-  height: 90px;
-  width: 110px;
-  background-color: #D4D4D4;
-  position: absolute;
-  top: 1030px;
-  left: 830px;
-}
-.seat_x4y12 {
-  height: 90px;
-  width: 110px;
-  background-color: #D4D4D4;
-  position: absolute;
-  top: 1180px;
-  left: 830px;
-}
-.seat_x4y13 {
-  height: 90px;
-  width: 110px;
-  background-color: #D4D4D4;
-  position: absolute;
-  top: 1280px;
-  left: 830px;
-}
-.seat_x4y14 {
-  height: 90px;
-  width: 110px;
-  background-color: #D4D4D4;
-  position: absolute;
-  top: 1380px;
-  left: 830px;
-}
-.seat_x4y15 {
-  height: 90px;
-  width: 110px;
-  background-color: #D4D4D4;
-  position: absolute;
-  top: 1480px;
-  left: 830px;
-}
-
-
-.seat_x5y1 {
-  height: 90px;
-  width: 110px;
-  background-color: #333333;
-  position: absolute;
-  top: 30px;
-  left: 950px;
-}
-.seat_x5y2 {
-  height: 90px;
-  width: 110px;
-  background-color: #333333;
-  position: absolute;
-  top: 130px;
-  left: 950px;
-}
-.seat_x5y3 {
-  height: 90px;
-  width: 110px;
-  background-color: #333333;
-  position: absolute;
-  top: 230px;
-  left: 950px;
-}
-.seat_x5y4 {
-  height: 90px;
-  width: 110px;
-  background-color: #D4D4D4;
-  position: absolute;
-  top: 330px;
-  left: 950px;
-}
-.seat_x5y5 {
-  height: 90px;
-  width: 110px;
-  background-color: #D4D4D4;
-  position: absolute;
-  top: 430px;
-  left: 950px;
-}
-.seat_x5y6 {
-  height: 90px;
-  width: 110px;
-  background-color: #D4D4D4;
-  position: absolute;
-  top: 530px;
-  left: 950px;
-}
-.seat_x5y7 {
-  height: 90px;
-  width: 110px;
-  background-color: #D4D4D4;
-  position: absolute;
-  top: 630px;
-  left: 950px;
-}
-.seat_x5y8 {
-  height: 90px;
-  width: 110px;
-  background-color: #D4D4D4;
-  position: absolute;
-  top: 730px;
-  left: 950px;
-}
-.seat_x5y9 {
-  height: 90px;
-  width: 110px;
-  background-color: #D4D4D4;
-  position: absolute;
-  top: 830px;
-  left: 950px;
-}
-.seat_x5y10 {
-  height: 90px;
-  width: 110px;
-  background-color: #D4D4D4;
-  position: absolute;
-  top: 930px;
-  left: 950px;
-}
-.seat_x5y11 {
-  height: 90px;
-  width: 110px;
-  background-color: #D4D4D4;
-  position: absolute;
-  top: 1030px;
-  left: 950px;
-}
-.seat_x5y12 {
-  height: 90px;
-  width: 110px;
-  background-color: #D4D4D4;
-  position: absolute;
-  top: 1180px;
-  left: 950px;
-}
-.seat_x5y13 {
-  height: 90px;
-  width: 110px;
-  background-color: #D4D4D4;
-  position: absolute;
-  top: 1280px;
-  left: 950px;
-}
-.seat_x5y14 {
-  height: 90px;
-  width: 110px;
-  background-color: #D4D4D4;
-  position: absolute;
-  top: 1380px;
-  left: 950px;
-}
-.seat_x5y15 {
-  height: 90px;
-  width: 110px;
-  background-color: #FCE945;
-  position: absolute;
-  top: 1480px;
-  left: 950px;
-}
-
-.seat_x6y1 {
-  height: 90px;
-  width: 110px;
-  background-color: #D4D4D4;
-  position: absolute;
-  top: 30px;
-  left: 1140px;
-}
-.seat_x6y2 {
-  height: 90px;
-  width: 110px;
-  background-color: #D4D4D4;
-  position: absolute;
-  top: 130px;
-  left: 1140px;
-}
-.seat_x6y3 {
-  height: 90px;
-  width: 110px;
-  background-color: #D4D4D4;
-  position: absolute;
-  top: 230px;
-  left: 1140px;
-}
-.seat_x6y4 {
-  height: 90px;
-  width: 110px;
-  background-color: #D4D4D4;
-  position: absolute;
-  top: 330px;
-  left: 1140px;
-}
-.seat_x6y5 {
-  height: 90px;
-  width: 110px;
-  background-color: #D4D4D4;
-  position: absolute;
-  top: 430px;
-  left: 1140px;
-}
-.seat_x6y6 {
-  height: 90px;
-  width: 110px;
-  background-color: #D4D4D4;
-  position: absolute;
-  top: 530px;
-  left: 1140px;
-}
-.seat_x6y7 {
-  height: 90px;
-  width: 110px;
-  background-color: #D4D4D4;
-  position: absolute;
-  top: 630px;
-  left: 1140px;
-}
-.seat_x6y8 {
-  height: 90px;
-  width: 110px;
-  background-color: #D4D4D4;
-  position: absolute;
-  top: 730px;
-  left: 1140px;
-}
-.seat_x6y9 {
-  height: 90px;
-  width: 110px;
-  background-color: #D4D4D4;
-  position: absolute;
-  top: 830px;
-  left: 1140px;
-}
-.seat_x6y10 {
-  height: 90px;
-  width: 110px;
-  background-color: #D4D4D4;
-  position: absolute;
-  top: 930px;
-  left: 1140px;
-}
-.seat_x6y11 {
-  height: 90px;
-  width: 110px;
-  background-color: #D4D4D4;
-  position: absolute;
-  top: 1030px;
-  left: 1140px;
-}
-.seat_x6y12 {
-  height: 90px;
-  width: 110px;
-  background-color: #D4D4D4;
-  position: absolute;
-  top: 1180px;
-  left: 1140px;
-}
-.seat_x6y13 {
-  height: 90px;
-  width: 110px;
-  background-color: #D4D4D4;
-  position: absolute;
-  top: 1280px;
-  left: 1140px;
-}
-.seat_x6y14 {
-  height: 90px;
-  width: 110px;
-  background-color: #D4D4D4;
-  position: absolute;
-  top: 1380px;
-  left: 1140px;
-}
-.seat_x6y15 {
-  height: 90px;
-  width: 110px;
-  background-color: #D4D4D4;
-  position: absolute;
-  top: 1480px;
-  left: 1140px;
-}
-
-
-</style>
-</head>
-<body>
-  <div class="seat_x1y1">
-      <span>2115<br>임준희</span>
-  </div>
-  <div class="seat_x1y2">
-      <span>2114<br>이준범</span>
-  </div>
-  <div class="seat_x1y3">
-      <span>2113<br>이재원</span>
-  </div>
-  <div class="seat_x1y4">
-      <span>2112<br>이우혁</span>
-  </div>
-  <div class="seat_x1y5">
-      <span>2111<br>이영헌</span>
-  </div>
-  <div class="seat_x1y6">
-      <span>2110<br>윤태현</span>
-  </div>
-  <div class="seat_x1y7">
-      <span>2109<br>윤수인</span>
-  </div>
-  <div class="seat_x1y8">
-      <span>2108<br>신채원</span>
-  </div>
-  <div class="seat_x1y9">
-      <span>2107<br>박경범</span>
-  </div>
-  <div class="seat_x1y10">
-      <span>2106<br>도수현</span>
-  </div>
-  <div class="seat_x1y11">
-      <span>2105<br>김정택</span>
-  </div>
-  <div class="seat_x1y12">
-      <span>2104<br>김도연</span>
-  </div>
-  <div class="seat_x1y13">
-      <span>2103<br>김도건</span>
-  </div>
-  <div class="seat_x1y14">
-      <span>2102<br>강태인</span>
-  </div>
-  <div class="seat_x1y15">
-      <span>2101<br>강정연</span>
-  </div>
-
-  <div class="seat_x2y1">
-      <span>X</span>
-  </div>
-  <div class="seat_x2y2">
-      <span>X</span>
-  </div>
-  <div class="seat_x2y3">
-      <span>2116<br>정재윤</span>
-  </div>
-  <div class="seat_x2y4">
-      <span>2117<br>최치우</span>
-  </div>
-  <div class="seat_x2y5">
-      <span>2118<br>함세빈</span>
-  </div>
-  <div class="seat_x2y6">
-      <span>2119<br>홍수현</span>
-  </div>
-  <div class="seat_x2y7">
-      <span>2120<br>황재훈</span>
-  </div>
-  <div class="seat_x2y8">
-      <span>2201<br>강도윤</span>
-  </div>
-  <div class="seat_x2y9">
-      <span>2202<br>김대훈</span>
-  </div>
-  <div class="seat_x2y10">
-      <span>2203<br>김도유</span>
-  </div>
-  <div class="seat_x2y11">
-      <span>2204<br>김민준</span>
-  </div>
-  <div class="seat_x2y12">
-      <span>2205<br>김세연</span>
-  </div>
-  <div class="seat_x2y13">
-      <span>2206<br>김승민</span>
-  </div>
-  <div class="seat_x2y14">
-      <span>2207<br>김태빈</span>
-  </div>
-  <div class="seat_x2y15">
-      <span>2208<br>김한음</span>
-  </div>
-
-  <div class="seat_x3y1">
-      <span>X</span>
-  </div>
-  <div class="seat_x3y2">
-      <span>X</span>
-  </div>
-  <div class="seat_x3y3">
-      <span>2301<br>강나연</span>
-  </div>
-  <div class="seat_x3y4">
-      <span>2220<br>황예준</span>
-  </div>
-  <div class="seat_x3y5">
-      <span>2219<br>황소언</span>
-  </div>
-  <div class="seat_x3y6">
-      <span>2218<br>정효림</span>
-  </div>
-  <div class="seat_x3y7">
-      <span>2217<br>정성우</span>
-  </div>
-  <div class="seat_x3y8">
-      <span>2216<br>이혜안</span>
-  </div>
-  <div class="seat_x3y9">
-      <span>2215<br>오건</span>
-  </div>
-  <div class="seat_x3y10">
-      <span>2214<br>안진수</span>
-  </div>
-  <div class="seat_x3y11">
-      <span>2213<br>안우현</span>
-  </div>
-  <div class="seat_x3y12">
-      <span>2212<br>신우진</span>
-  </div>
-  <div class="seat_x3y13">
-      <span>2211<br>송정현</span>
-  </div>
-  <div class="seat_x3y14">
-      <span>2210<br>서민준</span>
-  </div>
-  <div class="seat_x3y15">
-      <span>2209<br>박채은</span>
-  </div>
+<div class="seat_x3y1">
+  <span>X</span>
+</div>
+<div class="seat_x3y2">
+  <span>X</span>
+</div>
+<div class="seat_x3y3" onclick="location.href='{% url 'pybo:Quick' '2301' %}'">
+  <span>2301<br>강나연</span>
+</div>
+<div class="seat_x3y4" onclick="location.href='{% url 'pybo:Quick' '2220' %}'">
+  <span>2220<br>황예준</span>
+</div>
+<div class="seat_x3y5" onclick="location.href='{% url 'pybo:Quick' '2219' %}'">
+  <span>2219<br>황소언</span>
+</div>
+<div class="seat_x3y6" onclick="location.href='{% url 'pybo:Quick' '2218' %}'">
+  <span>2218<br>정효림</span>
+</div>
+<div class="seat_x3y7" onclick="location.href='{% url 'pybo:Quick' '2217' %}'">
+  <span>2217<br>정성우</span>
+</div>
+<div class="seat_x3y8" onclick="location.href='{% url 'pybo:Quick' '2216' %}'">
+  <span>2216<br>이혜안</span>
+</div>
+<div class="seat_x3y9" onclick="location.href='{% url 'pybo:Quick' '2215' %}'">
+  <span>2215<br>오건</span>
+</div>
+<div class="seat_x3y10" onclick="location.href='{% url 'pybo:Quick' '2214' %}'">
+  <span>2214<br>안진수</span>
+</div>
+<div class="seat_x3y11" onclick="location.href='{% url 'pybo:Quick' '2213' %}'">
+  <span>2213<br>안우현</span>
+</div>
+<div class="seat_x3y12" onclick="location.href='{% url 'pybo:Quick' '2212' %}'">
+  <span>2212<br>신우진</span>
+</div>
+<div class="seat_x3y13" onclick="location.href='{% url 'pybo:Quick' '2211' %}'">
+  <span>2211<br>송정현</span>
+</div>
+<div class="seat_x3y14" onclick="location.href='{% url 'pybo:Quick' '2210' %}'">
+  <span>2210<br>서민준</span>
+</div>
+<div class="seat_x3y15" onclick="location.href='{% url 'pybo:Quick' '2209' %}'">
+  <span>2209<br>박채은</span>
+</div>
 
 
 
-  <div class="seat_x4y1">
-      <span>X</span>
-  </div>
-  <div class="seat_x4y2">
-      <span>X</span>
-  </div>
-  <div class="seat_x4y3">
-      <span>X</span>
-  </div>
-  <div class="seat_x4y4">
-      <span>2302<br>권호승</span>
-  </div>
-  <div class="seat_x4y5">
-      <span>2303<br>김리원</span>
-  </div>
-  <div class="seat_x4y6">
-      <span>2304<br>김성운</span>
-  </div>
-  <div class="seat_x4y7">
-      <span>2305<br>김성윤</span>
-  </div>
-  <div class="seat_x4y8">
-      <span>2306<br>김시헌</span>
-  </div>
-  <div class="seat_x4y9">
-      <span>2307<br>도성민</span>
-  </div>
-  <div class="seat_x4y10">
-      <span>2308<br>박지훈</span>
-  </div>
-  <div class="seat_x4y11">
-      <span>2309<br>박한결</span>
-  </div>
-  <div class="seat_x4y12">
-      <span>2310<br>박형기</span>
-  </div>
-  <div class="seat_x4y13">
-      <span>2311<br>배윤희</span>
-  </div>
-  <div class="seat_x4y14">
-      <span>2312<br>상현수</span>
-  </div>
-  <div class="seat_x4y15">
-      <span>2313<br>이혜성</span>
-  </div>
+<div class="seat_x4y1">
+  <span>X</span>
+</div>
+<div class="seat_x4y2">
+  <span>X</span>
+</div>
+<div class="seat_x4y3">
+  <span>X</span>
+</div>
+<div class="seat_x4y4" onclick="location.href='{% url 'pybo:Quick' '2302' %}'">
+  <span>2302<br>권호승</span>
+</div>
+<div class="seat_x4y5" onclick="location.href='{% url 'pybo:Quick' '2303' %}'">
+  <span>2303<br>김리원</span>
+</div>
+<div class="seat_x4y6" onclick="location.href='{% url 'pybo:Quick' '2304' %}'">
+  <span>2304<br>김성운</span>
+</div>
+<div class="seat_x4y7" onclick="location.href='{% url 'pybo:Quick' '2305' %}'">
+  <span>2305<br>김성윤</span>
+</div>
+<div class="seat_x4y8" onclick="location.href='{% url 'pybo:Quick' '2306' %}'">
+  <span>2306<br>김시헌</span>
+</div>
+<div class="seat_x4y9" onclick="location.href='{% url 'pybo:Quick' '2307' %}'">
+  <span>2307<br>도성민</span>
+</div>
+<div class="seat_x4y10" onclick="location.href='{% url 'pybo:Quick' '2308' %}'">
+  <span>2308<br>박지훈</span>
+</div>
+<div class="seat_x4y11" onclick="location.href='{% url 'pybo:Quick' '2309' %}'">
+  <span>2309<br>박한결</span>
+</div>
+<div class="seat_x4y12" onclick="location.href='{% url 'pybo:Quick' '2310' %}'">
+  <span>2310<br>박형기</span>
+</div>
+<div class="seat_x4y13" onclick="location.href='{% url 'pybo:Quick' '2311' %}'">
+  <span>2311<br>배윤희</span>
+</div>
+<div class="seat_x4y14" onclick="location.href='{% url 'pybo:Quick' '2312' %}'">
+  <span>2312<br>상현수</span>
+</div>
+<div class="seat_x4y15" onclick="location.href='{% url 'pybo:Quick' '2313' %}'">
+  <span>2313<br>이혜성</span>
+</div>
 
-  <div class="seat_x5y1">
-      <span>X</span>
-  </div>
-  <div class="seat_x5y2">
-      <span>X</span>
-  </div>
-  <div class="seat_x5y3">
-      <span>X</span>
-  </div>
-  <div class="seat_x5y4">
-      <span>2405<br>김진헌</span>
-  </div>
-  <div class="seat_x5y5">
-      <span>2404<br>김정운</span>
-  </div>
-  <div class="seat_x5y6">
-      <span>2403<br>김윤완</span>
-  </div>
-  <div class="seat_x5y7">
-      <span>2402<br>김소현</span>
-  </div>
-  <div class="seat_x5y8">
-      <span>2401<br>권가현</span>
-  </div>
-  <div class="seat_x5y9">
-      <span>2320<br>허율</span>
-  </div>
-  <div class="seat_x5y10">
-      <span>2319<br>조정안</span>
-  </div>
-  <div class="seat_x5y11">
-      <span>2318<br>조우성</span>
-  </div>
-  <div class="seat_x5y12">
-      <span>2317<br>정지후</span>
-  </div>
-  <div class="seat_x5y13">
-      <span>2316<br>전정민</span>
-  </div>
-  <div class="seat_x5y14">
-      <span>2315<br>장지호</span>
-  </div>
-  <div class="seat_x5y15">
-      <span>2314<br>임지원</span>
-  </div>
-
-
-    <div class="seat_x6y1">
-        <span>2406<br>김찬중</span>
-    </div>
-    <div class="seat_x6y2">
-        <span>2407<br>노영서</span>
-    </div>
-    <div class="seat_x6y3">
-        <span>2408<br>백경훈</span>
-    </div>
-    <div class="seat_x6y4">
-        <span>2409<br>신동현</span>
-    </div>
-    <div class="seat_x6y5">
-        <span>2410<br>신정훈</span>
-    </div>
-    <div class="seat_x6y6">
-        <span>2411<br>엄동건</span>
-    </div>
-    <div class="seat_x6y7">
-        <span>2412<br>오준협</span>
-    </div>
-    <div class="seat_x6y8">
-        <span>2413<br>우은서</span>
-    </div>
-    <div class="seat_x6y9">
-        <span>2414<br>이동빈</span>
-    </div>
-    <div class="seat_x6y10">
-        <span>2415<br>이준혁</span>
-    </div>
-    <div class="seat_x6y11">
-        <span>2416<br>조동경</span>
-    </div>
-    <div class="seat_x6y12">
-        <span>2417<br>주승연</span>
-    </div>
-    <div class="seat_x6y13">
-        <span>2418<br>최이람</span>
-    </div>
-    <div class="seat_x6y14">
-        <span>2419<br>허준혁</span>
-    </div>
-    <div class="seat_x6y15">
-        <span>2420<br>황세하</span>
-    </div>
+<div class="seat_x5y1">
+  <span>X</span>
+</div>
+<div class="seat_x5y2">
+  <span>X</span>
+</div>
+<div class="seat_x5y3">
+  <span>X</span>
+</div>
+<div class="seat_x5y4" onclick="location.href='{% url 'pybo:Quick' '2405' %}'">
+  <span>2405<br>김진헌</span>
+</div>
+<div class="seat_x5y5" onclick="location.href='{% url 'pybo:Quick' '2404' %}'">
+  <span>2404<br>김정운</span>
+</div>
+<div class="seat_x5y6" onclick="location.href='{% url 'pybo:Quick' '2403' %}'">
+  <span>2403<br>김윤완</span>
+</div>
+<div class="seat_x5y7" onclick="location.href='{% url 'pybo:Quick' '2402' %}'">
+  <span>2402<br>김소현</span>
+</div>
+<div class="seat_x5y8" onclick="location.href='{% url 'pybo:Quick' '2401' %}'">
+  <span>2401<br>권가현</span>
+</div>
+<div class="seat_x5y9" onclick="location.href='{% url 'pybo:Quick' '2320' %}'">
+  <span>2320<br>허율</span>
+</div>
+<div class="seat_x5y10" onclick="location.href='{% url 'pybo:Quick' '2319' %}'">
+  <span>2319<br>조정안</span>
+</div>
+<div class="seat_x5y11" onclick="location.href='{% url 'pybo:Quick' '2318' %}'">
+  <span>2318<br>조우성</span>
+</div>
+<div class="seat_x5y12" onclick="location.href='{% url 'pybo:Quick' '2317' %}'">
+  <span>2317<br>정지후</span>
+</div>
+<div class="seat_x5y13" onclick="location.href='{% url 'pybo:Quick' '2316' %}'">
+  <span>2316<br>전정민</span>
+</div>
+<div class="seat_x5y14" onclick="location.href='{% url 'pybo:Quick' '2315' %}'">
+  <span>2315<br>장지호</span>
+</div>
+<div class="seat_x5y15" onclick="location.href='{% url 'pybo:Quick' '2314' %}'">
+  <span>2314<br>임지원</span>
+</div>
 
 
-</body>
-</html>
+<div class="seat_x6y1" onclick="location.href='{% url 'pybo:Quick' '2406' %}'">
+    <span>2406<br>김찬중</span>
+</div>
+<div class="seat_x6y2" onclick="location.href='{% url 'pybo:Quick' '2407' %}'">
+    <span>2407<br>노영서</span>
+</div>
+<div class="seat_x6y3" onclick="location.href='{% url 'pybo:Quick' '2408' %}'">
+    <span>2408<br>백경훈</span>
+</div>
+<div class="seat_x6y4" onclick="location.href='{% url 'pybo:Quick' '2409' %}'">
+    <span>2409<br>신동현</span>
+</div>
+<div class="seat_x6y5" onclick="location.href='{% url 'pybo:Quick' '2410' %}'">
+    <span>2410<br>신정훈</span>
+</div>
+<div class="seat_x6y6" onclick="location.href='{% url 'pybo:Quick' '2411' %}'">
+    <span>2411<br>엄동건</span>
+</div>
+<div class="seat_x6y7" onclick="location.href='{% url 'pybo:Quick' '2412' %}'">
+    <span>2412<br>오준협</span>
+</div>
+<div class="seat_x6y8" onclick="location.href='{% url 'pybo:Quick' '2413' %}'">
+    <span>2413<br>우은서</span>
+</div>
+<div class="seat_x6y9" onclick="location.href='{% url 'pybo:Quick' '2414' %}'">
+    <span>2414<br>이동빈</span>
+</div>
+<div class="seat_x6y10" onclick="location.href='{% url 'pybo:Quick' '2415' %}'">
+    <span>2415<br>이준혁</span>
+</div>
+<div class="seat_x6y11" onclick="location.href='{% url 'pybo:Quick' '2416' %}'">
+    <span>2416<br>조동경</span>
+</div>
+<div class="seat_x6y12" onclick="location.href='{% url 'pybo:Quick' '2417' %}'">
+    <span>2417<br>주승연</span>
+</div>
+<div class="seat_x6y13" onclick="location.href='{% url 'pybo:Quick' '2418' %}'">
+    <span>2418<br>최이람</span>
+</div>
+<div class="seat_x6y14" onclick="location.href='{% url 'pybo:Quick' '2419' %}'">
+    <span>2419<br>허준혁</span>
+</div>
+<div class="seat_x6y15" onclick="location.href='{% url 'pybo:Quick' '2420' %}'">
+    <span>2420<br>황세하</span>
+</div>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+{% endblock %}

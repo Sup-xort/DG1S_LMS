@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class="container my-3">
+<div class="container-sm my-3">
     <!-- 질문 -->
     <h2 class="border-bottom py-2" style="font-weight: bolder" > {{ student.num }} {{ student.name }}</h2>
     <div class="card my-3">
@@ -21,7 +21,7 @@
     <div class="card my-3">
         <table class="table">
             <thead>
-            <tr class="table-dark">
+            <tr class="table-success">
                 <th>번호</th>
                 <th>상태</th>
                 <th>사유</th>
@@ -85,10 +85,10 @@
                 <form action="{% url 'pybo:card_create' student.id %}" method="get" id="loc">
                     {% csrf_token %}
                         <div class="col-sm">
-                            <select name="loc" id="loc" class='form-select' size=3 multiple aria-label="multiple select example">
-                                <option value="화장실">화장실</option>
-                                <option value="장탁이용중">장탁</option>
-                                <option value="재실">복귀</option>
+                            <select name="loc" id="loc" class='list-group' size=3 multiple aria-label="multiple select example">
+                                <option class='list-group-item' value="화장실">화장실</option>
+                                <option class='list-group-item' value="장탁이용중">장탁</option>
+                                <option class='list-group-item' value="재실">복귀</option>
                             </select>
                         </div>
 

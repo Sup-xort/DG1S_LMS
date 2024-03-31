@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-(ql@#0um2t#s7*l6*$y98eth6l7*l4ye3*f8!*t!fgy7d3v=t)
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['221.168.22.154']
+ALLOWED_HOSTS = ['20.2.232.253']
 
 
 # Application definition
@@ -34,11 +34,19 @@ ALLOWED_HOSTS = ['221.168.22.154']
 INSTALLED_APPS = [
     'pybo.apps.PyboConfig',
     'django.contrib.admin',
+    'rangefilter',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_crontab'
+]
+
+CRONJOBS = [
+    ('30 16 * * *', 'cron.cron.load430', 'cron/log/cron.log'),
+    ('20 18 * * *', 'cron.cron.load620', 'cron/log/cron.log'),
+    ('55 18 * * *', 'cron.cron.mstatu', 'cron/log/cron01.log')
 ]
 
 MIDDLEWARE = [

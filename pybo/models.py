@@ -15,7 +15,7 @@ class Card(models.Model):
     moving_date = models.DateTimeField()
 
     def __str__(self):
-        return (str(self.stu.num)+self.stu.name + '  ' +  self.to)
+        return (str(self.stu.num)+' '+self.stu.name + '  ' +  self.to)
 
 class PreCard(models.Model):
     stu = models.ForeignKey(Student, on_delete=models.CASCADE)

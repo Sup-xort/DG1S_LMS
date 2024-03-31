@@ -61,8 +61,13 @@ def PreCard_create(request, stu_id):
     return render(request, 'pybo/question_form.html', {'form': form, 'stu_id': stu_id})
 
 def toQuick(request):
-    return redirect('pybo:Quick', stu_num=request.GET.get('num'))
+    num = request.POST.get('num')
+    stu = Student.objects.filter(num=num).first()
+    return render(request, 'pybo/quick.html', {'student': stu})
 
 def Quick(request, stu_num):
     stu = Student.objects.filter(num=stu_num).first()
     return render(request, 'pybo/quick.html', {'student': stu})
+
+def table(request):
+    return render(request, 'pybo/TABLE.html')

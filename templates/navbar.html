@@ -7,7 +7,7 @@
       }
     </style>
     <div class="container-fluid align-content-center">
-        <a class="navbar-brand" href="{% url 'pybo:index' %}">
+        <a class="navbar-brand" href="{% url 'pybo:home' %}">
             <img class="img-concert" src="https://dg1s.dge.hs.kr/upload/dg1sh/logo/img_6f5dv807b=ceve1=4fv9f=a1v29=3c97v21f1vd5d0_v5548.png" />
         </a>
         <button class="navbar-toggler " type="button"
@@ -21,19 +21,19 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'pybo:home' %}">홈</a>
-                </li>
-                <li class="nav-item">
                     <a class="nav-link" href="{% url 'pybo:index' %}">명렬</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'pybo:event' %}">이벤트</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'pybo:table' %}">좌석표</a>
+                </li>
             </ul>
             <a class="nav-link" href="/admin">관리자</a>
-            <form class="d-flex" method="POST" action="{% url 'pybo:toQuick' %}">
+            <form class="d-flex" method="POST" action="{% url 'pybo:toQuick' %} " id="num" name="num">
                 {% csrf_token %}
-                <input class="form-control me-2" type="search" placeholder="Student No." name="num" aria-label="학번">
+                <input class="form-control me-2" type="search" placeholder="Student No." id="num" name="num" aria-label="search">
                 <button class="btn btn-outline-success" type="submit"> Move </button>
             </form>
         </div>

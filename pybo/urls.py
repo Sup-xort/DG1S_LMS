@@ -5,6 +5,7 @@ from . import views
 app_name = 'pybo'
 
 urlpatterns = [
+    path('', views.home, name='home'),
     path('home/', views.home, name='home'),
     path('index/', views.index, name='index'),
     path('event/', views.event, name='event'),
@@ -13,4 +14,5 @@ urlpatterns = [
     path('precard/create/<int:stu_id>/', views.PreCard_create, name='PreCard_create'),
     path('quick/<int:stu_num>', views.Quick, name='Quick'),
     path('quick/search', views.toQuick, name='toQuick'),
+    path('table/', views.table, name='table'),
 ]

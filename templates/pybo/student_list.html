@@ -1,24 +1,28 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<div class="container my-3">
-    <table class="table">
+<div class="container-sm my-3">
+    <table class="table table-hover">
         <thead>
-        <tr class="table-dark">
-            <th>학반</th>
-            <th>이름</th>
+        <tr class="table bg-success p-2 text-white">
+            <th class="text-center">인적사항</th>
             <th>상태</th>
+            <th>최종 기록 일시</th>
         </tr>
         </thead>
         <tbody>
         {% if stu_list %}
             {% for student in stu_list %}
             <tr>
-                <td>{{ student.num }}</td>
-                <td>
-                    <a href="{% url 'pybo:detail' student.id %}">{{ student.name }}</a>
+                <td class="border text-center" onClick="location.href='{% url 'pybo:detail' student.id %}'">
+                    {{ student.num }} {{ student.name }}
                 </td>
-                <td>{{ student.card_set.last.to }}</td>
+                <td class="border" onClick="location.href = '{% url 'pybo:detail' student.id %}'">
+                    {{ student.card_set.last.to }}
+                </td>
+                <td>
+                    {{ student.card_set.last.moving_date }}
+                </td>
             </tr>
             {% endfor %}
         {% else %}
