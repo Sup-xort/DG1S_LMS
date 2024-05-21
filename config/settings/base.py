@@ -43,8 +43,8 @@ INSTALLED_APPS = [
 CRONJOBS = [
     ('30 16 * * *', 'cron.cron.load430', 'cron/log/cron.log'),
     ('20 18 * * *', 'cron.cron.load620', 'cron/log/cron.log'),
-    ('55 18 * * *', 'cron.cron.mstatu', 'cron/log/cron01.log')
-    ('35 2 * * *', 'cron.cron.mstatu', 'cron/log/cron01.log')
+    ('55 18 * * *', 'cron.cron.mstatu', 'cron/log/cron01.log'),
+    ('37 2 * * *', 'cron.cron.mstatu', 'cron/log/cron01.log')
 ]
 
 MIDDLEWARE = [
