@@ -70,4 +70,36 @@ def Quick(request, stu_num):
     return render(request, 'pybo/quick.html', {'student': stu})
 
 def table(request):
-    return render(request, 'pybo/TABLE.html')
+    batch = [[2115, 2114, 2113, 2112, 2111, 2110, 2109, 2108, 2107, 2106, 2105, 2104, 2103, 2102, 2101],
+             [0000, 0000, 2116, 2117, 2118, 2119, 2120, 2201, 2202, 2203, 2204, 2205, 2206, 2207, 2208],
+             [0000, 0000, 2301, 2220, 2219, 2218, 2217, 2216, 2215, 2214, 2213, 2212, 2211, 2210, 2209],
+             [0000, 0000, 0000, 2112, 2111, 2110, 2109, 2108, 2107, 2106, 2105, 2104, 2103, 2102, 2101],
+             [0000, 0000, 0000, 2112, 2111, 2110, 2109, 2108, 2107, 2106, 2105, 2104, 2103, 2102, 2101],
+             [0000, 0000, 0000, 2112, 2111, 2110, 2109, 2108, 2107, 2106, 2105, 2104, 2103, 2102, 2101]]
+    bat = []
+    for i in range(0, 6):
+        bat.append([])
+        for j in range(0, 15):
+            if batch[i][j] != 0:
+                s = Student.objects.get(num=batch[i][j])
+                to = Card.objects.filter(stu=s).order_by('-moving_date').first()
+                if to == None:
+                    color = '#e0dede'
+                    to = ''
+                elif '화장실' == to.to:
+                    color = '#ffb056'
+                    to = to.to
+                elif '장탁이용중' in to.to:
+                    color = '#569fff'
+                    to = to.to
+                elif to.to == '특별실':
+                    color = '#af6ef3'
+                    to = to.to
+                else:
+                    color = '#e0dede'
+                    to = ''
+
+                bat[i].append([batch[i][j], s.name, color, to])
+            else:
+                bat[i].append([0])
+    return render(request, 'pybo/TABLE.html', {'stu': Student.objects, 'batch': bat})
