@@ -25,4 +25,7 @@ urlpatterns = [
     path('pybo/', include('pybo.urls')),
     path('', include('pybo.urls')),
 ]
+
 urlpatterns += static(base.STATIC_URL, document_root=base.STATIC_ROOT)
+
+handler404 = 'common.views.page_not_found'

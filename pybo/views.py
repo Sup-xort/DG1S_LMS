@@ -15,6 +15,9 @@ def home(request):
 
     return render(request, 'pybo/home.html', context)
 
+def page_not_found(request, exception):
+    return render(request, 'pybo/404.html', {})
+
 def index(request):
     page = request.GET.get('page', '1')  # 페이지
     stu_list = Student.objects.order_by('num')
