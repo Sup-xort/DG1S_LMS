@@ -11,6 +11,7 @@ def load620():
         a = Card(stu=card.stu, to_=card.to, why=card.why, moving_date=card.moving_date)
         a.save()
 def mstatu():
-    for student in Student.objects.all():
+    students = Student.objects.all()
+    for student in students:
         a = Card(to='재실', why='초기상태', stu=student)
         a.save()
