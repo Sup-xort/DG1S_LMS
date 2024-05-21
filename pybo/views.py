@@ -73,7 +73,7 @@ def toQuick(request):
 
 def Quick(request, stu_num):
     stu = Student.objects.filter(num=stu_num).first()
-    return render(request, 'pybo/quick.html', {'student': stu})1
+    return render(request, 'pybo/quick.html', {'student': stu})
 
 def table(request):
     batch = [[2115, 2114, 2113, 2112, 2111, 2110, 2109, 2108, 2107, 2106, 2105, 2104, 2103, 2102, 2101],
