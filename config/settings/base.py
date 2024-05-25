@@ -40,11 +40,11 @@ INSTALLED_APPS = [
     'django_crontab'
 ]
 
-CRONJOBS = [
-    ('30 16 * * *', 'config.cron.load430', 'cron/log/cron.log'),
-    ('20 18 * * *', 'config.cron.load620', 'cron/log/cron1.log'),
-    ('55 18 * * *', 'config.cron.mstatu', 'cron/log/cron2.log'),
-    ('15 16 * * *', 'config.cron.mstatu', 'cron/log/cron3.log')
+CRONJOBS = [ # -9
+    ('30 7 * * *', 'config.cron.load430', 'cron/log/cron.log'),
+    ('20 9 * * *', 'config.cron.load620', 'cron/log/cron1.log'),
+    ('00 15 * * *', 'config.cron.mstatu', 'cron/log/cron2.log'),
+    ('35 7 * * *', 'config.cron.mstatu', 'cron/log/cron3.log')
 ]
 
 MIDDLEWARE = [
