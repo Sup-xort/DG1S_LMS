@@ -92,10 +92,10 @@ def table(request):
                 elif '화장실' == to.to:
                     color = '#ffb056'
                     to = to.to
-                elif '장탁이용중' in to.to:
+                elif '장탁이용중' == to.to:
                     color = '#569fff'
                     to = to.to
-                elif '특별실' in to.to:
+                elif '특별실' == to.to:
                     color = '#af6ef3'
                     to = to.to[3:]
                 else:
