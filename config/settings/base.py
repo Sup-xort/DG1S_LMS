@@ -44,7 +44,7 @@ CRONJOBS = [
     ('30 16 * * *', 'config.cron.load430', 'cron/log/cron.log'),
     ('20 18 * * *', 'config.cron.load620', 'cron/log/cron1.log'),
     ('55 18 * * *', 'config.cron.mstatu', 'cron/log/cron2.log'),
-    ('10 16 * * *', 'config.cron.mstatu', 'cron/log/cron3.log')
+    ('15 16 * * *', 'config.cron.mstatu', 'cron/log/cron3.log')
 ]
 
 MIDDLEWARE = [
