@@ -29,3 +29,4 @@ urlpatterns = [
 urlpatterns += static(base.STATIC_URL, document_root=base.STATIC_ROOT)
 
 handler404 = 'pybo.views.page_not_found'
+handler500 = 'pybo.views.server_error'
