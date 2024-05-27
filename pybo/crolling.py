@@ -7,29 +7,35 @@ collections.Callable = collections.abc.Callable
 
 def meal():
     x = dt.datetime.now()
-    year = str(x.year - 2000)
-    month = ('0' + str(x.month))[-2:]
-    day = ('0' + str(x.day if x.hour <= 20 else x.day + 1))[-2:]
+    url = "https://search.naver.com/search.naver?where=nexearch&sm=tab_etc&mra=blBI&pkid=682&os=24929848&qvt=0&query=%EB%8C%80%EA%B5%AC%EC%9D%BC%EA%B3%BC%ED%95%99%EA%B3%A0%EB%93%B1%ED%95%99%EA%B5%90%20%EA%B8%89%EC%8B%9D%EC%8B%9D%EB%8B%A8"
 
-    url = "https://open.neis.go.kr/hub/mealServiceDietInfo?ATPT_OFCDC_SC_CODE=D10&SD_SCHUL_CODE=7240331&KEY=ed15a9e1057a458b8e2e286da26cf15c&MLSV_YMD=" + year + month + day
     request = requests.get(url)
 
     soup = BeautifulSoup(request.content, "html.parser")
 
-    dish0=soup.find_all("ddish_nm")
-    dish = []
-    if x.weekday() == 0:
-        dish.append(["준비된 조식이 없습니다."])
-    for i in range(3):
-        if len(dish0) >= i + 1:
-            dish2one=str(dish0[i]).split('[')
-            dish2two=dish2one[2].split(']')
-            dish2three=dish2two[0].split('<br/>')
-            dish2 = []
-            for d in dish2three:
-                di = d.split(' ')
-                dish2.append(di[0])
-            dish.append(dish2)
-        else:
-            dish.append([f"준비된 {['조식', '중식', '석식'][i]}이 없습니다."])
-    return dish
+    today_menu = []
+    breakfast = ["준비된 식사가 없습니다"]
+    lunch = ["준비된 식사가 없습니다"]
+    dinner = ["준비된 식사가 없습니다"]
+    title = soup.find_all('div', class_='timeline_box')
+    for i in title:
+        date = i.find('strong', class_='cm_date')
+        t = date.text
+        if t[-5:] == "TODAY":
+            if "조식" in i.text:
+                menus = i.find('ul', class_='item_list')
+                breakfast = menus.text.split()
+            elif "중식" in i.text:
+                menus = i.find('ul', class_='item_list')
+                lunch = menus.text.split()
+            elif "석식" in i.text:
+                menus = i.find('ul', class_='item_list')
+                dinner = menus.text.split()
+            else:
+                continue
+
+    today_menu.append(breakfast)
+    today_menu.append(lunch)
+    today_menu.append(dinner)
+
+    return today_menu
