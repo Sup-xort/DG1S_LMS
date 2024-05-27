@@ -19,7 +19,7 @@ def meal():
     dish0=soup.find_all("ddish_nm")
     dish = []
     for i in range(3):
-        if x.weekday() == 0:
+        if x.weekday() == 0 and i == 0:
             dish.append(["준비된 조식이 없습니다."])
         elif len(dish0) >= i + 1:
             dish2one=str(dish0[i]).split('[')
