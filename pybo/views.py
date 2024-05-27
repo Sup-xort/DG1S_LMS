@@ -15,10 +15,10 @@ def home(request):
 
     return render(request, 'pybo/home.html', context)
 
-def page_not_found(request, exception):
+def page_not_found(request, *args, **argv):
     return render(request, 'pybo/404.html', {})
 
-def server_error(request, exception):
+def server_error(request, *args, **argv):
     return render(request, 'pybo/500.html', {})
 
 def index(request):
