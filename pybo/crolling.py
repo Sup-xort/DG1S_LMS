@@ -8,12 +8,12 @@ collections.Callable = collections.abc.Callable
 def meal():
     x = dt.datetime.now()
     url = ("https://search.naver.com/search.naver?where=nexearch&sm=tab_etc&mra=blBI&pkid=682&os=24929848&qvt=0&query=%EB%8C%80%EA%B5%AC%EC%9D%BC%EA%B3%BC%ED%95%99%EA%B3%A0%EB%93%B1%ED%95%99%EA%B5%90%20%EA%B8%89%EC%8B%9D%EC%8B%9D%EB%8B%A8")
-    request = requests.get(url, headers={'User-Agent': 'Mozilla/5.0'})
+    request = requests.get(url, headers={'User-Agent': "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.93 Safari/537.36"})
     soup = BeautifulSoup(request.content, "html.parser")
 
     today_menu = []
     title = soup.find_all('div', class_='timeline_box')
-    breakfast = [title]
+
     lunch = ["준비된 식사가 없습니다"]
     dinner = ["준비된 식사가 없습니다"]
 
@@ -32,6 +32,7 @@ def meal():
                 dinner = menus.text.split()
             else:
                 continue
+    breakfast = [request.content]
     today_menu.append(breakfast)
     today_menu.append(lunch)
     today_menu.append(dinner)
