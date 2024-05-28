@@ -12,10 +12,11 @@ def meal():
     soup = BeautifulSoup(request.content, "html.parser")
 
     today_menu = []
-    breakfast = ["준비된 식사가 없습니다"]
+    title = soup.find_all('div', class_='timeline_box')
+    breakfast = [title]
     lunch = ["준비된 식사가 없습니다"]
     dinner = ["준비된 식사가 없습니다"]
-    title = soup.find_all('div', class_='timeline_box')
+
     for i in title:
         date = i.find('strong', class_='cm_date')
         t = date.text
