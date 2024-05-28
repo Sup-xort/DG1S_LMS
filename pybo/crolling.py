@@ -8,9 +8,7 @@ collections.Callable = collections.abc.Callable
 def meal():
     x = dt.datetime.now()
     url = ("https://search.naver.com/search.naver?where=nexearch&sm=tab_etc&mra=blBI&pkid=682&os=24929848&qvt=0&query=%EB%8C%80%EA%B5%AC%EC%9D%BC%EA%B3%BC%ED%95%99%EA%B3%A0%EB%93%B1%ED%95%99%EA%B5%90%20%EA%B8%89%EC%8B%9D%EC%8B%9D%EB%8B%A8")
-
-    request = requests.get(url)
-
+    request = requests.get(url, headers={'User-Agent': 'Mozilla/5.0'})
     soup = BeautifulSoup(request.content, "html.parser")
 
     today_menu = []
