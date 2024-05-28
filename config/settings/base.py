@@ -37,14 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django_crontab'
-]
-
-CRONJOBS = [ # -9
-    ('30 7 * * *', 'config.cron.load430', 'cron/log/cron.log'),
-    ('20 9 * * *', 'config.cron.load620', 'cron/log/cron1.log'),
-    ('00 15 * * *', 'config.cron.mstatu', 'cron/log/cron2.log'),
-    ('35 7 * * *', 'config.cron.mstatu', 'cron/log/cron3.log')
+    'django_apscheduler',
 ]
 
 MIDDLEWARE = [
@@ -133,3 +126,7 @@ STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'static')
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+APSCHEDULER_DATETIME_FORMAT = "N j, Y, f:s a"
+APSCHEDULER_RUN_NOW_TIMEOUT = 25
+SCHEDULER_DEFAULT = True
