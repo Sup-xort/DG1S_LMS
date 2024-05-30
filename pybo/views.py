@@ -12,7 +12,7 @@ from pybo.hml_equation_parser import hmlParser as hp
 
 def home(request):
     dish = meal()
-    context = {'b': dish[0], 'l': dish[1], 'd': dish[2]}
+    context = {'b': dish[0], 'l': dish[1], 'd': dish[2], 't':dish[3]}
 
     return render(request, 'pybo/home.html', context)
 

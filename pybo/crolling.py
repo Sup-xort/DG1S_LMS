@@ -2,12 +2,14 @@ import requests
 from bs4 import BeautifulSoup
 import collections
 import pandas as pd
-import datetime as dt
+from datetime import *
 import re
 collections.Callable = collections.abc.Callable
 
 def meal():
-    x = dt.datetime.now()
+    x = datetime.now()
+    if x.hour >= 20:
+        x = x + timedelta(days=1)
     today = "%4d%02d%02d"%(x.year, x.month, x.day)
     
     url = 'https://open.neis.go.kr/hub/mealServiceDietInfo?ATPT_OFCDC_SC_CODE=D10&SD_SCHUL_CODE=7240331&KEY=ed15a9e1057a458b8e2e286da26cf15c&MLSV_YMD='+str(today)
@@ -44,4 +46,5 @@ def meal():
     for i in range(len(today_menu)):
         for j in range(len(today_menu[i])):
             today_menu[i][j] = re.sub(pattern=pattern, repl='', string= today_menu[i][j])
+    today_menu.append("%4d-%02d-%02d"%(x.year, x.month, x.day))
     return today_menu

@@ -14,7 +14,14 @@
             <br>
             <h6 style="font-family: 'Gmarket'">LaTex code</h6>
             <p id="latexOutput" style="border: black; font-size: 22px"></p>
+            <br>
+
+            <button type="button" class="btn btn-outline-success" id="liveAlertBtn" onclick="copy('latexOutput');return false;">copy</button>
+
+            <div id="liveAlertPlaceholder" style="padding: 10px"></div>
+
         </div>
+
         <br>
         <h7 style="color:gray; font-family: 'Gmarket'"> *정확한 HML 문법으로 입력하셔야 작동합니다.<br>  한글에서 입력창 위 수식 표시창을 누르면 저절로 문법이 맞춰집니다. </h7>
         <br>
@@ -49,5 +56,33 @@
             };
             xhr.send('equation=' + encodeURIComponent(equation));
         }
-    </script>
+        function copy(id) {
+            var r = document.createRange();
+            r.selectNode(document.getElementById(id));
+            window.getSelection().removeAllRanges();
+            window.getSelection().addRange(r);
+            document.execCommand('copy');
+            window.getSelection().removeAllRanges();
+        }
+
+        const alertPlaceholder = document.getElementById('liveAlertPlaceholder')
+        const appendAlert = (message, type) => {
+        const wrapper = document.createElement('div')
+            wrapper.innerHTML = [
+                `<div class="alert alert-${type} alert-dismissible" role="alert" style="width: 200px">`,
+                `<div>${message}</div>`,
+                '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
+                '</div>'
+        ].join('')
+
+        alertPlaceholder.append(wrapper)
+        }
+
+        const alertTrigger = document.getElementById('liveAlertBtn')
+        if (alertTrigger) {
+        alertTrigger.addEventListener('click', () => {
+        appendAlert('Copied', 'success')
+        })
+        }
+        </script>
 {% endblock %}
