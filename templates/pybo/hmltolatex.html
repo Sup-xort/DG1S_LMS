@@ -1,32 +1,53 @@
 {% extends 'base.html' %}
 {% block content %}
-    <div style="padding: 20px">
-        <h1 style="font-family: 'gmarket'">Hml To LaTex</h1>
-        <div class="form-floating">
-            <textarea class="form-control" id="equationInput" name="equation" oninput="convertEquation()"></textarea>
-            <label for="equationInput">HML code</label>
+    <div style="padding: 50px;">
+        <h1 style="font-family: 'Gmarket'">Hml To LaTeX</h1>
+        <br>
+        <div class="form-floating" style="border: 2px solid darkslategray; border-top-left-radius: 10px; border-top-right-radius: 10px; padding: 20px; padding-left: 30px">
+            <h6 style="font-family: 'Gmarket'">HML code</h6>
+            <textarea class="form-control no-outline" id="equationInput" name="equation" oninput="convertEquation()" style=" height: 200px;border: none; outline:none; resize: none"></textarea>
         </div>
-        <p id="latexOutput"></p>
+
+        <div style="border: 2px solid darkslategray; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px; padding: 20px; padding-left: 30px; border-top:none">
+            <h6 style="font-family: 'Gmarket'">LaTex</h6>
+            <div id="renderedLatex" style="font-size: 22px"></div>
+            <br>
+            <h6 style="font-family: 'Gmarket'">LaTex code</h6>
+            <p id="latexOutput" style="border: black; font-size: 22px"></p>
+        </div>
+        <br>
+        <h7 style="color:gray; font-family: 'Gmarket'"> *정확한 HML 문법으로 입력하셔야 작동합니다.<br>  한글에서 입력창 위 수식 표시창을 누르면 저절로 문법이 맞춰집니다. </h7>
+        <br>
+        <h7 style="color:gray; font-family: 'Gmarket'">POWERED by <a href="https://github.com/OpenBapul/hml-equation-parser">OpenBapul</a></h7>
     </div>
 
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>
-        function convertEquation() {
+       function convertEquation() {
             var equation = document.getElementById("equationInput").value;
-            $.ajax({
-                type: 'POST',
-                url: '{% url "pybo:conv" %}',
-                data: {
-                    'equation': equation,
-                    'csrfmiddlewaretoken': '{{ csrf_token }}'
-                },
-                success: function(response) {
-                    document.getElementById("latexOutput").innerText = response.latex;
-                },
-                error: function(response) {
-                    document.getElementById("latexOutput").innerText = "오류: " + response.responseJSON.error;
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', '{% url "pybo:conv" %}', true);
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            xhr.setRequestHeader('X-CSRFToken', '{{ csrf_token }}');
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === XMLHttpRequest.DONE) {
+                    if (xhr.status === 200) {
+                        var response = JSON.parse(xhr.responseText);
+                        var out = document.getElementById("renderedLatex");
+                        document.getElementById("latexOutput").innerText = response.latex;
+                        out.innerHTML = '\\(' + response.latex + '\\)'
+                        MathJax.Hub.Queue(["Typeset", MathJax.Hub, out]); // 모든 수식을 다시 렌더링
+                    } else {
+                        var errorResponse = JSON.parse(xhr.responseText);
+                        document.getElementById("latexOutput").innerText = "오류: " + errorResponse.error;
+                        document.getElementById("renderedLatex").innerHTML = "";
+                    }
                 }
-            });
+            };
+            xhr.send('equation=' + encodeURIComponent(equation));
         }
     </script>
 {% endblock %}
