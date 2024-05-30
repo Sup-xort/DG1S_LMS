@@ -18,4 +18,5 @@ urlpatterns = [
     path('toolbox/', views.toolbox, name='toolbox'),
     path('hmltolatex/', views.hmltolatex, name='hmltolatex'),
     path('conv/', views.conv, name='conv'),
+    path('neis/', views.neis, name='neis'),
 ]

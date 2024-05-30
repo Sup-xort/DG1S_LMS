@@ -132,6 +132,9 @@ def PreCard_create(request, stu_id):
 def hmltolatex(request):
     return render(request, 'pybo/hmltolatex.html')
 
+def neis(request):
+    return render(request, 'pybo/neis.html')
+
 def conv(request):
     if request.method == 'POST':
         hwp_equation = request.POST.get('equation', '')
