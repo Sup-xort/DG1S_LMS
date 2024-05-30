@@ -3,6 +3,7 @@ from bs4 import BeautifulSoup
 import collections
 import pandas as pd
 import datetime as dt
+import re
 collections.Callable = collections.abc.Callable
 
 def meal():
