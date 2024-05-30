@@ -1,5 +1,4 @@
-from django.shortcuts import render
-
+from django.http import JsonResponse
 # Create your views here.
 
 from django.shortcuts import render, get_object_or_404, redirect
@@ -8,6 +7,8 @@ from django.core.paginator import Paginator
 from .models import *
 from .forms import *
 from .crolling import meal
+from pybo.hml_equation_parser import hmlParser as hp
+
 
 def home(request):
     dish = meal()
@@ -110,3 +111,33 @@ def table(request):
             else:
                 bat[i].append([0])
     return render(request, 'pybo/TABLE.html', {'stu': Student.objects, 'batch': bat})
+
+def toolbox(request):
+    return render(request, 'pybo/toolbox.html')
+
+def PreCard_create(request, stu_id):
+    if request.method == 'POST':
+        form = CardForm(request.POST)
+        if form.is_valid():
+            card = form.save(commit=False)
+            card.to = "특별실(" + str(card.to) + ")"
+            card.stu = Student.objects.get(id=stu_id)
+            card.moving_date = timezone.now()
+            card.save()
+            return redirect('pybo:index')
+    else:
+        form = CardForm()
+    return render(request, 'pybo/question_form.html', {'form': form, 'stu_id': stu_id})
+
+def hmltolatex(request):
+    return render(request, 'pybo/hmltolatex.html')
+
+def conv(request):
+    if request.method == 'POST':
+        hwp_equation = request.POST.get('equation', '')
+        try:
+            latex_equation = hp.hmlEquation2latex(hwp_equation)
+            return JsonResponse({'latex': latex_equation})
+        except Exception as e:
+            return JsonResponse({'error': str(e)}, status=400)
+    return JsonResponse({'error': 'Invalid request'}, status=400)

@@ -29,6 +29,12 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'pybo:table' %}">좌석표</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'pybo:home' %}">현황판</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'pybo:toolbox' %}">도구</a>
+                </li>
             </ul>
             <a class="nav-link" href="/admin">관리자</a>
             <form class="d-flex" method="POST" action="{% url 'pybo:toQuick' %} " id="num" name="num">

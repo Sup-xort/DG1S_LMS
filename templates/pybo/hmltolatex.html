@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div style="padding: 20px">
+        <h1 style="font-family: 'gmarket'">Hml To LaTex</h1>
+        <div class="form-floating">
+            <textarea class="form-control" id="equationInput" name="equation" oninput="convertEquation()"></textarea>
+            <label for="equationInput">HML code</label>
+        </div>
+        <p id="latexOutput"></p>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        function convertEquation() {
+            var equation = document.getElementById("equationInput").value;
+            $.ajax({
+                type: 'POST',
+                url: '{% url "pybo:conv" %}',
+                data: {
+                    'equation': equation,
+                    'csrfmiddlewaretoken': '{{ csrf_token }}'
+                },
+                success: function(response) {
+                    document.getElementById("latexOutput").innerText = response.latex;
+                },
+                error: function(response) {
+                    document.getElementById("latexOutput").innerText = "오류: " + response.responseJSON.error;
+                }
+            });
+        }
+    </script>
+{% endblock %}

@@ -15,4 +15,7 @@ urlpatterns = [
     path('quick/<int:stu_num>', views.Quick, name='Quick'),
     path('quick/search', views.toQuick, name='toQuick'),
     path('table/', views.table, name='table'),
+    path('toolbox/', views.toolbox, name='toolbox'),
+    path('hmltolatex/', views.hmltolatex, name='hmltolatex'),
+    path('conv/', views.conv, name='conv'),
 ]
