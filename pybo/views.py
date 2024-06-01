@@ -11,16 +11,13 @@ from pybo.hml_equation_parser import hmlParser as hp
 
 
 def home(request):
-    dish = meal(0)
-    context = {'b': dish[0], 'l': dish[1], 'd': dish[2], 't':dish[3]}
-
-    return render(request, 'pybo/home.html', context)
+    return hhome(request, 0)
 
 def hhome(request, day):
     dish = meal(day)
-    context = {'b': dish[0], 'l': dish[1], 'd': dish[2], 't':dish[3]}
+    context = {'b': dish[0], 'l': dish[1], 'd': dish[2], 't':dish[3], 'day':day}
 
-    return redirect('pybo/hhome', day = day)
+    return render(request, 'pybo.home.html', context)
 
 def page_not_found(request, *args, **argv):
     return render(request, 'pybo/404.html', {})
