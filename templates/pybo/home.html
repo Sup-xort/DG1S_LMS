@@ -1,78 +1,78 @@
 {% extends 'base.html' %}
 {% block content %}
 
-    <div class="container my-4" style="text-align: center;">
-        <h1 class = 'text p-2' style="font-family: 'gmarket';text-align: center; font-size: 20px;"> 창의적이고 따뜻한 과학인재</h1>
-        <h1 class = 'text' style="font-family: 'Gmarket'; text-align: center; font-size:200%">대구일과학고등학교</h1>
-        <div style="margin: 5%"></div>
-        <div style="display: inline-block; text-align: center; ">
-            <form class="d-flex" method="POST" action="{% url 'pybo:toQuick' %} " id="num" name="num" style="width: 300px">
-                {% csrf_token %}
-                <input class="form-control me-2" type="search" style="font-family: 'gmarket'" placeholder="학번 입력" id="num" name="num" aria-label="search">
-                <button class="btn btn-outline-success" type="submit"> Move </button>
-            </form>
-        </div>
+<div class="container my-4" style="text-align: center;">
+    <h1 class="text p-2" style="font-family: 'gmarket'; text-align: center; font-size: 20px;">창의적이고 따뜻한 과학인재</h1>
+    <h1 class="text" style="font-family: 'Gmarket'; text-align: center; font-size: 200%;">대구일과학고등학교</h1>
+    <div style="margin: 5%"></div>
+    <div style="display: inline-block; text-align: center;">
+        <form class="d-flex" method="POST" action="{% url 'pybo:toQuick' %}" id="num" name="num" style="width: 300px">
+            {% csrf_token %}
+            <input class="form-control me-2" type="search" style="font-family: 'gmarket'" placeholder="학번 입력" id="num" name="num" aria-label="search">
+            <button class="btn btn-outline-success" type="submit">Move</button>
+        </form>
     </div>
-    <br>
-    <br><br>
-    <div class=" my-auto hstack" style="font-family: 'Gmarket'; margin: 5%">
-        <!-- 아코디언 -->
-        <div class="col mx-2" style="float:left">
-            <div class="accordion" id="accordionPanelsStayOpenExample">
-              <div class="accordion-item">
+</div>
+<br>
+<br><br>
+<div class="my-auto hstack" style="font-family: 'Gmarket'; margin: 5%">
+    <!-- 아코디언 -->
+    <div class="col mx-2" style="float:left">
+        <div class="accordion" id="accordionPanelsStayOpenExample">
+            <div class="accordion-item">
                 <h2 class="accordion-header" id="panelsStayOpen-headingOne">
-                  <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
-                    Breakfast
-                  </button>
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+                        Breakfast
+                    </button>
                 </h2>
                 <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
-                  <div class="accordion-body">
-                    {% for i in b %}
-                        <li>{{ i }}</li>
-                    {% endfor %}
-                  </div>
+                    <div class="accordion-body">
+                        {% for i in b %}
+                            <li>{{ i }}</li>
+                        {% endfor %}
+                    </div>
                 </div>
-              </div>
-              <div class="accordion-item">
+            </div>
+            <div class="accordion-item">
                 <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
-                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
-                    Lunch
-                  </button>
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
+                        Lunch
+                    </button>
                 </h2>
                 <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingTwo">
-                  <div class="accordion-body">
-                    {% for i in l %}
-                        <li>{{ i }}</li>
-                    {% endfor %}
-                  </div>
+                    <div class="accordion-body">
+                        {% for i in l %}
+                            <li>{{ i }}</li>
+                        {% endfor %}
+                    </div>
                 </div>
-              </div>
-              <div class="accordion-item">
+            </div>
+            <div class="accordion-item">
                 <h2 class="accordion-header" id="panelsStayOpen-headingThree">
-                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
-                      Dinner
-                  </button>
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
+                        Dinner
+                    </button>
                 </h2>
                 <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingThree">
-                  <div class="accordion-body">
-                    {% for i in d %}
-                        <li>{{ i }}</li>
-                    {% endfor %}
-                  </div>
+                    <div class="accordion-body">
+                        {% for i in d %}
+                            <li>{{ i }}</li>
+                        {% endfor %}
+                    </div>
                 </div>
-              </div>
-            </div>
-            <span style="font-family: 'gmarket'; font-size: 75%"> {{ t }} 기준 </span>
-            <div class="btn-group" role="group" aria-label="Basic example">
-              <a href="{% url 'pybo:hhome' (day)+1 %}" class="btn btn-primary">이전</button>
-              <a href="#" class="btn btn-primary">{{ t }}</button>
-              <a href="{% url 'pybo:hhome' day %}" class="btn btn-primary">다음</button>
             </div>
         </div>
-
-        <!--준비중-->
-        <div class="col text-center" style="float:right">
-            <h3>[empty]</h3>
+        <span style="font-family: 'gmarket'; font-size: 75%">{{ t }} 기준</span>
+        <div class="btn-group" role="group" aria-label="Basic example">
+            <a href="{% url 'pybo:hhome' day=day|add:-1 %}" class="btn btn-primary">이전</a>
+            <a href="#" class="btn btn-primary">{{ t }}</a>
+            <a href="{% url 'pybo:hhome' day=day|add:1 %}" class="btn btn-primary">다음</a>
         </div>
     </div>
+
+    <!-- 준비중 -->
+    <div class="col text-center" style="float:right">
+        <h3>[empty]</h3>
+    </div>
+</div>
 {% endblock %}
