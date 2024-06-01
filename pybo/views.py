@@ -17,7 +17,7 @@ def hhome(request, day):
     dish = meal(day)
     context = {'b': dish[0], 'l': dish[1], 'd': dish[2], 't':dish[3], 'day':day}
 
-    return render(request, 'pybo.home.html', context)
+    return render(request, 'pybo/home.html', context)
 
 def page_not_found(request, *args, **argv):
     return render(request, 'pybo/404.html', {})
