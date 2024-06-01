@@ -14,7 +14,7 @@ def home(request):
     return hhome(request, 0)
 
 def hhome(request, day):
-    dish = meal(day)
+    dish = meal(int(day))
     context = {'b': dish[0], 'l': dish[1], 'd': dish[2], 't':dish[3], 'day':day}
 
     return render(request, 'pybo/home.html', context)
