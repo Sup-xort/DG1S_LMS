@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<div class="container my-4" style="text-align: center;">
+<div class="container my-4" style="text-align: center; display:flex;">
     <h1 class="text p-2" style="font-family: 'gmarket'; text-align: center; font-size: 20px;">창의적이고 따뜻한 과학인재</h1>
     <h1 class="text" style="font-family: 'Gmarket'; text-align: center; font-size: 200%;">대구일과학고등학교</h1>
     <div style="margin: 5%"></div>
@@ -17,7 +17,7 @@
 <br><br>
 <div class="my-auto" style="font-family: 'Gmarket'; margin: 5%">
     <!-- 아코디언 -->
-    <div class="col mx-2" style="float:left">
+    <div class="col mx-2">
         <div class="btn-group" role="group" aria-label="Basic example">
             <a href="{% url 'pybo:hhome' day=day|add:'-1' %}" class="btn btn-outline-primary">이전</a>
             <a href="#" class="btn btn-outline-secondary">{{ t }}</a>
@@ -71,7 +71,7 @@
     </div>
 
     <!-- 준비중 -->
-    <div class="col text-center" style="float:right">
+    <div class="col text-center">
         <h3>[empty]</h3>
     </div>
 </div>
