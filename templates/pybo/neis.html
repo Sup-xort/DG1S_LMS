@@ -3,13 +3,12 @@
 {% block content %}
 
 <div style="padding: 20px">
-    <div style="display:flex;">
-      <h1 style="">글자수 계산기</h1>
-      <button id="spellcheck_button" class="btn-success">맞춤법 검사하기</button>
-    </div>
-
-    <spell-check-input id="counter" class="counter" style=""></spell-check-input>
-    <div id="result" class="result">공백 제외 0자, 공백 포함 0자, 0바이트</div>
+    <h1 style="text-align:center;font-family:'gmarket';">글자수 계산기</h1>
+    <br>
+    <spell-check-input id="counter" class="counter" style="border: 1px solid #004d00; margin 10%"></spell-check-input>
+    
+    <div id="result" class="result" style = 'font-size:20px'>공백 제외 0자, 공백 포함 0자, 0바이트</div>  
+    <button id="spellcheck_button" class="btn-success">맞춤법 검사하기</button>
 </div>
 
 
