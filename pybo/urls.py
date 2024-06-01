@@ -7,6 +7,7 @@ app_name = 'pybo'
 urlpatterns = [
     path('', views.home, name='home'),
     path('home/', views.home, name='home'),
+    path('home/<str:day>', views.hhome, name='hhome'),
     path('index/', views.index, name='index'),
     path('event/', views.event, name='event'),
     path('<int:stu_id>/', views.detail, name='detail'),
@@ -20,4 +21,3 @@ urlpatterns = [
     path('conv/', views.conv, name='conv'),
     path('neis/', views.neis, name='neis'),
 ]
-urlpatterns += [re_path(r'^home/(?P<day>-?\d+)/$', views.hhome, name='pybo:hhome')]
