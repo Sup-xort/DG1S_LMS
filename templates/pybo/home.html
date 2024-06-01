@@ -15,15 +15,15 @@
 </div>
 <br>
 <br><br>
-<div class="my-auto hstack" style="font-family: 'Gmarket'; margin: 5%">
-    <div class="btn-group" role="group" aria-label="Basic example">
-        <a href="{% url 'pybo:hhome' day=day|add:'-1' %}" class="btn btn-primary">이전</a>
-        <a href="#" class="btn btn-outline-secondary">{{ t }}</a>
-        <a href="{% url 'pybo:hhome' day=day|add:'1' %}" class="btn btn-primary">다음</a>
-    </div>
-    <br><br>
+<div class="my-auto" style="font-family: 'Gmarket'; margin: 5%">
     <!-- 아코디언 -->
     <div class="col mx-2" style="float:left">
+        <div class="btn-group" role="group" aria-label="Basic example">
+            <a href="{% url 'pybo:hhome' day=day|add:'-1' %}" class="btn btn-primary">이전</a>
+            <a href="#" class="btn btn-outline-secondary">{{ t }}</a>
+            <a href="{% url 'pybo:hhome' day=day|add:'1' %}" class="btn btn-primary">다음</a>
+        </div>
+        <br><br>
         <div class="accordion" id="accordionPanelsStayOpenExample">
             <div class="accordion-item">
                 <h2 class="accordion-header" id="panelsStayOpen-headingOne">
