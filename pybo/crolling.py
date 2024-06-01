@@ -6,10 +6,12 @@ from datetime import *
 import re
 collections.Callable = collections.abc.Callable
 
-def meal():
+def meal(day):
     x = datetime.now()
     if x.hour >= 20:
-        x = x + timedelta(days=1)
+        x = x + timedelta(days=day) + timedelta(days=1)
+    else:
+        x = x + timedelta(days=day)
     today = "%4d%02d%02d"%(x.year, x.month, x.day)
     
     url = 'https://open.neis.go.kr/hub/mealServiceDietInfo?ATPT_OFCDC_SC_CODE=D10&SD_SCHUL_CODE=7240331&KEY=ed15a9e1057a458b8e2e286da26cf15c&MLSV_YMD='+str(today)
