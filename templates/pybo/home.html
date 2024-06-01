@@ -64,7 +64,7 @@
             </div>
             <span style="font-family: 'gmarket'; font-size: 75%"> {{ t }} 기준 </span>
             <div class="btn-group" role="group" aria-label="Basic example">
-              <a href="{% url 'pybo:hhome' day %}" class="btn btn-primary">이전</button>
+              <a href="{% url 'pybo:hhome' (day)+1 %}" class="btn btn-primary">이전</button>
               <a href="#" class="btn btn-primary">{{ t }}</button>
               <a href="{% url 'pybo:hhome' day %}" class="btn btn-primary">다음</button>
             </div>
