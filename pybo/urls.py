@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path, re_path
 
 from . import views
 
@@ -7,7 +7,6 @@ app_name = 'pybo'
 urlpatterns = [
     path('', views.home, name='home'),
     path('home/', views.home, name='home'),
-    path('home/<int:day>/', views.hhome, name='hhome'),
     path('index/', views.index, name='index'),
     path('event/', views.event, name='event'),
     path('<int:stu_id>/', views.detail, name='detail'),
@@ -21,3 +20,4 @@ urlpatterns = [
     path('conv/', views.conv, name='conv'),
     path('neis/', views.neis, name='neis'),
 ]
+urlpatterns += [re_path(r'^home/(?P<day>-?\d+)/$', views.hhome, name='pybo:hhome')]
