@@ -20,4 +20,4 @@ def mstatu():
 scheduler.add_job(load430, 'cron', day_of_week='mon-fri', hour=16, minute=30)
 scheduler.add_job(load620, 'cron', day_of_week='mon-fri', hour=18, minute=30)
 scheduler.add_job(mstatu, 'cron', day_of_week='mon-fri', hour=0, minute=0)
-scheduler.add_job(mstatu, 'cron', hour=17, minute=25)
+scheduler.add_job(mstatu, 'cron', hour=22, minute=17)
