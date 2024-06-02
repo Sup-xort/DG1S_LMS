@@ -162,7 +162,7 @@ def name(request, l):
         stu_list = Student.objects.all()
         lib = []
         for stu in stu_list:
-            lib.append(str(stu.num) + ' ' + str(stu.name))
+            lib.append(str(stu.num) + str(stu.name))
         l += tmp[:4]
         return render(request, 'pybo/name.html', {'lib': lib, 'l': l})
 
