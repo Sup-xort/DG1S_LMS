@@ -85,20 +85,17 @@
                 <form action="{% url 'pybo:card_create' student.id %}" method="get" id="loc">
                     {% csrf_token %}
                         <div class="col-sm">
-                            <select name="loc" id="loc" class='list-group' size=3 multiple aria-label="multiple select example">
-                                <option class='list-group-item' value="화장실">화장실</option>
-                                <option class='list-group-item' value="장탁이용중">장탁</option>
-                                <option class='list-group-item' value="재실">복귀</option>
+                            <select name="loc" id="loc" class='form-select' size=3>
+                                <option value="화장실" class="list-group-item">화장실</option>
+                                <option value="장탁이용중" class="list-group-item">장탁</option>
+                                <option value="재실" class="list-group-item">복귀</option>
                             </select>
                         </div>
-
-                        <div class = 'col-sm'>
+                        <div class="col-sm">
                             <input type="submit" value="Sumbit" class = 'btn btn-primary my-1'>
+                            <a href="{% url 'pybo:PreCard_create' student.id %}" class="btn btn-primary">특별실 이동 신청</a>
                         </div>
                 </form>
-                <div class="col-sm">
-                    <a href="{% url 'pybo:PreCard_create' student.id %}" class="btn btn-primary">특별실 이동 신청</a>
-                </div>
             </div>
         </div>
     </div>
