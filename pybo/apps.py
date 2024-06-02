@@ -10,6 +10,6 @@ class MyAppConfig(AppConfig):
     name = 'myapp'
 
     def ready(self):
-        from pybo.tasks import scheduler
+        from pybo.tasks import start
         if SCHEDULER_DEFAULT:
-            scheduler.start()
+            start()

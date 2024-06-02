@@ -20,4 +20,6 @@ urlpatterns = [
     path('hmltolatex/', views.hmltolatex, name='hmltolatex'),
     path('conv/', views.conv, name='conv'),
     path('neis/', views.neis, name='neis'),
+    path('precard/create/many/<str:l>/', views.name, name='name'),
+    path('precard/form/<str:l>/', views.PreCard_create_many, name='PreCard_create_many'),
 ]

@@ -147,3 +147,46 @@ def conv(request):
         except Exception as e:
             return JsonResponse({'error': str(e)}, status=400)
     return JsonResponse({'error': 'Invalid request'}, status=400)
+
+
+def name(request, l):
+    tmp = request.GET.get('loc')
+
+    if tmp == None:
+        tmp = ''
+
+    if tmp != '' and tmp[-1] == '*':
+        l += tmp[:4]
+        return PreCard_create_many(request, l[1:])
+    else:
+        stu_list = Student.objects.all()
+        lib = []
+        for stu in stu_list:
+            lib.append(str(stu.num) + ' ' + str(stu.name))
+        l += tmp[:4]
+        return render(request, 'pybo/name.html', {'lib': lib, 'l': l})
+
+def PreCard_create_many(request, l):
+    if request.method == 'POST':
+        slib = []
+        for i in range(0, len(l), 4):
+            slib.append(Student.objects.get(num=int(l[i:i+4])))
+
+        form = CardForm(request.POST)
+        if form.is_valid():
+            for stu in slib:
+                card = PreCard()
+                card.why = form.save(commit=False).why
+                card.to = "특별실(" + str(form.save(commit=False).to) + ")"
+                card.moving_date = timezone.now()
+                card.time = form.save(commit=False).time
+                card.stu = stu
+                card.save()
+            return redirect('pybo:home')
+    else:
+        slib = []
+        for i in range(0, len(l), 4):
+            slib.append(Student.objects.get(num=int(l[i:i + 4])))
+
+        form = CardForm()
+        return render(request, 'pybo/question_form_many.html', {'form': form, 'slib': slib, 'l':l})

@@ -6,7 +6,7 @@ class CardForm(forms.ModelForm):
         model = PreCard
         fields = [ 'to', 'why', 'time']
         widgets = {
-            'to': forms.TextInput(attrs={'class': 'form-control form-control-lg my-1', 'placeholder': '특별실 명'}),
-            'why': forms.TextInput(attrs={'class': 'form-control my-1', 'placeholder': '사용 목적 및 사유'}),
-            'time': forms.Select(attrs={'class': 'form-select'})
+            'to': forms.TextInput(attrs={'class': 'form-control form-control-lg', 'placeholder': '특별실 명', 'id':'name'}),
+            'why': forms.TextInput(attrs={'class': 'form-control', 'id':'why', 'placeholder': '사용 목적 및 사유'}),
+            'time': forms.Select(attrs={'class': 'form-select', 'id':'when'})
         }
