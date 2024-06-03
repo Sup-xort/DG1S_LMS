@@ -15,7 +15,7 @@ def mstatu():
     for student in students:
         Card.objects.create(to='재실', why='초기상태', stu=student, moving_date=timezone.now())
 
-def start():
+def start(self):
     scheduler = BackgroundScheduler(daemon=True, timezone='Asia/Seoul')
     scheduler.add_jobstore(DjangoJobStore(), 'djangojobstore')
 
