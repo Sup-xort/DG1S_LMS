@@ -8,7 +8,7 @@ def load430():
 
 def load620():
     for card in PreCard.objects.filter(moving_date__date=timezone.now().date(), time="1차야자"):
-        PreCard.objects.create(stu=card.stu, to_=card.to, why=card.why, moving_date=card.moving_date
+        PreCard.objects.create(stu=card.stu, to_=card.to, why=card.why, moving_date=card.moving_date)
 
 def mstatu():
     students = Student.objects.all()
