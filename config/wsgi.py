@@ -11,7 +11,6 @@ import os
 
 from .settings.base import *
 from django.core.wsgi import get_wsgi_application
-from pybo.tasks import scheduler
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'config.settings.base')
 
