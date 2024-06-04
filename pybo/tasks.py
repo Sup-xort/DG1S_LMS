@@ -15,12 +15,10 @@ def mstatu():
     for student in students:
         Card.objects.create(to='재실', why='초기상태', stu=student, moving_date=timezone.now())
 
-def start(self):
-    scheduler = BackgroundScheduler(daemon=True, timezone='Asia/Seoul')
-    scheduler.add_jobstore(DjangoJobStore(), 'djangojobstore')
-
-    scheduler.add_job(load430, 'cron', day_of_week='mon-fri', hour=16, minute=30)
-    scheduler.add_job(load620, 'cron', day_of_week='mon-fri', hour=18, minute=30)
-    scheduler.add_job(mstatu, 'cron', day_of_week='mon-fri', hour=0, minute=0)
-    scheduler.add_job(mstatu, 'cron', hour=15, minute=30)
-    scheduler.start()
+scheduler = BackgroundScheduler(daemon=True, timezone='Asia/Seoul')
+scheduler.add_jobstore(DjangoJobStore(), 'djangojobstore')
+scheduler.add_job(load430, 'cron', day_of_week='mon-fri', hour=16, minute=30)
+scheduler.add_job(load620, 'cron', day_of_week='mon-fri', hour=18, minute=30)
+scheduler.add_job(mstatu, 'cron', day_of_week='mon-fri', hour=0, minute=0)
+scheduler.add_job(mstatu, 'cron', hour=15, minute=30)
+scheduler.start()
