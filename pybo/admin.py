@@ -10,7 +10,7 @@ class StudentAdmin(admin.ModelAdmin):
     @admin.action(description="이동현황 초기화")
     def set(self, request, queryset):
         for pcard in queryset:
-            a = Card(stu=pcard.stu, to='재실', why='관리자에 의해 초기화되었습니다.', moving_date=timezone.now())
+            a = Card(stu=pcard, to='재실', why='관리자에 의해 초기화되었습니다.', moving_date=timezone.now())
             a.save()
         self.message_user(request, "초기화 되었습니다.")
 
