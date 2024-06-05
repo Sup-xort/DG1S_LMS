@@ -8,13 +8,13 @@ class StudentAdmin(admin.ModelAdmin):
     list_display = ['num', 'name']
 
     @admin.action(description="이동현황 초기화")
-    def approve(self, request, queryset):
+    def set(self, request, queryset):
         for pcard in queryset:
             a = Card(stu=pcard.stu, to='재실', why='관리자에 의해 초기화되었습니다.', moving_date=timezone.now())
             a.save()
         self.message_user(request, "초기화 되었습니다.")
 
-    actions = [approve]
+    actions = [set]
 class CardAdmin(admin.ModelAdmin):
     search_fields = ['stu', 'to', 'why', 'moving_date']
     list_display = ['stu', 'to', 'moving_date']
