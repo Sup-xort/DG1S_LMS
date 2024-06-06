@@ -1,62 +1,39 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
+	<h1>글자수 세기(나이스)</h1>
+	<textarea id="textInput" placeholder="여기에 글을 입력하세요..." style="width: 100%;height: 200px;"></textarea>
+    <div class="results">
+        <p>글자 수: <span id="charCount">0</span></p>
+        <p>바이트 수: <span id="byteCount">0</span></p>
+        <p>맞춤법 검사 결과: <span id="spellCheckResult">검사 전</span></p>
+    </div>
+    <script>
+        document.getElementById('textInput').addEventListener('input', updateCounts);
 
-<div style="padding: 20px">
-    <h1 style="text-align:center;font-family:'gmarket';">글자수 계산기</h1>
-    <br>
-    <spell-check-input id="counter" class="counter" style="border: 1px solid #004d00; margin 10%"></spell-check-input>
-    
-    <div id="result" class="result" style = 'font-size:20px'>공백 제외 0자, 공백 포함 0자, 0바이트</div>  
-    <button id="spellcheck_button" class="btn-success">맞춤법 검사하기</button>
-</div>
+        function updateCounts() {
+            const text = document.getElementById('textInput').value;
+            document.getElementById('charCount').innerText = text.length;
+            document.getElementById('byteCount').innerText = new Blob([text]).size;
+            checkSpelling(text);
+        }
 
-
-<script type="module" src="{% static 'spellchecker/index.js' %}"></script>
-<script>
-const textarea = document.getElementById("counter");
-const spellCheckButton = document.getElementById("spellcheck_button")
-
-function init() {
-    let content = localStorage.getItem("save");
-
-    if(content) {
-        counter(content);
-        textarea.setContent(content);
-    }
-
-    textarea.addEventListener("content-change", function(e) {
-        counter(e.detail.content);
-    });
-
-    spellCheckButton.addEventListener("click", function() {
-        spellCheckButton.classList.add("pending")
-        textarea.spellCheck().finally(() => spellCheckButton.classList.remove("pending"));
-    });
-}
-
-function counter(content) {
-    localStorage.setItem("save", content);
-    var english = content.replace(/[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/gi, "").replace(/[0-9]/gi, "").replace(/[\{\}\[\]\/?.,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\"]/gi, "").replace(/\s/gi, "").replace(/\s/gi, "").replace(/(\r\n\t|\n|\r\t)/gm,"").replace(/‘|’|“|”/g, "");
-    var korean = content.replace(/[a-zA-Z]/gi, "").replace(/[0-9]/gi, "").replace(/[\{\}\[\]\/?.,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\"]/gi, "").replace(/\s/gi, "").replace(/(\r\n\t|\n|\r\t)/gm,"").replace(/‘|’|“|”/g, "");
-    var number = content.replace(/[a-zA-Z]/gi, "").replace(/[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/gi, "").replace(/[\{\}\[\]\/?.,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\"]/gi, "").replace(/\s/gi, "").replace(/(\r\n\t|\n|\r\t)/gm,"").replace(/‘|’|“|”/g, "");
-    var onebyte_special = content.replace(/[a-zA-Z]/gi, "").replace(/[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/gi, "").replace(/[0-9]/gi, "").replace(/\s/gi, "").replace(/(\r\n\t|\n|\r\t)/gm,"").replace(/‘|’|“|”/g, "");
-    var threebyte_special = content.replace(/[a-zA-Z]/gi, "").replace(/[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/gi, "").replace(/[0-9]/gi, "").replace(/[\{\}\[\]\/?.,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\"]/gi, "").replace(/\s/gi, "").replace(/(\r\n\t|\n|\r\t)/gm,"");
-    var space =  content.replace(/[a-zA-Z]/gi, "").replace(/[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/gi, "").replace(/[\{\}\[\]\/?.,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\"]/gi, "").replace(/[0-9]/gi, "").replace(/(\r\n\t|\n|\r\t)/gm,"").replace(/‘|’|“|”/g, "");
-    var line = content.replace(/[a-zA-Z]/gi, "").replace(/[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/gi, "").replace(/[\{\}\[\]\/?.,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\"]/gi, "").replace(/[0-9]/gi, "").replace(/ /gi, "").replace(/‘|’|“|”/g, "");
-    var result = english.length + (korean.length * 3) +  number.length + onebyte_special.length + (threebyte_special.length * 3) + space.length + (line.length * 2);
-    document.getElementById('result').innerHTML = "공백 제외 " + content.replace(/(\r\n\t|\n|\r\t)/gm,"").replace(/ /gi, "").length + "자, 공백 포함 " + content.length + "자, " + result + "바이트";
-}
-
-window.onload = init;
-</script>
-
-<script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-
-    gtag('config', 'UA-145929593-1');
-</script>
+        async function checkSpelling(text) {
+            try {
+                const response = await fetch("{% url 'pybo:spellcheck' %}", {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ text: text })
+                });
+                const result = await response.json();
+                const errors = result.errors.length > 0 ? result.errors.map(err => ` => `).join(', ') : '맞춤법 오류 없음';
+                document.getElementById('spellCheckResult').innerText = errors;
+            } catch (error) {
+                document.getElementById('spellCheckResult').innerText = '맞춤법 검사 실패';
+            }
+        }
+    </script>
 
 {% endblock %}
