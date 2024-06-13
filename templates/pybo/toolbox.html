@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<div class="row" style="text-align: center; padding: 30px">
+<div class="row" style="text-align: center; padding: 30px;font-family: 'kopub'">
     <h1 style=" ">Tool box</h1>
     <span style=" color:#3f3f3f"> 이 사이트 one Tool로 만들어드릴게요.</span>
 
@@ -13,7 +13,7 @@
             </div>
             <div class="card-body" >
                 <h5 class="card-title"> <b>Hml to LaTeX</b> </h5>
-                <p class="card-text" >LaTeX를 모르는 당신을 위해..<br>한글 수식을 LaTeX로 변환해줍니다. 멋지죠?</p>
+                <p class="card-text" >LaTeX를 모르는 당신을 위해..<br>한글 수식을 LaTeX로 변환해줍니다.</p>
                 <a href="{% url 'pybo:hmltolatex' %}" class="btn btn-primary">Start</a>
             </div>
         </div>
@@ -22,7 +22,7 @@
             </div>
             <div class="card-body">
                 <h5 class="card-title"> <b>글자수 세기(나이스) </b> </h5>
-                <p class="card-text">나이스의 인코딩 형식인 UTF-8을 기준으로 글자수를 셉니다.</p>
+                <p class="card-text">나이스의 인코딩 형식인 UTF-8을 기준으로 글자수를 셉니다.<br>그 어떤 개발자도 신경쓰지않던 향상된 가독성을 경험해보세요.</p>
                 <a href="{% url 'pybo:neis' %}" class="btn btn-primary">Start</a>
             </div>
         </div>

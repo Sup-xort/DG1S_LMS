@@ -6,7 +6,7 @@
             height: 200px;
         }
         en{
-            font-style:normal;
+            font-style: normal;
         }
         .corrected-text {
             white-space: pre-wrap;
@@ -28,11 +28,14 @@
 
     <div style="padding: 50px;font-family: 'Gmarket'">
         <h1>글자수세기</h1>
-        <br>
         <div class="form-floating" style="border: 2px solid darkslategray; border-top-left-radius: 10px; border-top-right-radius: 10px; padding: 20px; padding-left: 30px">
             <h6 style="font-family: 'Gmarket'">입력창</h6>
-            <textarea class="form-control no-outline" id="textInput" style="font-size: 120%; min-height:300px; border: none; outline:none; font-family:'KoPub';"></textarea>
-            <button class='btn btn-success' id="checkButton">맞춤법 검사</button>
+            <textarea class="form-control no-outline" id="textInput" style="font-size: 15px; min-height:300px; border: none; outline:none; font-family:'KoPub';"></textarea>
+            <div style="margin-top: 10px;">
+                <button class='btn btn-success' id="checkButton">맞춤법 검사</button>
+                <label for="fontSize" style="margin-left: 10px;">글자 크기:</label>
+                <input type="number" id="fontSize" value="17" style="width: 60px;">
+            </div>
             <div class="loading" id="loading" style="color:gray">로딩 중...</div>
         </div>
 
@@ -63,42 +66,57 @@
         </div>
 
         <br>
+        <h7 style="color:gray; font-family: 'Gmarket'">※본 프로그램 사용으로인한 불이익에 대한 책임은 사용자에게 있습니다.</h7>
+        <br>
+        <h7 style="color:gray; font-family: 'Gmarket'">※바이트 기준은 다음과 같습니다.</h7>
         <table class="table table-bordered " style="max-width: 700px">
                 <thead>
                     <tr class="text-center">
                         <th>한글</th>
                         <th>엔터</th>
-                        <th>영어, 기호</th>>
+                        <th>영어, 기호</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr class="text-center">
-                        <td class="border">
-                            <span id="byteCount">0</span>
+                        <td>
+                            3byte
                         </td>
                         <td>
-                            <span id="charCount">0</span>
+                            2byte
+                        </td>
+                        <td>
+                            1byte
                         </td>
                     </tr>
                 </tbody>
             </table>
         <br>
-        <h7 style="color:gray; font-family: 'Gmarket'">POWERED by <a href="https://github.com/OpenBapul/hml-equation-parser">OpenBapul</a></h7>
+        <h7 style="color:gray; font-family: 'Gmarket'">POWERED by NAVER</h7>
     </div>
 
     <script>
         $(document).ready(function() {
+            // 입력 창에서 글자 크기 조절
+            $('#fontSize').on('input', function() {
+                const fontSize = $(this).val();
+                $('#textInput').css('font-size', fontSize + 'px');
+            });
+
+            // 글자 수와 바이트 수 업데이트
             $('#textInput').on('input', function() {
                 const text = $(this).val();
                 updateCounts(text);
             });
 
+            // 맞춤법 검사 버튼 클릭 이벤트
             $('#checkButton').on('click', function() {
                 const text = $('#textInput').val();
                 $('#loading').show();
                 checkSpelling(text);
             });
 
+            // 글자 수와 바이트 수 계산 함수
             function updateCounts(text) {
                 const charCount = text.length;
                 const byteCount = getByteCount(text);
@@ -106,6 +124,7 @@
                 $('#byteCount').text(byteCount);
             }
 
+            // 바이트 수 계산 함수
             function getByteCount(text) {
                 let byteCount = 0;
                 for (let i = 0; i < text.length; i++) {
@@ -121,9 +140,10 @@
                 return byteCount;
             }
 
+            // 맞춤법 검사 함수
             function checkSpelling(text) {
                 $.ajax({
-                    url: '{% url 'pybo:check_spelling' %}',  // Django 뷰 URL
+                    url: '{% url "pybo:check_spelling" %}',  // Django 뷰 URL
                     data: { text: text },
                     dataType: 'json',
                     timeout: 5000, // 타임아웃 설정 (5초)
@@ -144,6 +164,12 @@
                     }
                 });
             }
+
+            // 페이지 새로고침 또는 나가기 시 확인 메시지
+            window.addEventListener('beforeunload', function (e) {
+                e.preventDefault();
+                e.returnValue = '';
+            });
         });
     </script>
 {% endblock %}
