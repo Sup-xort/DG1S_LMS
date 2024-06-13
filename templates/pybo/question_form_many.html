@@ -3,9 +3,37 @@
 <div style="margin: 5%">
     <h1 class="my-3 border-bottom pb-2" style="font-family: 'gmarket'">특별실 사용 신청</h1>
 </div>
-<div class="container" style="font-family: 'gmarket';display: flex; flex-wrap: wrap; text-align: center" >
-    <div>
-        <form action="{% url 'pybo:PreCard_create_many' l %}" method="post" style="min-width: 310px">
+<div class="container" style="font-family: 'gmarket'; flex-wrap: wrap; text-align: center; align-content: center;" >
+    <div style="width: 310px; margin-left:auto;margin-right:auto;">
+        <table class="table table-bordered ">
+            <thead>
+            <tr class="">
+                <th class="text-center">학번</th>
+                <th>이름</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% if slib %}
+                {% for i in slib %}
+                <tr>
+                    <td class="border text-center">
+                        {{ i.num }}
+                    </td>
+                    <td class="border">
+                        {{ i.name }}
+                    </td>
+                </tr>
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <td colspan="3">등록된 학생이 없습니다.</td>
+                </tr>
+            {% endif %}
+            </tbody>
+        </table>
+    </div>
+    <div style=" margin-left:auto;margin-right:auto; width: 300px">
+        <form action="{% url 'pybo:PreCard_create_many' l %}" method="post" style="width: 310px">
             {% csrf_token %}
             <div class="form-floating" style="margin: 1%;width: 300px">
                 {{ form.to }}
@@ -19,16 +47,11 @@
                 {{ form.time }}
                 <label for="when">이동 시간</label>
             </div>
-            <button type="submit" class="btn btn-primary" style="margin: 1%;width: 300px">신청</button>
-            <br>
-            <br>
+            <button type="submit" class="btn btn-primary" style="width: 295px">신청</button>
         </form>
-    </div>
-    <div style="width: 30%; min-width: 200px">
-        <h5>신청자</h5>
-        {% for i in slib %}
-            <h4>{{ i.num }} {{ i.name }}</h4>
-        {% endfor %}
+        ※신청자가 맞는지 꼭 확인하세요.
     </div>
 </div>
+    <br>
+    <br>
 {% endblock %}

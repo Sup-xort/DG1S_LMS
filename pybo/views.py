@@ -156,7 +156,8 @@ def name(request, l):
         tmp = ''
 
     if tmp != '' and tmp[-1] == '*':
-        l += tmp[:4]
+        if len(tmp) > 4:
+            l += tmp[:4]
         return PreCard_create_many(request, l[1:])
     else:
         stu_list = Student.objects.all()

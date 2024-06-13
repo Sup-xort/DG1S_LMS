@@ -1,62 +1,120 @@
-{% extends 'base.html' %}
-{% load static %}
-{% block content %}
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>글자 수 및 맞춤법 검사기</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        textarea {
+            width: 100%;
+            height: 200px;
+        }
+        .results {
+            margin-top: 20px;
+        }
+        .corrected-text {
+            white-space: pre-wrap;
+        }
+        .red_text {
+            color: #bb2d3b;
+        }
+        .green_text {
+            color: #07d307;
+        }
+        .blue_text {
+            color: #0054ff;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <h1>글자 수 및 맞춤법 검사기</h1>
+    <textarea id="textInput" placeholder="여기에 글을 입력하세요..."></textarea>
+    <div class="results">
+        <p>글자 수: <span id="charCount">0</span></p>
+        <p>바이트 수: <span id="byteCount">0</span></p>
+        <p>맞춤법 검사 결과: <span id="spellCheckResult">검사 전</span></p>
+        <div class="corrected-text" id="correctedText"></div>
+    </div>
+    <button id="checkButton">맞춤법 검사</button>
+    <script>
+        $(document).ready(function() {
+            $('#textInput').on('input', function() {
+                const text = $(this).val();
+                updateCounts(text);
+            });
 
-<div style="padding: 20px">
-    <h1 style="text-align:center;font-family:'gmarket';">글자수 계산기</h1>
-    <br>
-    <spell-check-input id="counter" class="counter" style="border: 1px solid #004d00; margin 10%"></spell-check-input>
-    
-    <div id="result" class="result" style = 'font-size:20px'>공백 제외 0자, 공백 포함 0자, 0바이트</div>  
-    <button id="spellcheck_button" class="btn-success">맞춤법 검사하기</button>
-</div>
+            $('#checkButton').on('click', function() {
+                const text = $('#textInput').val();
+                checkSpelling(text);
+            });
 
+            function updateCounts(text) {
+                const charCount = text.length;
+                const byteCount = getByteCount(text);
+                $('#charCount').text(charCount);
+                $('#byteCount').text(byteCount);
+            }
 
-<script type="module" src="{% static 'spellchecker/index.js' %}"></script>
-<script>
-const textarea = document.getElementById("counter");
-const spellCheckButton = document.getElementById("spellcheck_button")
+            function getByteCount(text) {
+                let byteCount = 0;
+                for (let i = 0; i < text.length; i++) {
+                    const char = text.charAt(i);
+                    if (char.match(/[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/)) {
+                        byteCount += 3;
+                    } else if (char === '\n') {
+                        byteCount += 2;
+                    } else {
+                        byteCount += 1;
+                    }
+                }
+                return byteCount;
+            }
 
-function init() {
-    let content = localStorage.getItem("save");
+            function checkSpelling(text) {
+                const url = "https://m.search.naver.com/p/csearch/ocontent/util/SpellerProxy";
+                const params = {
+                    "passportKey": "bc39621223a128b948d3e8748a175a2263e575ac",
+                    "callback": "spellCheckCallback",
+                    "q": text,
+                    "where": "nexearch",
+                    "color_blindness": 0,
+                    "_": new Date().getTime()
+                };
 
-    if(content) {
-        counter(content);
-        textarea.setContent(content);
-    }
+                $.ajax({
+                    url: url,
+                    data: params,
+                    dataType: "jsonp",
+                    jsonpCallback: "spellCheckCallback",
+                    success: function(response) {
+                        console.log('Success:', response); // 디버깅용 로그
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('Error:', status, error); // 디버깅용 로그
+                        $('#spellCheckResult').text('맞춤법 검사 실패');
+                    }
+                });
+            }
 
-    textarea.addEventListener("content-change", function(e) {
-        counter(e.detail.content);
-    });
+            window.spellCheckCallback = function(response) {
+                console.log('spellCheckCallback:', response); // 디버깅용 로그
+                const result = response.message.result;
+                if (result.errata_count > 0) {
+                    $('#spellCheckResult').html(result.errata_list.map(err => `${err.orgStr} => ${err.candWord}`).join(', '));
+                    $('#correctedText').html(result.html); // HTML 렌더링
+                } else {
+                    $('#spellCheckResult').html('맞춤법 오류 없음');
+                    $('#correctedText').html('모든 문장이 올바르게 작성되었습니다.');
+                }
+            }
 
-    spellCheckButton.addEventListener("click", function() {
-        spellCheckButton.classList.add("pending")
-        textarea.spellCheck().finally(() => spellCheckButton.classList.remove("pending"));
-    });
-}
+        });
 
-function counter(content) {
-    localStorage.setItem("save", content);
-    var english = content.replace(/[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/gi, "").replace(/[0-9]/gi, "").replace(/[\{\}\[\]\/?.,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\"]/gi, "").replace(/\s/gi, "").replace(/\s/gi, "").replace(/(\r\n\t|\n|\r\t)/gm,"").replace(/‘|’|“|”/g, "");
-    var korean = content.replace(/[a-zA-Z]/gi, "").replace(/[0-9]/gi, "").replace(/[\{\}\[\]\/?.,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\"]/gi, "").replace(/\s/gi, "").replace(/(\r\n\t|\n|\r\t)/gm,"").replace(/‘|’|“|”/g, "");
-    var number = content.replace(/[a-zA-Z]/gi, "").replace(/[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/gi, "").replace(/[\{\}\[\]\/?.,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\"]/gi, "").replace(/\s/gi, "").replace(/(\r\n\t|\n|\r\t)/gm,"").replace(/‘|’|“|”/g, "");
-    var onebyte_special = content.replace(/[a-zA-Z]/gi, "").replace(/[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/gi, "").replace(/[0-9]/gi, "").replace(/\s/gi, "").replace(/(\r\n\t|\n|\r\t)/gm,"").replace(/‘|’|“|”/g, "");
-    var threebyte_special = content.replace(/[a-zA-Z]/gi, "").replace(/[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/gi, "").replace(/[0-9]/gi, "").replace(/[\{\}\[\]\/?.,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\"]/gi, "").replace(/\s/gi, "").replace(/(\r\n\t|\n|\r\t)/gm,"");
-    var space =  content.replace(/[a-zA-Z]/gi, "").replace(/[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/gi, "").replace(/[\{\}\[\]\/?.,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\"]/gi, "").replace(/[0-9]/gi, "").replace(/(\r\n\t|\n|\r\t)/gm,"").replace(/‘|’|“|”/g, "");
-    var line = content.replace(/[a-zA-Z]/gi, "").replace(/[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/gi, "").replace(/[\{\}\[\]\/?.,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\"]/gi, "").replace(/[0-9]/gi, "").replace(/ /gi, "").replace(/‘|’|“|”/g, "");
-    var result = english.length + (korean.length * 3) +  number.length + onebyte_special.length + (threebyte_special.length * 3) + space.length + (line.length * 2);
-    document.getElementById('result').innerHTML = "공백 제외 " + content.replace(/(\r\n\t|\n|\r\t)/gm,"").replace(/ /gi, "").length + "자, 공백 포함 " + content.length + "자, " + result + "바이트";
-}
-
-window.onload = init;
-</script>
-
-<script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-
-    gtag('config', 'UA-145929593-1');
-</script>
-
-{% endblock %}
+    </script>
+</body>
+</html>
