@@ -8,7 +8,10 @@ from .models import *
 from .forms import *
 from .crolling import meal
 from pybo.hml_equation_parser import hmlParser as hp
-
+from django.http import JsonResponse
+import requests
+import json
+import time
 
 def home(request):
     return hhome(request, 0)
@@ -191,3 +194,42 @@ def PreCard_create_many(request, l):
 
         form = CardForm()
         return render(request, 'pybo/question_form_many.html', {'form': form, 'slib': slib, 'l':l})
+
+def check_spelling(request):
+    user_text = request.GET.get('text', '')
+
+    if not user_text:
+        return JsonResponse({'error': 'No text provided'}, status=400)
+
+    url = "https://m.search.naver.com/p/csearch/ocontent/util/SpellerProxy"
+    params = {
+        'passportKey': 'bc39621223a128b948d3e8748a175a2263e575ac',
+        'q': user_text,
+        'where': 'nexearch',
+        'color_blindness': 0,
+        '_callback': 'spellCheckCallback',
+        '_': int(time.time() * 1000)  # Unix 타임스탬프 밀리초
+    }
+
+    response = requests.get(url, params=params)
+    if response.status_code == 200:
+        # 네이버의 JSONP 응답에서 JSON만 추출
+        content = response.text
+        json_str = content[content.find('(') + 1:-2]
+
+        try:
+            data = json.loads(json_str)
+            result = data['message']['result']
+            corrected_text = result['html']
+            errors = ', '.join([f"{err['orgStr']} => {err['candWord']}" for err in result.get('errata_list', [])])
+
+            return JsonResponse({
+                'correctedText': corrected_text,
+                'errors': errors,
+                'errata_count': result['errata_count']
+            }, status=200)
+        except Exception as e:
+            return JsonResponse({'error': 'Failed to parse response', 'message': str(e)}, status=500)
+    else:
+        return JsonResponse({'error': 'Failed to contact spelling service'}, status=response.status_code)
+
