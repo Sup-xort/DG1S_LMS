@@ -1,26 +1,18 @@
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>글자 수 및 맞춤법 검사기</title>
+{% extends 'base.html' %}
+{% block content %}
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-        }
         textarea {
             width: 100%;
             height: 200px;
         }
-        .results {
-            margin-top: 20px;
+        en{
+            font-style:normal;
         }
         .corrected-text {
             white-space: pre-wrap;
         }
         .red_text {
-            color: #bb2d3b;
+            color: #e50f29;
         }
         .green_text {
             color: #07d307;
@@ -28,19 +20,72 @@
         .blue_text {
             color: #0054ff;
         }
+        .loading {
+            display: none;
+        }
     </style>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-</head>
-<body>
-    <h1>글자 수 및 맞춤법 검사기</h1>
-    <textarea id="textInput" placeholder="여기에 글을 입력하세요..."></textarea>
-    <div class="results">
-        <p>글자 수: <span id="charCount">0</span></p>
-        <p>바이트 수: <span id="byteCount">0</span></p>
-        <p>맞춤법 검사 결과: <span id="spellCheckResult">검사 전</span></p>
-        <div class="corrected-text" id="correctedText"></div>
+
+    <div style="padding: 50px;font-family: 'Gmarket'">
+        <h1>글자수세기</h1>
+        <br>
+        <div class="form-floating" style="border: 2px solid darkslategray; border-top-left-radius: 10px; border-top-right-radius: 10px; padding: 20px; padding-left: 30px">
+            <h6 style="font-family: 'Gmarket'">입력창</h6>
+            <textarea class="form-control no-outline" id="textInput" style="font-size: 120%; min-height:300px; border: none; outline:none; font-family:'KoPub';"></textarea>
+            <button class='btn btn-success' id="checkButton">맞춤법 검사</button>
+            <div class="loading" id="loading" style="color:gray">로딩 중...</div>
+        </div>
+
+        <div style="border: 2px solid darkslategray; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px; padding: 20px; padding-left: 30px; border-top:none">
+            <h6 style="font-family: 'Gmarket'">글자 정보</h6>
+            <table class="table table-bordered " style="max-width: 700px">
+                <thead>
+                    <tr class="text-center">
+                        <th>byte</th>
+                        <th>글자 수(공백포함)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="text-center" style="font-size:25px">
+                        <td class="border">
+                            <span id="byteCount">0</span>
+                        </td>
+                        <td>
+                            <span id="charCount">0</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <br>
+            <h6 style="font-family: 'Gmarket'">맞춤법 검사 결과</h6>
+            <span id="spellCheckResult"></span>
+            <div class="corrected-text" id="correctedText" style=""></div>
+        </div>
+
+        <br>
+        <table class="table table-bordered " style="max-width: 700px">
+                <thead>
+                    <tr class="text-center">
+                        <th>한글</th>
+                        <th>엔터</th>
+                        <th>영어, 기호</th>>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="text-center">
+                        <td class="border">
+                            <span id="byteCount">0</span>
+                        </td>
+                        <td>
+                            <span id="charCount">0</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        <br>
+        <h7 style="color:gray; font-family: 'Gmarket'">POWERED by <a href="https://github.com/OpenBapul/hml-equation-parser">OpenBapul</a></h7>
     </div>
-    <button id="checkButton">맞춤법 검사</button>
+
     <script>
         $(document).ready(function() {
             $('#textInput').on('input', function() {
@@ -50,6 +95,7 @@
 
             $('#checkButton').on('click', function() {
                 const text = $('#textInput').val();
+                $('#loading').show();
                 checkSpelling(text);
             });
 
@@ -76,45 +122,28 @@
             }
 
             function checkSpelling(text) {
-                const url = "https://m.search.naver.com/p/csearch/ocontent/util/SpellerProxy";
-                const params = {
-                    "passportKey": "bc39621223a128b948d3e8748a175a2263e575ac",
-                    "callback": "spellCheckCallback",
-                    "q": text,
-                    "where": "nexearch",
-                    "color_blindness": 0,
-                    "_": new Date().getTime()
-                };
-
                 $.ajax({
-                    url: url,
-                    data: params,
-                    dataType: "jsonp",
-                    jsonpCallback: "spellCheckCallback",
+                    url: '{% url 'pybo:check_spelling' %}',  // Django 뷰 URL
+                    data: { text: text },
+                    dataType: 'json',
+                    timeout: 5000, // 타임아웃 설정 (5초)
                     success: function(response) {
-                        console.log('Success:', response); // 디버깅용 로그
+                        $('#loading').hide();
+                        if (response.errata_count > 0) {
+                            $('#spellCheckResult').html(response.errors);
+                            $('#correctedText').html(response.correctedText); // HTML 렌더링
+                        } else {
+                            $('#spellCheckResult').html('맞춤법 오류 없음');
+                            $('#correctedText').html('모든 문장이 올바르게 작성되었습니다.');
+                        }
                     },
                     error: function(xhr, status, error) {
+                        $('#loading').hide();
                         console.error('Error:', status, error); // 디버깅용 로그
                         $('#spellCheckResult').text('맞춤법 검사 실패');
                     }
                 });
             }
-
-            window.spellCheckCallback = function(response) {
-                console.log('spellCheckCallback:', response); // 디버깅용 로그
-                const result = response.message.result;
-                if (result.errata_count > 0) {
-                    $('#spellCheckResult').html(result.errata_list.map(err => `${err.orgStr} => ${err.candWord}`).join(', '));
-                    $('#correctedText').html(result.html); // HTML 렌더링
-                } else {
-                    $('#spellCheckResult').html('맞춤법 오류 없음');
-                    $('#correctedText').html('모든 문장이 올바르게 작성되었습니다.');
-                }
-            }
-
         });
-
     </script>
-</body>
-</html>
+{% endblock %}

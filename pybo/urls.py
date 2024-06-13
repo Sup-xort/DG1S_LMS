@@ -22,4 +22,5 @@ urlpatterns = [
     path('neis/', views.neis, name='neis'),
     path('precard/create/many/<str:l>/', views.name, name='name'),
     path('precard/form/<str:l>/', views.PreCard_create_many, name='PreCard_create_many'),
+    path('check_spelling', views.check_spelling, name='check_spelling'),
 ]
