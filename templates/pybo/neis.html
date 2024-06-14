@@ -29,8 +29,17 @@
     <div style="padding: 50px;font-family: 'Gmarket'">
         <h1>글자수세기</h1>
         <div class="form-floating" style="border: 2px solid darkslategray; border-top-left-radius: 10px; border-top-right-radius: 10px; padding: 20px; padding-left: 30px">
-            <h6 style="font-family: 'Gmarket'">입력창</h6>
-            <textarea class="form-control no-outline" id="textInput" style="font-size: 15px; min-height:300px; border: none; outline:none; font-family:'KoPub';"></textarea>
+            <div style="display:flex; flex-wrap: wrap">
+                <div style="min-width: 400px;width: 50%">
+                    <h6 style="font-family: 'Gmarket'">입력창</h6>
+                    <textarea class="form-control no-outline" id="textInput" style="font-size: 17px; min-height:300px; border: none; outline:none; font-family:'KoPub'; resize: both" spellcheck="false"></textarea>
+                </div>
+                <div style="min-width: 400px; width: 50%">
+                    <h6 style="font-family: 'Gmarket'; margin:0px">맞춤법 검사 결과</h6>
+                    <span id="spellCheckResult" style="font-size: 17px;font-family:'KoPub';padding-left: 5px"></span>
+                    <div class="corrected-text" id="correctedText" style="font-family: 'kopub'; padding-left: 10px; resize:both"></div>
+                </div>
+            </div>
             <div style="margin-top: 10px;">
                 <button class='btn btn-success' id="checkButton">맞춤법 검사</button>
                 <label for="fontSize" style="margin-left: 10px;">글자 크기:</label>
@@ -59,10 +68,7 @@
                     </tr>
                 </tbody>
             </table>
-            <br>
-            <h6 style="font-family: 'Gmarket'">맞춤법 검사 결과</h6>
-            <span id="spellCheckResult"></span>
-            <div class="corrected-text" id="correctedText" style=""></div>
+
         </div>
 
         <br>
@@ -101,6 +107,7 @@
             $('#fontSize').on('input', function() {
                 const fontSize = $(this).val();
                 $('#textInput').css('font-size', fontSize + 'px');
+                $('#correctedText').css('font-size', fontSize + 'px');
             });
 
             // 글자 수와 바이트 수 업데이트
