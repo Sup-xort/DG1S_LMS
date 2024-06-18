@@ -1,30 +1,31 @@
 {% extends 'base.html' %}
 {% block content %}
-    <form action="{% url 'pybo:name' l %}" method="get" id="loc" style="font-family: 'gmarket';width: 100%; height: 60%; padding: 25%; align-content: center">
-        <div>
-            <label for="loc-input" class="form-label">학번 혹은 이름</label>
-            <input class="form-control" list="datalistOptions" id="loc-input" name="loc" placeholder="학번이나 이름을 입력하세요." type="search">
-            <datalist id="datalistOptions">
-                {% for i in lib %}
-                    <option value={{ i }}>
-                {% endfor %}
-            </datalist>
-        </div>
-        <br>
-        <div>
-            <button class="btn btn-outline-success" type="submit"> 다음 </button>
-            <input class="btn btn-success" type="submit" value="완료" onclick="appendAsterisk()">
-        </div>
-    </form>
-
+    <div style="display: flex; align-items: center; justify-content: center; height: calc(100vh - 120px); font-family: 'gmarket';">
+        <form action="{% url 'pybo:name' l %}" method="get" id="loc" style="width: 100%; max-width: 400px; margin: auto;">
+            <div>
+                <label for="loc-input" class="form-label">학번 혹은 이름</label>
+                <input class="form-control" list="datalistOptions" id="loc-input" name="loc" placeholder="학번이나 이름을 입력하세요." type="search">
+                <datalist id="datalistOptions">
+                    {% for i in lib %}
+                        <option value="{{ i }}">
+                    {% endfor %}
+                </datalist>
+            </div>
+            <br>
+            <div style="text-align: center;">
+                <button class="btn btn-outline-success" type="submit"> 다음 </button>
+                <input class="btn btn-success" type="submit" value="완료" onclick="appendAsterisk()">
+            </div>
+        </form>
+    </div>
 
     <script>
         function appendAsterisk() {
-        var input = document.getElementById('loc-input');
-        if (!input.value.endsWith('*')) {
-            input.value += '*';
+            var input = document.getElementById('loc-input');
+            if (!input.value.endsWith('*')) {
+                input.value += '*';
+            }
+            return true;
         }
-        return true;
-    }
     </script>
 {% endblock %}
