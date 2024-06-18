@@ -76,11 +76,24 @@ def PreCard_create(request, stu_id):
 def toQuick(request):
     num = request.POST.get('num')
     stu = Student.objects.filter(num=num).first()
-    return render(request, 'pybo/quick.html', {'student': stu})
+
+    page = request.GET.get('page', '1')
+    card = stu.card_set.order_by('-moving_date')
+
+    paginator = Paginator(card, 10)
+    page_obj = paginator.get_page(page)
+    context = {'student': stu, 'card': page_obj}
+    return render(request, 'pybo/quick.html', {'student': stu, 'card': page_obj})
 
 def Quick(request, stu_num):
     stu = Student.objects.filter(num=stu_num).first()
-    return render(request, 'pybo/quick.html', {'student': stu})
+    page = request.GET.get('page', '1')
+    card = stu.card_set.order_by('-moving_date')
+
+    paginator = Paginator(card, 10)
+    page_obj = paginator.get_page(page)
+    context = {'student': stu, 'card': page_obj}
+    return render(request, 'pybo/quick.html', {'student': stu, 'card': page_obj})
 
 def table(request):
     batch = [[2115, 2114, 2113, 2112, 2111, 2110, 2109, 2108, 2107, 2106, 2105, 2104, 2103, 2102, 2101],
@@ -236,22 +249,29 @@ def check_spelling(request):
 def status_board(request):
     stus = Student.objects.prefetch_related('card_set').all()
     rest = []
-    rest_t = []
     standing = []
-    standing_t = []
     out = []
-    out_t = []
+
+    def format_timedelta(td):
+        total_seconds = int(td.total_seconds())
+        hours, remainder = divmod(total_seconds, 3600)
+        minutes, _ = divmod(remainder, 60)
+        return f'{hours}시간 {minutes}분'
 
     for stu in stus:
         last_card = stu.card_set.last()
-        if last_card.moving_date.date() == timezone.now().date():
-            if last_card:
-                if '화장실' in last_card.to:
-                    rest.append(last_card)
-                    rest_t.append(timezone.now().time() - last_card.moving_date.time())
-                elif '장탁' in last_card.to:
-                    standing.append(last_card)
-                elif '특별실' in last_card.to:
-                    out.append(last_card)
+        if last_card and last_card.moving_date.date() == timezone.now().date():
+            time_diff = timezone.now() - last_card.moving_date
+            formatted_time_diff = format_timedelta(time_diff)
+            if '화장실' in last_card.to:
+                rest.append((last_card, formatted_time_diff))
+            elif '장탁' in last_card.to:
+                standing.append((last_card, formatted_time_diff))
+            elif '특별실' in last_card.to:
+                out.append((last_card, formatted_time_diff))
 
-    return render(request, 'pybo/status_board.html', {'rest': rest, 'standing': standing, 'out': out})
+    return render(request, 'pybo/status_board.html', {
+        'rest': rest,
+        'standing': standing,
+        'out': out
+    })
