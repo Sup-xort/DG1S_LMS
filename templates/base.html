@@ -66,28 +66,28 @@
     </style>
 </head>
 <body>
-{% include "navbar.html" %}
-<!-- 기본 템플릿 안에 삽입될 내용 Start -->
-<!-- Bootstrap JS -->
-<script src="{% static 'bootstrap.min.js' %}"></script>
-{% block content %}
-{% endblock %}
-<!-- 기본 템플릿 안에 삽입될 내용 End -->
-<div style = "text-align:center;margin-top:2px;" class="border-top">
-    <br>
-    <div style="font-size:.7rem;font-family:'Gmarket'">
-        <span> <a href="https://forms.gle/hR6gW2JaZXz6k7Kr5">불편접수</a></span> |
-        <span> <a href="https://github.com/Kor-jiwon">개발자 정보</a></span>
-    </div>
-    <div style="margin-top:1rem;">
-        <footer>
-            <h6 style="font-family: 'SUGANG';font-size: 20px;">LIM JIWON</h6>
-            <h6 style="font-family: 'SUGANG';font-size: 17px;margin: 10px">BAEK KYEONG HOON</h6>
-            <h6 style="font-family: 'SUGANG';font-size: 17px;margin: 10px">KWON HOSEUNG | KIM SIHEON</h6>
-            all rights reserved to.
-        </footer>
-    </div>
+    {% include "navbar.html" %}
+    <!-- 기본 템플릿 안에 삽입될 내용 Start -->
+    <!-- Bootstrap JS -->
+    <script src="{% static 'bootstrap.min.js' %}"></script>
+    {% block content %}
+    {% endblock %}
+    <!-- 기본 템플릿 안에 삽입될 내용 End -->
+    <div style = "text-align:center;margin-top:2px;" class="border-top">
+        <br>
+        <div style="font-size:.7rem;font-family:'Gmarket'">
+            <span> <a href="https://forms.gle/hR6gW2JaZXz6k7Kr5">불편접수</a></span> |
+            <span> <a href="https://github.com/Kor-jiwon">개발자 정보</a></span>
+        </div>
+        <div style="margin-top:1rem;">
+            <footer>
+                <h6 style="font-family: 'SUGANG';font-size: 20px;">LIM JIWON</h6>
+                <h6 style="font-family: 'SUGANG';font-size: 17px;margin: 10px">BAEK KYEONG HOON</h6>
+                <h6 style="font-family: 'SUGANG';font-size: 17px;margin: 10px">KWON HOSEUNG | KIM SIHEON</h6>
+                all rights reserved to.
+            </footer>
+        </div>
 
-</div>
+    </div>
 </body>
 </html>

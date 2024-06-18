@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container" style="height: 100vh;">
+    <div class="row" style="height: 50%;">
+        <div class="col-6 d-flex flex-column">
+            <h2>화장실</h2>
+            <div class="table-responsive flex-grow-1 overflow-auto">
+                <table class="table">
+                    <thead>
+                        <tr class="table-secondary">
+                            <th>학번</th>
+                            <th>이름</th>
+                            <th>등록일시</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for i in rest %}
+                        <tr>
+                            <td>{{ i.stu.num }}</td>
+                            <td>{{ i.stu.name }}</td>
+                            <td>{{ i.moving_date }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-6 d-flex flex-column">
+            <h2>장탁</h2>
+            <div class="table-responsive flex-grow-1 overflow-auto">
+                <table class="table">
+                    <thead>
+                        <tr class="table-secondary">
+                            <th>학번</th>
+                            <th>이름</th>
+                            <th>등록일시</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for i in standing %}
+                        <tr>
+                            <td>{{ i.stu.num }}</td>
+                            <td>{{ i.stu.name }}</td>
+                            <td>{{ i.moving_date }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="row" style="height: 50%;">
+        <div class="col-12 d-flex flex-column">
+            <h2>특별실</h2>
+            <div class="table-responsive flex-grow-1 overflow-auto">
+                <table class="table">
+                    <thead>
+                        <tr class="table-secondary">
+                            <th>학번</th>
+                            <th>이름</th>
+                            <th>위치</th>
+                            <th>등록일시</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for i in out %}
+                        <tr>
+                            <td>{{ i.stu.num }}</td>
+                            <td>{{ i.stu.name }}</td>
+                            <td>{{ i.to }}</td>
+                            <td>{{ i.moving_date }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
