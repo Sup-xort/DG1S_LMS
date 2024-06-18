@@ -255,8 +255,13 @@ def status_board(request):
         return f'{hours}시간 {minutes}분'
 
     for stu in stus:
-        last_card = stu.card_set.last()
-        if last_card and last_card.moving_date.date() + timedelta(hours=9) == timezone.now().date():
+    last_card = stu.card_set.last()
+    if last_card:
+        # last_card의 moving_date와 현재 시간을 비교
+        last_card_date = last_card.moving_date.astimezone(timezone.get_current_timezone()).date()
+        current_date = timezone.now().astimezone(timezone.get_current_timezone()).date()
+
+        if last_card_date == current_date:
             time_diff = timezone.now() - last_card.moving_date
             formatted_time_diff = format_timedelta(time_diff)
             if '화장실' in last_card.to:
@@ -266,8 +271,8 @@ def status_board(request):
             elif '특별실' in last_card.to:
                 out.append((last_card, formatted_time_diff))
 
-    return render(request, 'pybo/status_board.html', {
-        'rest': rest,
-        'standing': standing,
-        'out': out
-    })
+        return render(request, 'pybo/status_board.html', {
+            'rest': rest,
+            'standing': standing,
+            'out': out
+        })
