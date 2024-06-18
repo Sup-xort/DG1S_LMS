@@ -13,6 +13,7 @@ class Card(models.Model):
     to = models.CharField(max_length=40)
     why = models.TextField(null=True, blank=True)
     moving_date = models.DateTimeField()
+    ip = models.GenericIPAddressField()
 
     def __str__(self):
         return (str(self.stu.num)+' '+self.stu.name + '  ' +  self.to)
@@ -22,6 +23,7 @@ class PreCard(models.Model):
     to = models.CharField(max_length=40)
     why = models.TextField(null=True, blank=True)
     moving_date = models.DateTimeField()
+    ip = models.GenericIPAddressField()
 
     category = (('1차야자', '1차야자'), ('8, 9교시', '8, 9교시'))
     time = models.CharField(max_length=20, choices=category)

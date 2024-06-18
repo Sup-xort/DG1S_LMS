@@ -16,6 +16,14 @@ import time
 def home(request):
     return hhome(request, 0)
 
+def get_client_ip(request):
+    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+    if x_forwarded_for:
+        ip = x_forwarded_for.split(',')[0]  # X-Forwarded-For 헤더는 쉼표로 구분된 IP 목록을 포함할 수 있습니다.
+    else:
+        ip = request.META.get('REMOTE_ADDR')
+    return ip
+
 def hhome(request, day):
     dish = meal(int(day))
     context = {'b': dish[0], 'l': dish[1], 'd': dish[2], 't':dish[3], 'day':day}
@@ -56,7 +64,7 @@ def detail(request, stu_id):
 
 def Card_create(request, stu_id):
     student = get_object_or_404(Student, pk=stu_id)
-    student.card_set.create(to=request.GET.get('loc'), why='', moving_date=timezone.now())
+    student.card_set.create(to=request.GET.get('loc'), why='', moving_date=timezone.now(), ip=get_client_ip(request))
     return redirect('pybo:detail', stu_id=student.id)
 
 def PreCard_create(request, stu_id):
@@ -67,6 +75,7 @@ def PreCard_create(request, stu_id):
             card.to = "특별실(" + str(card.to) + ")"
             card.stu = Student.objects.get(id=stu_id)
             card.moving_date = timezone.now()
+            card.ip = get_client_ip(request)
             card.save()
             return redirect('pybo:index')
     else:
@@ -134,20 +143,6 @@ def table(request):
 def toolbox(request):
     return render(request, 'pybo/toolbox.html')
 
-def PreCard_create(request, stu_id):
-    if request.method == 'POST':
-        form = CardForm(request.POST)
-        if form.is_valid():
-            card = form.save(commit=False)
-            card.to = "특별실(" + str(card.to) + ")"
-            card.stu = Student.objects.get(id=stu_id)
-            card.moving_date = timezone.now()
-            card.save()
-            return redirect('pybo:index')
-    else:
-        form = CardForm()
-    return render(request, 'pybo/question_form.html', {'form': form, 'stu_id': stu_id})
-
 def hmltolatex(request):
     return render(request, 'pybo/hmltolatex.html')
 
@@ -197,6 +192,7 @@ def PreCard_create_many(request, l):
                 card.to = "특별실(" + str(form.save(commit=False).to) + ")"
                 card.moving_date = timezone.now()
                 card.time = form.save(commit=False).time
+                card.ip = get_client_ip(request)
                 card.stu = stu
                 card.save()
             return redirect('pybo:home')
