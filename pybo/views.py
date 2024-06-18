@@ -236,17 +236,22 @@ def check_spelling(request):
 def status_board(request):
     stus = Student.objects.prefetch_related('card_set').all()
     rest = []
+    rest_t = []
     standing = []
+    standing_t = []
     out = []
+    out_t = []
 
     for stu in stus:
         last_card = stu.card_set.last()
-        if last_card:
-            if '화장실' in last_card.to:
-                rest.append(last_card)
-            elif '장탁' in last_card.to:
-                standing.append(last_card)
-            elif '특별실' in last_card.to:
-                out.append(last_card)
+        if last_card.moving_date.date() == timezone.now().date():
+            if last_card:
+                if '화장실' in last_card.to:
+                    rest.append(last_card)
+                    rest_t.append(timezone.now().time() - last_card.moving_date.time())
+                elif '장탁' in last_card.to:
+                    standing.append(last_card)
+                elif '특별실' in last_card.to:
+                    out.append(last_card)
 
     return render(request, 'pybo/status_board.html', {'rest': rest, 'standing': standing, 'out': out})

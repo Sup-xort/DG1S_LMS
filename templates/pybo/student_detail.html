@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class="container-sm my-3">
+<div class="container-sm my-3" style="font-family: 'kopub';height: 100%;">
     <!-- 질문 -->
     <h2 class="border-bottom py-2" style="font-weight: bolder" > {{ student.num }} {{ student.name }}</h2>
     <div class="card my-3">
@@ -40,7 +40,7 @@
             </tbody>
         </table>
         <!-- 페이징처리 시작 -->
-    <ul class="pagination justify-content-center">
+        <ul class="pagination justify-content-center">
         <!-- 이전페이지 -->
         {% if stu_list.has_previous %}
         <li class="page-item">
@@ -99,5 +99,9 @@
             </div>
         </div>
     </div>
-
+</div>
+    <br>
+    <br>
+    <br>
+    <br>
 {% endblock %}

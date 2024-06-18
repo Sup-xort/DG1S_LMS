@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class="container">
+<div class="container" style="font-family: 'kopub'">
     <h5 class="my-3 border-bottom pb-2">특별실 사용 신청</h5>
     <form action="{% url 'pybo:PreCard_create' stu_id %}" method="post">
         {% csrf_token %}

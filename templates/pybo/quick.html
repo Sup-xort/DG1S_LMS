@@ -1,8 +1,8 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class="container my-3">
+<div class="container my-3" style="font-family: 'kopub';font-size: 20px;height: 600px">
     <!-- 질문 -->
-    <h2 class="border-bottom py-2" style="font-weight: bolder" > {{ student.num }} {{ student.name }}</h2>
+    <h2 class="border-bottom py-2" style="font-weight: bolder;" > {{ student.num }} {{ student.name }}</h2>
     <div class="card my-3">
         <div class="card-body">
             <div class="card-text" style="white-space: pre-line;">
@@ -16,15 +16,16 @@
             </div>
         </div>
     </div>
+    <div style="margin-bottom: 50px"></div>
     <!-- 답변 -->
-    <h5 class="border-bottom my-3 py-2">이동 보고</h5>
+    <h5 class="border-bottom my-3 py-2" style="font-size: 25px">이동 보고</h5>
     <div class="container-sm">
         <div class="container">
             <div class="row">
                 <form action="{% url 'pybo:card_create' student.id %}" method="get" id="loc">
                     {% csrf_token %}
                         <div class="col-sm">
-                            <select name="loc" id="loc" class='form-select' size=3>
+                            <select name="loc" id="loc" class='form-select-lg'>
                                 <option value="화장실" class="list-group-item">화장실</option>
                                 <option value="장탁이용중" class="list-group-item">장탁</option>
                                 <option value="재실" class="list-group-item">복귀</option>
@@ -39,6 +40,7 @@
         </div>
     </div>
 </div>
+
 
 
 {% endblock %}
