@@ -4,7 +4,7 @@
   "icons": [
     {
       "src": "/static/images/mlogo.png",
-      "sizes": "192x192",
+      "sizes": "378x378",
       "type": "image/png",
       "purpose": "any maskable"
     }
