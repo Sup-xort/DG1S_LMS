@@ -256,7 +256,7 @@ def status_board(request):
 
     for stu in stus:
         last_card = stu.card_set.last()
-        if last_card and last_card.moving_date.date() == timezone.now().date():
+        if last_card and last_card.moving_date.date() + timedelta(hours=9) == timezone.now().date():
             time_diff = timezone.now() - last_card.moving_date
             formatted_time_diff = format_timedelta(time_diff)
             if '화장실' in last_card.to:
