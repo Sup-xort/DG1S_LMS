@@ -233,3 +233,20 @@ def check_spelling(request):
     else:
         return JsonResponse({'error': 'Failed to contact spelling service'}, status=response.status_code)
 
+def status_board(request):
+    stus = Student.objects.prefetch_related('card_set').all()
+    rest = []
+    standing = []
+    out = []
+
+    for stu in stus:
+        last_card = stu.card_set.last()
+        if last_card:
+            if '화장실' in last_card.to:
+                rest.append(last_card)
+            elif '장탁' in last_card.to:
+                standing.append(last_card)
+            elif '특별실' in last_card.to:
+                out.append(last_card)
+
+    return render(request, 'pybo/status_board.html', {'rest': rest, 'standing': standing, 'out': out})
