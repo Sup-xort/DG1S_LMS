@@ -275,4 +275,5 @@ def status_board(request):
                 'rest': rest,
                 'standing': standing,
                 'out': out
+                't': current_date
             })
