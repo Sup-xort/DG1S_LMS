@@ -275,5 +275,5 @@ def status_board(request):
         'rest': rest,
         'standing': standing,
         'out': out,
-        'ctime': current_date
+        'ctime': timezone.now()
     })
