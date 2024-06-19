@@ -274,6 +274,6 @@ def status_board(request):
     return render(request, 'pybo/status_board.html', {
         'rest': rest,
         'standing': standing,
-        'out': out
+        'out': out,
         'ctime': current_date
     })
