@@ -19,7 +19,7 @@
                                 <td>{{ i.stu.num }}</td>
                                 <td>{{ i.stu.name }}</td>
                                 <td>{{ i.moving_date}}</td>
-                                <td>{{ c }}</td>
+                                <td>{{ t }}</td>
                             </tr>
                         {% endfor %}
                     </tbody>
@@ -75,8 +75,8 @@
                 </tbody>
             </table>
         </div>
-        <div style='text-align:center'>
-            <h3 style='font-family:'KoPub' margin: 10px'>기준시각: {{ ctime }}</h3>
+        <div style='color:gray;margin:20px'>
+            ※{{ ctime }} 기준
         </div>
     </div>
 {% endblock %}
