@@ -271,9 +271,9 @@ def status_board(request):
                 elif '특별실' in last_card.to:
                     out.append((last_card, formatted_time_diff))
     
-            return render(request, 'pybo/status_board.html', {
-                'rest': rest,
-                'standing': standing,
-                'out': out
-                't': current_date
-            })
+    return render(request, 'pybo/status_board.html', {
+        'rest': rest,
+        'standing': standing,
+        'out': out
+        'ctime': current_date
+    })
