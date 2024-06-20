@@ -277,3 +277,14 @@ def status_board(request):
         'out': out,
         'ctime': timezone.now()
     })
+
+
+def reset(request):
+    stu = Student.objects.all()
+    for i in stu:
+        card = Card(stu = i, to='재실', why='관리자에 의해 초기화되었습니다.', moving_date=timezone.now(),
+                                ip=get_client_ip(request))
+        card.save()
+
+    return table(request)
+
