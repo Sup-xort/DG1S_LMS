@@ -136,7 +136,7 @@ def table(request):
                         color = '#af6ef3'
                         to = to.to[4:-1]
                     else:
-                        color = '#33FFBE'
+                        color = '#43DC6C'
                         to = to.to
 
 
