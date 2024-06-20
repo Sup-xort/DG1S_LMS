@@ -1,10 +1,10 @@
 {% extends 'base.html' %}
 {% block content %}
     <div style="display: flex; align-items: center; justify-content: center; height: calc(100vh - 120px); font-family: 'gmarket';">
-        <form action="{% url 'pybo:name' l %}" method="get" id="loc" style="width: 100%; max-width: 400px; margin: auto;">
+        <form action="{% url 'pybo:name' l %}" method="get" id="loc" style="text-align: center; max-width: 400px; margin: auto;">
             <div>
-                <label for="loc-input" class="form-label">학번 혹은 이름</label>
-                <input class="form-control" list="datalistOptions" id="loc-input" name="loc" placeholder="학번이나 이름을 입력하세요." type="search">
+                <label for="loc-input" class="form-label" style="font-size: 20px">학번 혹은 이름</label>
+                <input class="form-control-lg" style="" list="datalistOptions" id="loc-input" name="loc" type="search">
                 <datalist id="datalistOptions">
                     {% for i in lib %}
                         <option value="{{ i }}">

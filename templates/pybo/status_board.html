@@ -51,6 +51,31 @@
             </div>
         </div>
         <div style="margin-left:auto;margin-right:auto;width: 90%;height: 45%">
+            <h2>기타</h2>
+            <table class="table" style="">
+                <thead>
+                    <tr class="table-secondary">
+                        <th>학번</th>
+                        <th>이름</th>
+                        <th>위치</th>
+                        <th>등록일시</th>
+                        <th>경과시간</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for i, t in etc %}
+                        <tr>
+                            <td>{{ i.stu.num }}</td>
+                            <td>{{ i.stu.name }}</td>
+                            <td>{{ i.to }}</td>
+                            <td>{{ i.moving_date.time }}</td>
+                            <td>{{ t }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div style="margin-left:auto;margin-right:auto;width: 90%;height: 45%">
             <h2>특별실</h2>
             <table class="table" style="">
                 <thead>

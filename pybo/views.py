@@ -122,18 +122,23 @@ def table(request):
                 if to == None:
                     color = '#e0dede'
                     to = ''
-                elif '화장실' == to.to:
-                    color = '#ffb056'
-                    to = to.to
-                elif '장탁이용중' == to.to:
-                    color = '#569fff'
-                    to = to.to
-                elif '특별실' == to.to[:3]:
-                    color = '#af6ef3'
-                    to = to.to[4:-1]
-                else:
+                elif '재실' == to.to:
                     color = '#e0dede'
                     to = ''
+                else:
+                    if '화장실' == to.to:
+                        color = '#ffb056'
+                        to = to.to
+                    elif '장탁이용중' == to.to:
+                        color = '#569fff'
+                        to = to.to
+                    elif '특별실' == to.to[:3]:
+                        color = '#af6ef3'
+                        to = to.to[4:-1]
+                    else:
+                        color = '#33FFBE'
+                        to = to.to
+
 
                 bat[i].append([batch[i][j], s.name, color, to])
             else:
@@ -246,6 +251,7 @@ def status_board(request):
     stus = Student.objects.prefetch_related('card_set').all()
     rest = []
     standing = []
+    etc = []
     out = []
 
     def format_timedelta(td):
@@ -264,17 +270,21 @@ def status_board(request):
             if last_card_date == current_date:
                 time_diff = timezone.now() - last_card.moving_date
                 formatted_time_diff = format_timedelta(time_diff)
-                if '화장실' in last_card.to:
-                    rest.append((last_card, formatted_time_diff))
-                elif '장탁' in last_card.to:
-                    standing.append((last_card, formatted_time_diff))
-                elif '특별실' in last_card.to:
-                    out.append((last_card, formatted_time_diff))
+                if '재실' not in last_card.to:
+                    if '화장실' in last_card.to:
+                        rest.append((last_card, formatted_time_diff))
+                    elif '장탁' in last_card.to:
+                        standing.append((last_card, formatted_time_diff))
+                    elif '특별실' in last_card.to:
+                        out.append((last_card, formatted_time_diff))
+                    else:
+                        etc.append((last_card, formatted_time_diff))
     
     return render(request, 'pybo/status_board.html', {
         'rest': rest,
         'standing': standing,
         'out': out,
+        'etc': etc,
         'ctime': timezone.now()
     })
 

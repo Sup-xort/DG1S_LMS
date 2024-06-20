@@ -85,10 +85,13 @@
                 <form action="{% url 'pybo:card_create' student.id %}" method="get" id="loc">
                     {% csrf_token %}
                         <div class="col-sm">
-                            <select name="loc" id="loc" class='form-select' size=3>
+                            <select name="loc" id="loc" class='form-select' size=6>
+                                <option value="재실" class="list-group-item">복귀</option>
                                 <option value="화장실" class="list-group-item">화장실</option>
                                 <option value="장탁이용중" class="list-group-item">장탁</option>
-                                <option value="재실" class="list-group-item">복귀</option>
+                                <option value="교실" class="list-group-item">교실</option>
+                                <option value="도서관" class="list-group-item">도서관</option>
+                                <option value="정수기" class="list-group-item">정수기</option>
                             </select>
                         </div>
                         <div class="col-sm">
