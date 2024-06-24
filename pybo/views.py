@@ -65,7 +65,7 @@ def detail(request, stu_id):
 def Card_create(request, stu_id):
     student = get_object_or_404(Student, pk=stu_id)
     student.card_set.create(to=request.GET.get('loc'), why='', moving_date=timezone.now(), ip=get_client_ip(request))
-    return redirect('pybo:detail', stu_id=student.id)
+    return redirect('pybo:table')
 
 def PreCard_create(request, stu_id):
     if request.method == 'POST':
