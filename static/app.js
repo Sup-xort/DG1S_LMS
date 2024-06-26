@@ -1,6 +1,7 @@
 let deferredPrompt;
 
 window.addEventListener('beforeinstallprompt', (e) => {
+    console.log('beforeinstallprompt event triggered'); // 디버깅을 위한 콘솔 로그
     // Prevent the mini-infobar from appearing on mobile
     e.preventDefault();
     // Stash the event so it can be triggered later.
@@ -10,6 +11,7 @@ window.addEventListener('beforeinstallprompt', (e) => {
     addBtn.style.display = 'block';
 
     addBtn.addEventListener('click', () => {
+        console.log('Add to home screen button clicked'); // 디버깅을 위한 콘솔 로그
         // Show the prompt
         deferredPrompt.prompt();
         // Wait for the user to respond to the prompt
