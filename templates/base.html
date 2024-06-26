@@ -74,6 +74,21 @@
             cursor: pointer;
             border-radius: 5px;
         }
+        #ios-add-to-home-screen {
+            position: fixed;
+            bottom: 30px;
+            font-size: 18px;
+            left: 50%;
+            font-family: 'kopub';
+            transform: translateX(-50%);
+            background: white;
+            border: 1px solid #ccc;
+            padding: 10px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            justify-content: center;
+            align-items: center;
+        }
     </style>
 </head>
 <body>
@@ -81,6 +96,7 @@
     <!-- 기본 템플릿 안에 삽입될 내용 Start -->
     <!-- Bootstrap JS -->
     <script src="{% static 'bootstrap.min.js' %}"></script>
+    <script src="{% static 'app.js' %}"></script>
     {% block content %}
     {% endblock %}
     <!-- 기본 템플릿 안에 삽입될 내용 End -->

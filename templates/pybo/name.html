@@ -1,10 +1,10 @@
 {% extends 'base.html' %}
 {% block content %}
-    <div style="display: flex; align-items: center; justify-content: center; height: calc(100vh - 120px); font-family: 'gmarket';">
-        <form action="{% url 'pybo:name' l %}" method="get" id="loc" style="text-align: center; max-width: 400px; margin: auto;">
+    <div style="display: flex; align-items: center; justify-content: center; height: calc(100vh - 300px); font-family: 'gmarket';">
+        <form action="{% url 'pybo:name' l %}" method="get" id="loc" style="text-align: center; max-width: 400px;">
             <div>
                 <label for="loc-input" class="form-label" style="font-size: 20px">학번 혹은 이름</label>
-                <input class="form-control-lg" style="" list="datalistOptions" id="loc-input" name="loc" type="search">
+                <input class="form-control-lg" style="max-width: 300px" list="datalistOptions" id="loc-input" name="loc" type="search">
                 <datalist id="datalistOptions">
                     {% for i in lib %}
                         <option value="{{ i }}">
@@ -18,6 +18,7 @@
             </div>
         </form>
     </div>
+    <div style="margin:150px"></div>
 
     <script>
         function appendAsterisk() {
