@@ -1,5 +1,5 @@
 {
-  "name": "DG1S WEB SYS",
+  "name": "DG1S",
   "short_name": "DG1S",
   "icons": [
     {
@@ -9,8 +9,9 @@
       "purpose": "any maskable"
     }
   ],
+  "description": "대구일과학고등학교 자습 관리 시스템",
   "start_url": "/",
-  "display": "standalone",
-  "theme_color": "#000000",
+  "display": "fullscreen",
+  "theme_color": "#f7fafb",
   "background_color": "#ffffff"
 }

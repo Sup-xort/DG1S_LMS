@@ -98,6 +98,13 @@
     <!-- Bootstrap JS -->
     <script src="{% static 'bootstrap.min.js' %}"></script>
     <script src="{% static 'app.js' %}"></script>
+     <script>
+      (function () {
+        if ("serviceWorker" in navigator) {
+          navigator.serviceWorker.register("{% static 'sw.js' %}");
+        }
+      })();
+    </script>
     {% block content %}
     {% endblock %}
     <!-- 기본 템플릿 안에 삽입될 내용 End -->
