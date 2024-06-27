@@ -98,10 +98,16 @@
     <!-- Bootstrap JS -->
     <script src="{% static 'bootstrap.min.js' %}"></script>
     <script src="{% static 'app.js' %}"></script>
-     <script>
+    <script>
       (function () {
-        if ("serviceWorker" in navigator) {
-          navigator.serviceWorker.register("{% static 'sw.js' %}");
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register("{% static 'sw.js' %}")
+            .then(function(registration) {
+                console.log('Service Worker registered with scope:', registration.scope);
+            })
+            .catch(function(error) {
+                console.log('Service Worker registration failed:', error);
+            });
         }
       })();
     </script>
