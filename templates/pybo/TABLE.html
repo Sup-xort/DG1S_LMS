@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class="text-center" style="overflow-x: auto; white-space: nowrap;display: flex; width: 100%; justify-content: center; padding: 5px">
+<div class="text-center" style="margin-bottom:50px;overflow-x: auto; white-space: nowrap;display: flex; width: 100%; justify-content: center; padding: 5px">
     {% for i in batch %}
         <div class="srow">
             {% for j in i %}
@@ -22,11 +22,26 @@
     {% endfor %}
 
 </div>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
 
+<script>
+    let timeout;
 
+    function resetTimer() {
+        clearTimeout(timeout);
+        // 사용자 활동 후 10초 후에 페이지 새로고침
+        timeout = setTimeout(() => {
+            window.location.reload();
+        }, 10000);
+    }
+
+    // 사용자의 스크롤, 클릭, 키보드 입력 감지
+    window.onload = () => {
+        window.addEventListener('scroll', resetTimer, true);
+        window.addEventListener('click', resetTimer, true);
+        window.addEventListener('keypress', resetTimer, true);
+
+        // 처음 타이머 설정
+        resetTimer();
+    }
+</script>
 {% endblock %}

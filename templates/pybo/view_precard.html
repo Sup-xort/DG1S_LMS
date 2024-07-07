@@ -46,8 +46,8 @@
                             </td>
                             <td>
                                 <div class="btn-group" style="">
-                                    <a href="{% url 'pybo:password' p.0.id 2 %}" class="btn btn-outline-dark">수정</a>
-                                    <a href="{% url 'pybo:password' p.0.id 1 %}" class="btn btn-outline-danger">삭제</a>
+                                    <a href="{% url 'pybo:password' p.0.id 2 %}" class="btn btn-outline-dark"><i class="bi bi-pencil-square"></i></a>
+                                    <a href="{% url 'pybo:password' p.0.id 1 %}" class="btn btn-outline-danger"><i class="bi bi-eraser"></i></a>
                                 </div>
                             </td>
                         </tr>
@@ -61,7 +61,7 @@
             </table>
             <div style="text-align: right">
                 <a class="btn btn-secondary" href="{% url 'pybo:name' %}">
-                    <i class="bi bi-plus"></i> 추가
+                    <i class="bi bi-file-earmark-plus"></i> 추가
                 </a>
             </div>
         </div>
@@ -89,8 +89,8 @@
                             <p>{{ p.0.why }}</p>
                             <p>{{ p.0.time }}</p>
                             <div class="btn-group" style="">
-                                <a href="{% url 'pybo:password' p.0.id 2 %}" class="btn btn-outline-dark">수정</a>
-                                <a href="{% url 'pybo:password' p.0.id 1 %}" class="btn btn-outline-danger">삭제</a>
+                                <a href="{% url 'pybo:password' p.0.id 2 %}" class="btn btn-outline-dark"><i class="bi bi-pencil-square"></i></a>
+                                <a href="{% url 'pybo:password' p.0.id 1 %}" class="btn btn-outline-danger"><i class="bi bi-eraser"></i></a>
                             </div>
                         </div>
                         <div class="card-footer text-muted">
@@ -107,7 +107,7 @@
         </div>
         <div style="text-align: right">
             <a class="btn btn-secondary" href="{% url 'pybo:name' %}">
-                <i class="bi bi-plus"></i> 추가
+                <i class="bi bi-file-earmark-plus"></i> 추가
             </a>
         </div>
     </div>
@@ -145,47 +145,65 @@
     <div>
 
     <script>
-    function updateUrlParameter(param, value) {
-        var baseUrl = [location.protocol, '//', location.host, location.pathname].join('');
-        var urlQueryString = document.location.search;
-        var newParam = param + "=" + value;
-        var params = '?' + newParam;
+        function updateUrlParameter(param, value) {
+            var baseUrl = [location.protocol, '//', location.host, location.pathname].join('');
+            var urlQueryString = document.location.search;
+            var newParam = param + "=" + value;
+            var params = '?' + newParam;
 
-        // If the "search" string exists, then build params from it
-        if (urlQueryString) {
-            var keyRegex = new RegExp('([\?&])' + param + '[^&]*');
-            // If param exists already, update it
-            if (urlQueryString.match(keyRegex) !== null) {
-                params = urlQueryString.replace(keyRegex, "$1" + newParam);
-            } else { // Otherwise, add it to end of query string
-                params = urlQueryString + '&' + newParam;
+            // If the "search" string exists, then build params from it
+            if (urlQueryString) {
+                var keyRegex = new RegExp('([\?&])' + param + '[^&]*');
+                // If param exists already, update it
+                if (urlQueryString.match(keyRegex) !== null) {
+                    params = urlQueryString.replace(keyRegex, "$1" + newParam);
+                } else { // Otherwise, add it to end of query string
+                    params = urlQueryString + '&' + newParam;
+                }
             }
+            window.history.replaceState({}, "", baseUrl + params);
         }
-        window.history.replaceState({}, "", baseUrl + params);
-    }
 
-    function showTableView() {
-        document.getElementById('tableView').style.display = 'block';
-        document.getElementById('cardView').style.display = 'none';
-        updateUrlParameter('view', 'table');
-    }
-
-    function showCardView() {
-        document.getElementById('tableView').style.display = 'none';
-        document.getElementById('cardView').style.display = 'block';
-        updateUrlParameter('view', 'card');
-    }
-
-    // 페이지 로드 시 기본 뷰 설정
-    window.onload = function() {
-        const params = new URLSearchParams(window.location.search);
-        const view = params.get('view') || 'table';
-        if (view === 'card') {
-            showCardView();
-        } else {
-            showTableView();
+        function showTableView() {
+            document.getElementById('tableView').style.display = 'block';
+            document.getElementById('cardView').style.display = 'none';
+            updateUrlParameter('view', 'table');
         }
-    }
+
+        function showCardView() {
+            document.getElementById('tableView').style.display = 'none';
+            document.getElementById('cardView').style.display = 'block';
+            updateUrlParameter('view', 'card');
+        }
+
+        let timeout;
+
+        function resetTimer() {
+            clearTimeout(timeout);
+            // 사용자 활동 후 10초 후에 페이지 새로고침
+            timeout = setTimeout(() => {
+                window.location.reload();
+            }, 10000);
+        }
+
+        // 페이지 로드 시 기본 뷰 설정 및 타이머 초기화
+        window.onload = function() {
+            const params = new URLSearchParams(window.location.search);
+            const view = params.get('view') || 'table';
+            if (view === 'card') {
+                showCardView();
+            } else {
+                showTableView();
+            }
+
+            // 사용자 활동 감지를 위한 이벤트 리스너 설정
+            window.addEventListener('scroll', resetTimer, true);
+            window.addEventListener('click', resetTimer, true);
+            window.addEventListener('keypress', resetTimer, true);
+
+            // 처음 타이머 설정
+            resetTimer();
+        }
     </script>
 </div>
 {% endblock %}

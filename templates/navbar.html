@@ -42,7 +42,7 @@
             <a class="nav-link" href="/admin">관리자</a>
             <form class="d-flex" method="POST" action="{% url 'pybo:toQuick' %} " id="num" name="num">
                 {% csrf_token %}
-                <input class="form-control me-2" type="search" placeholder="Student No." id="num" name="num" aria-label="search">
+                <input class="form-control me-2" type="search" placeholder="학번 입력" id="num" name="num" aria-label="search">
                 <button class="btn btn-outline-success" type="submit"> Move </button>
             </form>
         </div>

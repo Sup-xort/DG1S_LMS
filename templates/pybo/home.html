@@ -14,8 +14,13 @@
         <div style="display: inline-block; text-align: center;">
             <form class="d-flex" method="POST" action="{% url 'pybo:toQuick' %}" id="num" name="num" style="width: 300px">
                 {% csrf_token %}
-                <input class="form-control me-2" type="search" style="font-family: 'gmarket'" placeholder="학번 입력" id="num" name="num" aria-label="search">
-                <button class="btn btn-outline-success" type="submit">Move</button>
+                <div class="input-group" style="width: 250px;">
+                    <input class="form-control" type="search" style="font-family: 'gmarket'" placeholder="학번 입력" id="num" name="num" aria-label="search">
+                    <button type="submit" class="btn btn-primary"><i class="bi bi-arrow-right-circle"></i></button>
+                </div>
+                <div>
+                    <a class="btn btn-warning" style="margin-left: 5px" href="{% url 'pybo:name' %}"><i class="bi bi-pencil-square"></i></a>
+                </div>
             </form>
         </div>
     </div>
@@ -82,7 +87,7 @@
             <h3 class="text p-2" style="font-family: 'gmarket';margin: 0px;">특별실 일괄신청</h3>
             <h6 class="text p-2" style="font-family: 'gmarket'; color:gray;margin: 0px">특별실 이동 신청을 한 번에 할 수 있어요.</h6>
             <br>
-            <a href="{% url 'pybo:name' %}" class="btn btn-outline-primary" style="color:black">신청하기</a>
+            <a href="{% url 'pybo:name' %}" class="btn btn-outline-primary" style="color:black"><i class="bi bi-pencil-square"></i> 신청하기</a>
         </div>
 
         <div class="col" style="min-width: 350px; height: 400px; text-align: center; align-content: center">
