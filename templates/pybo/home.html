@@ -97,7 +97,7 @@
             <a href="https://forms.gle/eUXwcgzMKLaGveDS9" class="btn btn-outline-primary" style="color:black">접수</a>
         </div>
     </div>
-    <div class="col" style="min-width: 350px; height: 400px; text-align: center; align-content: center; font-family: 'gmarket'">
+    <div class="col" id style="min-width: 350px; height: 400px; text-align: center; align-content: center; font-family: 'gmarket'">
             <h3 class="text p-2" style="font-family: 'gmarket';margin: 0px;">앱으로 사용</h3>
             <h6 class="text p-2" style="font-family: 'gmarket'; color:gray;margin: 0px">버튼을 눌러 앱처럼 활용해보세요.</h6>
             <div id="ios-add-to-home-screen" style="padding:10px">
@@ -107,4 +107,83 @@
             <button id="add-to-home-screen" class="btn btn-outline-primary">추가하기</button>
     </div>
 </div>
+
+<script>
+    let deferredPrompt;
+
+    window.addEventListener('beforeinstallprompt', (e) => {
+        console.log('beforeinstallprompt event triggered'); // 디버깅을 위한 콘솔 로그
+        e.preventDefault();
+        deferredPrompt = e;
+        const addBtn = document.getElementById('add-to-home-screen');
+        if (addBtn) {
+            addBtn.style.display = 'block';
+        } else {
+            console.error('Add to home screen button not found');
+        }
+    });
+
+    window.addEventListener('appinstalled', (evt) => {
+        console.log('a2hs', 'installed');
+    });
+
+    // Detect iOS
+    const isIos = () => {
+        const userAgent = window.navigator.userAgent.toLowerCase();
+        return /iphone|ipad|ipod/.test(userAgent);
+    }
+
+    // Detect if Safari
+    const isSafari = () => {
+        const userAgent = window.navigator.userAgent.toLowerCase();
+        return userAgent.includes('safari') && !userAgent.includes('chrome');
+    }
+
+    // Detect if in standalone mode
+    const isInStandaloneMode = () => ('standalone' in window.navigator) && (window.navigator.standalone);
+
+    // Show the install prompt if not in standalone mode
+    window.addEventListener('load', () => {
+        if (isIos() && isSafari() && !isInStandaloneMode()) {
+            const addToHomeScreen = document.getElementById('ios-add-to-home-screen');
+            if (addToHomeScreen) {
+                addToHomeScreen.style.display = 'block';
+            } else {
+                console.error('iOS add to home screen element not found');
+            }
+        }
+    });
+
+    // Function to handle button click
+    const handleAddToHomeScreenClick = () => {
+        if (deferredPrompt) {
+            deferredPrompt.prompt();
+            deferredPrompt.userChoice.then((choiceResult) => {
+                if (choiceResult.outcome === 'accepted') {
+                    console.log('User accepted the A2HS prompt');
+                } else {
+                    console.log('User dismissed the A2HS prompt');
+                    showHelpMessage();
+                }
+                deferredPrompt = null;
+            });
+        } else {
+            showHelpMessage();
+        }
+    }
+
+    // Function to show help message
+    const showHelpMessage = () => {
+        alert('To install the app, please use the browser menu and select "Add to Home Screen".');
+    }
+
+    // Add click event listener to the button
+    const addBtn = document.getElementById('add-to-home-screen');
+    if (addBtn) {
+        addBtn.onclick = handleAddToHomeScreenClick;
+    } else {
+        console.error('Add to home screen button not found');
+    }
+
+</script>
 {% endblock %}
