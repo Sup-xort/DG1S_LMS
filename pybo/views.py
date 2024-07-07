@@ -68,21 +68,6 @@ def Card_create(request, stu_id):
     student.card_set.create(to=request.GET.get('loc'), why='', moving_date=timezone.now(), ip=get_client_ip(request))
     return redirect('pybo:table')
 
-def PreCard_create(request, stu_id):
-    if request.method == 'POST':
-        form = CardForm(request.POST)
-        if form.is_valid():
-            card = form.save(commit=False)
-            card.to = "특별실(" + str(card.to) + ")"
-            card.stu = Student.objects.get(id=stu_id)
-            card.moving_date = timezone.now()
-            card.ip = get_client_ip(request)
-            card.save()
-            return redirect('pybo:index')
-    else:
-        form = CardForm()
-    return render(request, 'pybo/question_form.html', {'form': form, 'stu_id': stu_id})
-
 def toQuick(request):
     num = request.POST.get('num')
     stu = Student.objects.filter(num=num).first()
