@@ -1,7 +1,9 @@
 {% extends 'base.html' %}
 {% block content %}
-    <div style="display: flex; align-items: center; justify-content: center; height: calc(100vh - 300px); font-family: 'gmarket';">
-        <form action="{% url 'pybo:name' l %}" method="get" id="loc" style="text-align: center; max-width: 400px;">
+<div style="display: flex; align-items: center; justify-content: center; height: calc(100vh - 300px); font-family: 'gmarket';">
+    <form action="{% url 'pybo:name' %}" method="GET" id="loc" style="text-align: center; max-width: 400px;">
+        {% csrf_token %}
+        <div id="input-container">
             <div>
                 <label for="loc-input" class="form-label" style="font-size: 20px">학번 혹은 이름</label>
                 <input class="form-control-lg" style="max-width: 300px" list="datalistOptions" id="loc-input" name="loc" type="search">
@@ -11,22 +13,24 @@
                     {% endfor %}
                 </datalist>
             </div>
-            <br>
-            <div style="text-align: center;">
-                <button class="btn btn-outline-success" type="submit"> 다음 </button>
-                <input class="btn btn-success" type="submit" value="완료" onclick="appendAsterisk()">
-            </div>
-        </form>
-    </div>
-    <div style="margin:150px"></div>
+        </div>
+        <br>
+        <div class="btn-group" style="text-align: center;">
+            <input class="btn btn-outline-secondary" type="submit" value="완료">
+            <button type="button" class="btn btn-secondary" onclick="addInput()">+</button>
+        </div>
+    </form>
+</div>
+<div style="margin:150px"></div>
 
-    <script>
-        function appendAsterisk() {
-            var input = document.getElementById('loc-input');
-            if (!input.value.endsWith('*')) {
-                input.value += '*';
-            }
-            return true;
-        }
-    </script>
+<script>
+    function addInput() {
+        var container = document.getElementById('input-container');
+        var newInputDiv = document.createElement('div');
+        newInputDiv.innerHTML = `
+            <input class="form-control-lg" style="max-width: 300px; margin-top: 10px;" list="datalistOptions" name="loc" type="search">
+        `;
+        container.appendChild(newInputDiv);
+    }
+</script>
 {% endblock %}

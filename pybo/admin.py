@@ -27,24 +27,41 @@ class StudentAdmin(admin.ModelAdmin):
     actions = [set]
 
 class CardAdmin(admin.ModelAdmin):
-    search_fields = ['stu', 'to', 'why', 'moving_date', 'ip']
+    search_fields = ['stu__num', 'stu__name', 'to', 'why', 'moving_date', 'ip']
     list_display = ['stu', 'to', 'moving_date', 'ip']
     list_filter = ('to', ('moving_date', DateRangeFilter))
 
 class PreCardAdmin(admin.ModelAdmin):
-    search_fields = ['stu', 'time', 'to', 'why', 'moving_date', 'ip']
-    list_display = ['stu', 'to', 'time', 'moving_date', 'ip']
-    list_filter = ('to', 'time', ('moving_date', DateRangeFilter))
+    search_fields = ['stu__num', 'stu__name', 'time', 'to', 'why', 'moving_date', 'ip']
+    list_filter = ('to', 'time', ('moving_date', DateRangeFilter), 'approved')
+    list_display = ('get_stus', 'to', 'time', 'approved', 'moving_date', 'pw', 'ip')
 
-    @admin.action(description="Approve the request")
-    def approve(self, request, queryset):
+    def get_stus(self, obj):
+        return ", ".join([stu.name for stu in obj.stus.all()])
+
+    get_stus.short_description = 'Students'
+
+    @admin.action(description="Upload PreCard")
+    def Uploade(self, request, queryset):
+        ip_address = get_client_ip(request)
+        cnt = 0
+        for pcard in queryset:
+            if pcard.approved == True:
+                cnt += 1
+                for s in pcard.stus.all():
+                    card = Card(stu=s, to=pcard.to, why=pcard.why, moving_date=timezone.now(), ip=ip_address)
+                    card.save()
+        self.message_user(request, f"{queryset.count()}건중 승인된 {cnt}건의 요청이 이동 현황에 등록됩니다: request Uploaded.")
+
+    @admin.action(description="Approve PreCard")
+    def Approve(self, request, queryset):
         ip_address = get_client_ip(request)
         for pcard in queryset:
-            card = Card(stu=pcard.stu, to=pcard.to, why=pcard.why, moving_date=timezone.now(), ip=ip_address)
-            card.save()
-        self.message_user(request, f"{queryset.count()}건의 이동 요청이 승인되어 이동 현황에 등록됩니다: request approved.")
-
-    actions = [approve]
+            pcard.approved = True
+            pcard.save()
+        self.message_user(request, f"{queryset.count()}건의 이동 요청이 승인되었습니다: request approved.")
+    
+    actions = [Approve, Uploade]
 
 
 

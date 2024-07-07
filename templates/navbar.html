@@ -21,6 +21,9 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto">
                 <li class="nav-item">
+                    <a class="nav-link" href="{% url 'pybo:home' %}">홈</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="{% url 'pybo:index' %}">명렬</a>
                 </li>
                 <li class="nav-item">
@@ -30,10 +33,10 @@
                     <a class="nav-link" href="{% url 'pybo:table' %}">좌석표</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'pybo:status_board' %}">현황판</a>
+                    <a class="nav-link" href="{% url 'pybo:status_board' %}">이동 현황</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'pybo:toolbox' %}">도구</a>
+                    <a class="nav-link" href="{% url 'pybo:view_precard' %}">특별실 신청</a>
                 </li>
             </ul>
             <a class="nav-link" href="/admin">관리자</a>

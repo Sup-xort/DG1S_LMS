@@ -1,0 +1,191 @@
+{% extends 'base.html' %}
+{% block content %}
+<div style="font-family: 'Kopub'; padding: 5%; margin: auto">
+    <!-- 전환 버튼 -->
+    <div class="btn-group" style="">
+        <button class="btn btn-outline-dark" onclick="showTableView()">
+            <i class="bi bi-table"></i>
+        </button>
+        <button class="btn btn-outline-dark" onclick="showCardView()">
+            <i class="bi bi-grid-3x3-gap-fill"></i>
+        </button>
+    </div>
+
+    <!-- 테이블 뷰 -->
+    <div id="tableView" style="display: none;">
+        <div class="" style="font-family: 'Kopub';padding: 5%">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th class="text-center" style="max-width: 100px">인적사항</th>
+                        <th>위치</th>
+                        <th>시간</th>
+                        <th>승인</th>
+                        <th>엑션</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% if pcard %}
+                    {% for p in pcard %}
+                        <tr>
+                            <td class="text-center">
+                                {{ p.0 }}
+                            </td>
+                            <td>
+                                {{ p.2 }}
+                            </td>
+                            <td>
+                                {{ p.0.time }}
+                            </td>
+                            <td>
+                                {% if p.0.approved %}
+                                    <i class="bi bi-check-circle-fill text-success"></i>
+                                {% else %}
+                                    <i class="bi bi-x-circle-fill text-danger"></i>
+                                {% endif %}
+                            </td>
+                            <td>
+                                <div class="btn-group" style="">
+                                    <a href="{% url 'pybo:password' p.0.id 2 %}" class="btn btn-outline-dark">수정</a>
+                                    <a href="{% url 'pybo:password' p.0.id 1 %}" class="btn btn-outline-danger">삭제</a>
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                {% else %}
+                <tr>
+                    <td colspan="3">등록된 이동이 없습니다.</td>
+                </tr>
+                {% endif %}
+                </tbody>
+            </table>
+            <div style="text-align: right">
+                <a class="btn btn-secondary" href="{% url 'pybo:name' %}">
+                    <i class="bi bi-plus"></i> 추가
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- 카드 뷰 -->
+    <div id="cardView" style="display: none;">
+        <div style="font-family: 'Kopub';padding: 1%;margin-right: auto;margin-left: auto">
+            {% if pcard %}
+                <div style="display:flex;flex-wrap: wrap;justify-content: center;margin-bottom: 20px">
+                {% for p in pcard %}
+                    <div class="card text-center" style="width: 300px;margin: 5px">
+                        <h5 class="card-header">
+                            {{ p.0 }}
+                        </h5>
+                        <div class="card-body">
+                            <h5>
+                                {{ p.2 }}
+                                {% if p.0.approved %}
+                                    <i class="bi bi-check-circle-fill text-success"></i>
+                                {% else %}
+                                    <i class="bi bi-x-circle-fill text-danger"></i>
+                                {% endif %}
+                            </h5>
+                            <p>{{ p.0.why }}</p>
+                            <p>{{ p.0.time }}</p>
+                            <div class="btn-group" style="">
+                                <a href="{% url 'pybo:password' p.0.id 2 %}" class="btn btn-outline-dark">수정</a>
+                                <a href="{% url 'pybo:password' p.0.id 1 %}" class="btn btn-outline-danger">삭제</a>
+                            </div>
+                        </div>
+                        <div class="card-footer text-muted">
+                            {{ p.1 }}
+                        </div>
+                    </div>
+                {% endfor %}
+                </div>
+            {% else %}
+                <tr>
+                    <td colspan="3">등록된 이동이 없습니다.</td>
+                </tr>
+            {% endif %}
+        </div>
+        <div style="text-align: right">
+            <a class="btn btn-secondary" href="{% url 'pybo:name' %}">
+                <i class="bi bi-plus"></i> 추가
+            </a>
+        </div>
+    </div>
+    <div>
+        <ul class="pagination justify-content-center">
+            <!-- 이전 페이지 -->
+            {% if pcard.has_previous %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ pcard.previous_page_number }}&view={{ current_view }}">이전</a>
+            </li>
+            {% else %}
+            <li class="page-item disabled">
+                <a class="page-link">이전</a>
+            </li>
+            {% endif %}
+
+            <!-- 페이지 리스트 -->
+            {% for page_number in pcard.paginator.page_range %}
+            <li class="page-item {% if page_number == pcard.number %}active{% endif %}">
+                <a class="page-link" href="?page={{ page_number }}&view={{ current_view }}">{{ page_number }}</a>
+            </li>
+            {% endfor %}
+
+            <!-- 다음 페이지 -->
+            {% if pcard.has_next %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ pcard.next_page_number }}&view={{ current_view }}">다음</a>
+            </li>
+            {% else %}
+            <li class="page-item disabled">
+                <a class="page-link">다음</a>
+            </li>
+            {% endif %}
+        </ul>
+    <div>
+
+    <script>
+    function updateUrlParameter(param, value) {
+        var baseUrl = [location.protocol, '//', location.host, location.pathname].join('');
+        var urlQueryString = document.location.search;
+        var newParam = param + "=" + value;
+        var params = '?' + newParam;
+
+        // If the "search" string exists, then build params from it
+        if (urlQueryString) {
+            var keyRegex = new RegExp('([\?&])' + param + '[^&]*');
+            // If param exists already, update it
+            if (urlQueryString.match(keyRegex) !== null) {
+                params = urlQueryString.replace(keyRegex, "$1" + newParam);
+            } else { // Otherwise, add it to end of query string
+                params = urlQueryString + '&' + newParam;
+            }
+        }
+        window.history.replaceState({}, "", baseUrl + params);
+    }
+
+    function showTableView() {
+        document.getElementById('tableView').style.display = 'block';
+        document.getElementById('cardView').style.display = 'none';
+        updateUrlParameter('view', 'table');
+    }
+
+    function showCardView() {
+        document.getElementById('tableView').style.display = 'none';
+        document.getElementById('cardView').style.display = 'block';
+        updateUrlParameter('view', 'card');
+    }
+
+    // 페이지 로드 시 기본 뷰 설정
+    window.onload = function() {
+        const params = new URLSearchParams(window.location.search);
+        const view = params.get('view') || 'table';
+        if (view === 'card') {
+            showCardView();
+        } else {
+            showTableView();
+        }
+    }
+    </script>
+</div>
+{% endblock %}

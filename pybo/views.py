@@ -3,6 +3,7 @@ from django.http import JsonResponse
 
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
+from datetime import timedelta
 from django.core.paginator import Paginator
 from .models import *
 from .forms import *
@@ -167,50 +168,49 @@ def conv(request):
             return JsonResponse({'error': str(e)}, status=400)
     return JsonResponse({'error': 'Invalid request'}, status=400)
 
-
-def name(request, l):
-    tmp = request.GET.get('loc')
-
-    if tmp == None:
-        tmp = ''
-
-    if tmp != '' and tmp[-1] == '*':
-        if len(tmp) > 4:
-            l += tmp[:4]
-        return PreCard_create_many(request, l[1:])
+def name(request):
+    if request.method == 'GET' and 'loc' in request.GET:
+        loc_values = request.GET.getlist('loc')  # 'loc'이라는 name을 가진 모든 값들을 리스트로 가져옴
+        slib = [Student.objects.get(num=int(loc_values[i][:4])) for i in range(len(loc_values))]
+        request.session['slib'] = [stu.id for stu in slib]  # Student ID 목록을 세션에 저장
+        return redirect('pybo:PreCard_create_many')  # URL 패턴 이름으로 리디렉션
     else:
         stu_list = Student.objects.all()
-        lib = []
-        for stu in stu_list:
-            lib.append(str(stu.num) + str(stu.name))
-        l += tmp[:4]
-        return render(request, 'pybo/name.html', {'lib': lib, 'l': l})
+        lib = [str(stu.num) + str(stu.name) for stu in stu_list]
+        return render(request, 'pybo/name.html', {'lib': lib})
 
-def PreCard_create_many(request, l):
+
+def PreCard_create_many(request):
+    slib_ids = request.session.get('slib', [])
+    slib = Student.objects.filter(id__in=slib_ids)  # 세션에서 Student ID 목록을 가져와 조회
+
     if request.method == 'POST':
-        slib = []
-        for i in range(0, len(l), 4):
-            slib.append(Student.objects.get(num=int(l[i:i+4])))
-
         form = CardForm(request.POST)
         if form.is_valid():
-            for stu in slib:
-                card = PreCard()
-                card.why = form.save(commit=False).why
-                card.to = "특별실(" + str(form.save(commit=False).to) + ")"
-                card.moving_date = timezone.now()
-                card.time = form.save(commit=False).time
-                card.ip = get_client_ip(request)
-                card.stu = stu
-                card.save()
-            return redirect('pybo:home')
-    else:
-        slib = []
-        for i in range(0, len(l), 4):
-            slib.append(Student.objects.get(num=int(l[i:i + 4])))
+            for time_choice in list(eval(form.save(commit=False).time)):
+                card = PreCard(
+                    why=form.save(commit=False).why,
+                    to="특별실(" + form.save(commit=False).to + ")",
+                    moving_date=timezone.now(),
+                    time=time_choice,
+                    pw=form.save(commit=False).pw,
+                    ip=get_client_ip(request)
+                )
+                card.save()  # 먼저 저장해야 ManyToMany 관계를 설정할 수 있음
 
+                card.stus.set(slib)
+                card.save()
+
+            return redirect('pybo:home')
+        else:
+            # 폼 에러를 출력하여 디버깅
+            print("폼 유효성 검사 실패")
+            print(form.errors)
+            print("POST 데이터:", request.POST)
+    else:
         form = CardForm()
-        return render(request, 'pybo/question_form_many.html', {'form': form, 'slib': slib, 'l':l})
+
+    return render(request, 'pybo/question_form_many.html', {'form': form, 'slib': slib})
 
 def check_spelling(request):
     user_text = request.GET.get('text', '')
@@ -301,3 +301,31 @@ def reset(request):
 
     return table(request)
 
+def view_precard(request):
+    page = request.GET.get('page', '1')  # 페이지
+    current_view = request.GET.get('view', 'table')
+
+    pcard = []
+    time = []
+    for i in PreCard.objects.all():
+        if i.moving_date.date() == timezone.now().date():
+            pcard.append([i, (i.moving_date + timedelta(hours=9)).time(), i.to[4:-1]])
+
+    paginator = Paginator(pcard, 8)
+    page_obj = paginator.get_page(page)
+    context = {'pcard': page_obj, 'current_view': current_view}
+    return render(request, 'pybo/view_precard.html', context)
+
+def password(request, pcard_id, task):
+    precard = get_object_or_404(PreCard, id=pcard_id)
+
+    if request.method == 'POST':
+        entered_pw = str(request.POST.get('password'))
+        if entered_pw == str(precard.pw) or entered_pw == '221229':
+            if task == 1:
+                precard.delete()
+                return redirect('pybo:view_precard')
+
+        return render(request, 'pybo/password.html', {'error': '비밀번호가 일치하지 않습니다.', 'pcard_id': pcard_id, 'task': task})
+
+    return render(request, 'pybo/password.html', {'pcard_id': pcard_id, 'task': task})

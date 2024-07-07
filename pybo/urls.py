@@ -20,9 +20,11 @@ urlpatterns = [
     path('hmltolatex/', views.hmltolatex, name='hmltolatex'),
     path('conv/', views.conv, name='conv'),
     path('neis/', views.neis, name='neis'),
-    path('precard/create/many/<str:l>/', views.name, name='name'),
-    path('precard/form/<str:l>/', views.PreCard_create_many, name='PreCard_create_many'),
+    path('precard/create/many/', views.name, name='name'),
+    path('precard/form/', views.PreCard_create_many, name='PreCard_create_many'),
     path('check_spelling/', views.check_spelling, name='check_spelling'),
     path('status_board/', views.status_board, name='status_board'),
     path('setset/', views.reset, name='reset'),
+    path('precard/view', views.view_precard, name='view_precard'),
+    path('precard/password/<int:pcard_id>/<int:task>', views.password, name='password'),
 ]
