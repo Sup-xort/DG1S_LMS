@@ -29,9 +29,9 @@
         <div class="col mx-2" style="min-width: 350px;">
             <div style="text-align: center">
                 <div class="btn-group" role="group" style="" aria-label="Basic example">
-                    <a href="{% url 'pybo:hhome' day=day|add:'-1' %}" class="btn btn-outline-primary">이전</a>
-                    <a href="{% url 'pybo:hhome' 0 %}" class="btn btn-outline-secondary">{{ t }}</a>
-                    <a href="{% url 'pybo:hhome' day=day|add:'1' %}" class="btn btn-outline-primary">다음</a>
+                    <a href="{% url 'pybo:hhome' day=day|add:'-1' %}" class="btn btn-outline-secondary"><i class="bi bi-caret-left"></i></a>
+                    <input type="text" id="datePicker" class="btn btn-outline-secondary" style="width: 160px;" value="{{ t }}" readonly>
+                    <a href="{% url 'pybo:hhome' day=day|add:'1' %}" class="btn btn-outline-secondary"><i class="bi bi-caret-right"></i></a>
                 </div>
             </div>
             <br>
@@ -39,7 +39,7 @@
                 <div class="accordion-item">
                     <h2 class="accordion-header" id="panelsStayOpen-headingOne">
                         <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
-                            Breakfast
+                            아침
                         </button>
                     </h2>
                     <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
@@ -54,7 +54,7 @@
                 <div class="accordion-item">
                     <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
-                            Lunch
+                            점심
                         </button>
                     </h2>
                     <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingTwo">
@@ -68,7 +68,7 @@
                 <div class="accordion-item">
                     <h2 class="accordion-header" id="panelsStayOpen-headingThree">
                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
-                            Dinner
+                            저녁
                         </button>
                     </h2>
                     <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingThree">
@@ -112,7 +112,7 @@
     let deferredPrompt;
 
     window.addEventListener('beforeinstallprompt', (e) => {
-        console.log('beforeinstallprompt event triggered'); // 디버깅을 위한 콘솔 로그
+        console.log('beforeinstallprompt event triggered');
         e.preventDefault();
         deferredPrompt = e;
         const addBtn = document.getElementById('add-to-home-screen');
@@ -127,22 +127,18 @@
         console.log('a2hs', 'installed');
     });
 
-    // Detect iOS
     const isIos = () => {
         const userAgent = window.navigator.userAgent.toLowerCase();
         return /iphone|ipad|ipod/.test(userAgent);
     }
 
-    // Detect if Safari
     const isSafari = () => {
         const userAgent = window.navigator.userAgent.toLowerCase();
         return userAgent.includes('safari') && !userAgent.includes('chrome');
     }
 
-    // Detect if in standalone mode
     const isInStandaloneMode = () => ('standalone' in window.navigator) && (window.navigator.standalone);
 
-    // Show the install prompt if not in standalone mode
     window.addEventListener('load', () => {
         if (isIos() && isSafari() && !isInStandaloneMode()) {
             const addToHomeScreen = document.getElementById('ios-add-to-home-screen');
@@ -152,9 +148,20 @@
                 console.error('iOS add to home screen element not found');
             }
         }
+
+        flatpickr("#datePicker", {
+            dateFormat: "Y-m-d",
+            defaultDate: "{{ t }}",
+            onChange: function(selectedDates, dateStr, instance) {
+                const date = new Date(dateStr);
+                const today = new Date(new Date().toDateString());  // 시간 부분을 제거하여 정확히 날짜만 비교
+                const dayDiff = Math.floor((date - today) / (1000 * 60 * 60 * 24));
+                const url = "{% url 'pybo:hhome' day=0 %}".replace("0", dayDiff);
+                window.location.href = url;
+            }
+        });
     });
 
-    // Function to handle button click
     const handleAddToHomeScreenClick = () => {
         if (deferredPrompt) {
             deferredPrompt.prompt();
@@ -172,18 +179,15 @@
         }
     }
 
-    // Function to show help message
     const showHelpMessage = () => {
-        alert('To install the app, please use the browser menu and select "Add to Home Screen".');
+        alert('앱을 설치하려면 브라우저 메뉴를 사용하여 "홈 화면에 추가"를 선택하십시오.');
     }
 
-    // Add click event listener to the button
     const addBtn = document.getElementById('add-to-home-screen');
     if (addBtn) {
         addBtn.onclick = handleAddToHomeScreenClick;
     } else {
         console.error('Add to home screen button not found');
     }
-
 </script>
 {% endblock %}
