@@ -371,5 +371,9 @@ def PreCard_create_many_re(request):
             print(form.errors)
             print("POST 데이터:", request.POST)
 
+    Pcard.to = Pcard.to[4:-1]
+    Pcard.save()
     form = CardForm(instance=Pcard)
+    Pcard.to = f"특별실({Pcard.to})"
+    Pcard.save()
     return render(request, 'pybo/question_form_many_re.html', {'form': form, 'slib': slib})
