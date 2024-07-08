@@ -196,9 +196,8 @@ def PreCard_create_many(request):
             print("폼 유효성 검사 실패")
             print(form.errors)
             print("POST 데이터:", request.POST)
-    else:
-        form = CardForm()
 
+    form = CardForm()
     return render(request, 'pybo/question_form_many.html', {'form': form, 'slib': slib})
 
 def check_spelling(request):
@@ -314,7 +313,63 @@ def password(request, pcard_id, task):
             if task == 1:
                 precard.delete()
                 return redirect('pybo:view_precard')
-
+            elif task == 2:
+                request.session['pcard_id'] = pcard_id
+                return redirect('pybo:name_re')
         return render(request, 'pybo/password.html', {'error': '비밀번호가 일치하지 않습니다.', 'pcard_id': pcard_id, 'task': task})
 
     return render(request, 'pybo/password.html', {'pcard_id': pcard_id, 'task': task})
+
+
+def name_re(request):
+    if request.method == 'GET' and 'loc' in request.GET:
+        loc_values = request.GET.getlist('loc')  # 'loc'이라는 name을 가진 모든 값들을 리스트로 가져옴
+        slib = []
+        for val in loc_values:
+            if val:
+                slib.append(Student.objects.get(num=int(val[:4])))
+
+        request.session['slib'] = [stu.id for stu in slib]  # Student ID 목록을 세션에 저장
+        return redirect('pybo:PreCard_create_many_re')  # URL 패턴 이름으로 리디렉션
+    else:
+        stu_list = Student.objects.all()
+        lib = [str(stu.num) + str(stu.name) for stu in stu_list]
+
+        pcard_id = request.session['pcard_id']
+        stu_list = list(PreCard.objects.filter(id=pcard_id).last().stus.all())
+        stu_list.append('')
+        return render(request, 'pybo/name_re.html', {'lib': lib, 'stu_list': stu_list})
+
+
+def PreCard_create_many_re(request):
+    slib_ids = request.session.get('slib', [])
+    slib = Student.objects.filter(id__in=slib_ids)  # 세션에서 Student ID 목록을 가져와 조회
+    Pcard = get_object_or_404(PreCard, id=request.session['pcard_id'])
+
+    if request.method == 'POST':
+        form = CardForm(request.POST)
+        if form.is_valid():
+            Pcard.delete()
+            for time_choice in list(eval(form.save(commit=False).time)):
+                card = PreCard(
+                    why=form.save(commit=False).why,
+                    to="특별실(" + form.save(commit=False).to + ")",
+                    moving_date=timezone.now(),
+                    time=time_choice,
+                    pw=form.save(commit=False).pw,
+                    ip=get_client_ip(request)
+                )
+                card.save()  # 먼저 저장해야 ManyToMany 관계를 설정할 수 있음
+
+                card.stus.set(slib)
+                card.save()
+
+            return redirect('pybo:view_precard')
+        else:
+            # 폼 에러를 출력하여 디버깅
+            print("폼 유효성 검사 실패")
+            print(form.errors)
+            print("POST 데이터:", request.POST)
+
+    form = CardForm(instance=Pcard)
+    return render(request, 'pybo/question_form_many_re.html', {'form': form, 'slib': slib})

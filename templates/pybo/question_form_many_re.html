@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+{% block content %}
+<div style="margin: 5%">
+    <h1 class="my-3 border-bottom pb-2" style="font-family: 'gmarket';font-size: 35px">특별실 사용 신청</h1>
+</div>
+<div class="container" style="font-family: 'gmarket';text-align: center; min-height: calc(100vh - 200px); justify-content: center;">
+    <div style="width: 80%; margin-left:auto;margin-right:auto;max-width: 400px">
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th class="text-center">학번</th>
+                <th>이름</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% if slib %}
+                {% for i in slib %}
+                <tr>
+                    <td class="border text-center">
+                        {{ i.num }}
+                    </td>
+                    <td class="border">
+                        {{ i.name }}
+                    </td>
+                </tr>
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <td colspan="3">등록된 학생이 없습니다.</td>
+                </tr>
+            {% endif %}
+            </tbody>
+        </table>
+    </div>
+    <div style="width: 80%;margin-left:auto;margin-right:auto;max-width: 400px">
+        <form action="{% url 'pybo:PreCard_create_many_re' %}" method="post" style="">
+            {% csrf_token %}
+            <div style="margin-top: 10%; margin-bottom: 5%">
+                <h5>이동 시간</h5>
+                <div class="btn-group" style="margin: 1%;width: 300px">
+                    <input type="checkbox" class="btn-check" id="0" name="time" value="1차야자" checked>
+                    <label class="btn btn-outline-dark" for="0">1차야자</label>
+
+                    <input type="checkbox" class="btn-check" id="1" name="time" value="8교시">
+                    <label class="btn btn-outline-dark" for="1">8교시</label>
+
+                    <input type="checkbox" class="btn-check" id="2" name="time" value="9교시">
+                    <label class="btn btn-outline-dark" for="2">9교시</label>
+                </div>
+            </div>
+            <div class="form-floating" style="margin-bottom: 5%;">
+                {{ form.to }}
+                <label for="name">특별실 명</label>
+            </div>
+            <div class="form-floating" style="margin-bottom: 5%;">
+                {{ form.why }}
+                <label for="why">사용 목적 및 사유</label>
+            </div>
+            <div class="input-group mb-3">
+                {{ form.pw }}
+                <button type="button" class="btn btn-outline-secondary" onclick="togglePasswordVisibility()">
+                    <i class="bi bi-eye" id="eyeIcon"></i>
+                </button>
+            </div>
+            <br>
+            <br>
+            <button type="submit" class="btn btn-primary" style="width: 295px">신청</button>
+        </form>
+        ※신청자와 비밀번호를 꼭 확인하세요.<br>
+        ※비밀번호는 수정시 필요합니다.
+
+    </div>
+</div>
+<br>
+<br>
+<script>
+    function togglePasswordVisibility() {
+        const passwordInput = document.getElementById('pw');
+        const eyeIcon = document.getElementById('eyeIcon');
+        if (passwordInput.type === 'password') {
+            passwordInput.type = 'text';
+            eyeIcon.classList.remove('bi-eye');
+            eyeIcon.classList.add('bi-eye-slash');
+        } else {
+            passwordInput.type = 'password';
+            eyeIcon.classList.remove('bi-eye-slash');
+            eyeIcon.classList.add('bi-eye');
+        }
+    }
+</script>
+{% endblock %}
