@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
-<div style="display: flex; align-items: center; justify-content: center; height: calc(100vh - 300px); font-family: 'gmarket';">
+<div style="display: flex; align-items: center; justify-content: center; margin-top: 20px; min-height: calc(100vh - 300px); font-family: 'gmarket';">
     <form action="{% url 'pybo:name' %}" method="GET" id="loc" style="text-align: center; max-width: 400px;">
         {% csrf_token %}
         <div id="input-container">
