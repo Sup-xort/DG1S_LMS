@@ -109,7 +109,7 @@ def table(request):
     bat = []
     for i in range(0, 6):
         bat.append([])
-        for j in range(0, 15):
+        for j in range(0, 10):
             if batch[i][j] != 0:
                 s = Student.objects.get(num=batch[i][j])
                 to = Card.objects.filter(stu=s).order_by('-moving_date').first()
