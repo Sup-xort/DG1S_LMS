@@ -156,7 +156,11 @@ def conv(request):
 def name(request):
     if request.method == 'GET' and 'loc' in request.GET:
         loc_values = request.GET.getlist('loc')  # 'loc'이라는 name을 가진 모든 값들을 리스트로 가져옴
-        slib = [Student.objects.get(num=int(loc_values[i][:4])) for i in range(len(loc_values))]
+        slib = []
+        for val in loc_values:
+            if val:
+                slib.append(Student.objects.get(num=int(val[:4])))
+
         request.session['slib'] = [stu.id for stu in slib]  # Student ID 목록을 세션에 저장
         return redirect('pybo:PreCard_create_many')  # URL 패턴 이름으로 리디렉션
     else:
@@ -186,7 +190,7 @@ def PreCard_create_many(request):
                 card.stus.set(slib)
                 card.save()
 
-            return redirect('pybo:home')
+            return redirect('pybo:view_precard')
         else:
             # 폼 에러를 출력하여 디버깅
             print("폼 유효성 검사 실패")
