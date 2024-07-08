@@ -7,7 +7,7 @@ from datetime import timedelta
 from django.core.paginator import Paginator
 from .models import *
 from .forms import *
-from .crolling import meal
+from .crolling import meal, update_meal
 from pybo.hml_equation_parser import hmlParser as hp
 from django.http import JsonResponse
 import requests
@@ -27,7 +27,15 @@ def get_client_ip(request):
 
 def hhome(request, day):
     dish = meal(int(day))
-    context = {'b': dish[0], 'l': dish[1], 'd': dish[2], 't':dish[3], 'day':day}
+    context = {
+        'b': list(map(str, dish['breakfast'].split(','))),
+        'l': list(map(str, dish['lunch'].split(','))),
+        'd': list(map(str, dish['dinner'].split(','))),
+        't': dish['date'],
+        'day': day
+    }
+
+
 
     return render(request, 'pybo/home.html', context)
 
@@ -377,3 +385,18 @@ def PreCard_create_many_re(request):
     Pcard.to = f"특별실({Pcard.to})"
     Pcard.save()
     return render(request, 'pybo/question_form_many_re.html', {'form': form, 'slib': slib})
+
+def set_meal(request, s, e):
+    update_meal(s, e)
+
+    import os
+    from django.http import HttpResponse
+    file_path = os.path.join('meal_info.txt')
+
+    try:
+        with open(file_path, 'r', encoding='utf-8') as file:
+            file_content = file.read()
+    except FileNotFoundError:
+        return HttpResponse("File not found.", content_type="text/plain")
+
+    return HttpResponse(file_content, content_type="text/plain;charset=utf-8")
