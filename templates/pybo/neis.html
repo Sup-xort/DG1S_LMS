@@ -1,29 +1,5 @@
 {% extends 'base.html' %}
 {% block content %}
-    <style>
-        textarea {
-            width: 100%;
-            height: 200px;
-        }
-        en{
-            font-style: normal;
-        }
-        .corrected-text {
-            white-space: pre-wrap;
-        }
-        .red_text {
-            color: #e50f29;
-        }
-        .green_text {
-            color: #07d307;
-        }
-        .blue_text {
-            color: #0054ff;
-        }
-        .loading {
-            display: none;
-        }
-    </style>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <div style="padding: 50px;font-family: 'Gmarket'">
@@ -36,8 +12,6 @@
                 </div>
                 <div style="min-width: 400px; width: 50%">
                     <h6 style="font-family: 'Gmarket'; margin:0px">맞춤법 검사 결과</h6>
-                    <span id="spellCheckResult" style="font-size: 17px;font-family:'KoPub';padding-left: 5px"></span>
-                    <div class="corrected-text" id="correctedText" style="font-family: 'kopub'; padding-left: 10px; resize:both"></div>
                 </div>
             </div>
             <div style="margin-top: 10px;">
@@ -150,29 +124,33 @@
             }
 
             // 맞춤법 검사 함수
+            // 맞춤법 검사 함수
             function checkSpelling(text) {
+                $('#loading').show();  // 로딩 애니메이션 표시
                 $.ajax({
-                    url: '{% url "pybo:check_spelling" %}',  // Django 뷰 URL
-                    data: { text: text },
-                    dataType: 'json',
-                    timeout: 5000, // 타임아웃 설정 (5초)
+                    url: 'https://api.openai.com/v1/engines/davinci/completions',
+                    type: 'POST',
+                    headers: {
+                        'Authorization': 'Bearer YOUR_OPENAI_API_KEY',
+                        'Content-Type': 'application/json'
+                    },
+                    data: JSON.stringify({
+                        prompt: "문법이 올바른지 확인하고, 잘못된 부분을 수정하세요: " + text,
+                        max_tokens: 150
+                    }),
                     success: function(response) {
                         $('#loading').hide();
-                        if (response.errata_count > 0) {
-                            $('#spellCheckResult').html(response.errors);
-                            $('#correctedText').html(response.correctedText); // HTML 렌더링
-                        } else {
-                            $('#spellCheckResult').html('맞춤법 오류 없음');
-                            $('#correctedText').html('모든 문장이 올바르게 작성되었습니다.');
-                        }
+                        const correctedText = response.choices[0].text.trim();
+                        $('#correctedText').text(correctedText);
                     },
                     error: function(xhr, status, error) {
                         $('#loading').hide();
-                        console.error('Error:', status, error); // 디버깅용 로그
+                        console.error('Error:', status, error);
                         $('#spellCheckResult').text('맞춤법 검사 실패');
                     }
                 });
             }
+
 
             // 페이지 새로고침 또는 나가기 시 확인 메시지
             window.addEventListener('beforeunload', function (e) {
