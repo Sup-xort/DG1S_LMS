@@ -124,29 +124,6 @@
             }
             window.history.replaceState({}, "", baseUrl + params);
         }
-
-        function showTableView() {
-            document.getElementById('tableView').style.display = 'block';
-            document.getElementById('cardView').style.display = 'none';
-            updateUrlParameter('view', 'table');
-        }
-
-        function showCardView() {
-            document.getElementById('tableView').style.display = 'none';
-            document.getElementById('cardView').style.display = 'block';
-            updateUrlParameter('view', 'card');
-        }
-
-        // 페이지 로드 시 기본 뷰 설정
-        window.onload = function() {
-            const params = new URLSearchParams(window.location.search);
-            const view = params.get('view') || 'table';
-            if (view === 'card') {
-                showCardView();
-            } else {
-                showTableView();
-            }
-        }
     </script>
     <script>
         let timeout;
