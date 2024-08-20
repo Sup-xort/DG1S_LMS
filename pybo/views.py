@@ -8,6 +8,7 @@ from django.core.paginator import Paginator
 from .models import *
 from .forms import *
 from .crolling import meal, update_meal
+from .subject import subject
 from pybo.hml_equation_parser import hmlParser as hp
 from django.http import JsonResponse
 import requests
@@ -27,15 +28,23 @@ def get_client_ip(request):
 
 def hhome(request, day):
     dish = meal(int(day))
+    sub = subject(int(day))
+
     context = {
         'b': list(map(str, dish['breakfast'].split(','))),
         'l': list(map(str, dish['lunch'].split(','))),
         'd': list(map(str, dish['dinner'].split(','))),
         't': dish['date'],
-        'day': day
+        'day': day,
+        'sub': [
+            (sub['1'], '1'),
+            (sub['2'], '2'),
+            (sub['3'], '3'),
+            (sub['4'], '4'),
+            (sub['A'], 'A'),
+            (sub['B'], 'B'),
+        ]
     }
-
-
 
     return render(request, 'pybo/home.html', context)
 

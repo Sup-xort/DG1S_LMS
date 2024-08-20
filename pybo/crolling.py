@@ -41,8 +41,6 @@ def fetch_meal_info(date):
 
 def meal(day):
     target_date = (datetime.now() + timedelta(days=day)).strftime('%Y-%m-%d')
-    meal_data = {}
-    print(target_date)
 
     # Load existing meal data
     if os.path.exists('meal_info.txt'):
