@@ -85,7 +85,7 @@
             <ul class="nav nav-tabs" id="myTab" role="tablist">
                 {% for i, j in sub %}
                     <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="tab{{ j }}-tab" data-bs-toggle="tab" data-bs-target="#tab{{ j }}" type="button" role="tab" aria-controls="tab{{ j }}" aria-selected="{% if j == 1 %}true{% else %}false{% endif %}">
+                        <button class="nav-link {% if j == '3' %}active{% endif %}" id="tab{{ j }}-tab" data-bs-toggle="tab" data-bs-target="#tab{{ j }}" type="button" role="tab" aria-controls="tab{{ j }}" aria-selected="{% if j == '3' %}true{% else %}false{% endif %}">
                             {{ j }}
                         </button>
                     </li>
@@ -95,7 +95,7 @@
             <!-- Tab Content -->
             <div class="tab-content" id="myTabContent">
                 {% for i, j in sub %}
-                    <div class="tab-pane" id="tab{{ j }}" role="tabpanel" aria-labelledby="tab{{ j }}-tab" style="padding: 10px">
+                    <div class="tab-pane {% if j == '3' %}show active{% endif %}" id="tab{{ j }}" role="tabpanel" aria-labelledby="tab{{ j }}-tab" style="padding: 10px">
                         <table class="table table-bordered" style="margin-left: auto; margin-right: auto; width: 70%; min-width: 280px; text-align: center">
                             <thead>
                                 <tr>
