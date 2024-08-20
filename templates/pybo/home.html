@@ -25,7 +25,6 @@
         </div>
     </div>
     <div class="my-auto" style="font-family: 'Gmarket'; display:flex; flex-wrap: wrap; padding: 2%;font-size:18px;">
-        <!-- 아코디언 -->
         <div class="col mx-2" style="min-width: 350px;">
             <div style="text-align: center">
                 <div class="btn-group" role="group" style="" aria-label="Basic example">
@@ -81,20 +80,47 @@
                 </div>
             </div>
         </div>
+        <div class="col" style="min-width: 400px; height: 400px; margin-left: auto; margin-right: auto; padding: 5%">
+            <!-- Tabs Navigation -->
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                {% for i, j in sub %}
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="tab{{ j }}-tab" data-bs-toggle="tab" data-bs-target="#tab{{ j }}" type="button" role="tab" aria-controls="tab{{ j }}" aria-selected="{% if j == 1 %}true{% else %}false{% endif %}">
+                            {{ j }}
+                        </button>
+                    </li>
+                {% endfor %}
+            </ul>
 
-        <!-- 준비중 -->
+            <!-- Tab Content -->
+            <div class="tab-content" id="myTabContent">
+                {% for i, j in sub %}
+                    <div class="tab-pane" id="tab{{ j }}" role="tabpanel" aria-labelledby="tab{{ j }}-tab" style="padding: 10px">
+                        <table class="table table-bordered" style="margin-left: auto; margin-right: auto; width: 70%; min-width: 280px; text-align: center">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>선생님</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for s in i %}
+                                    <tr>
+                                        <td>{{ forloop.counter|add:'7' }}</td>
+                                        <td>{{ s }}</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
         <div class="col" style="min-width: 350px; height: 400px; text-align: center; align-content: center">
             <h3 class="text p-2" style="font-family: 'gmarket';margin: 0px;">특별실 일괄신청</h3>
             <h6 class="text p-2" style="font-family: 'gmarket'; color:gray;margin: 0px">특별실 이동 신청을 한 번에 할 수 있어요.</h6>
             <br>
             <a href="{% url 'pybo:name' %}" class="btn btn-outline-primary" style="color:black"><i class="bi bi-pencil-square"></i> 신청하기</a>
-        </div>
-
-        <div class="col" style="min-width: 350px; height: 400px; text-align: center; align-content: center">
-            <h3 class="text p-2" style="font-family: 'gmarket';margin: 0px;">불편접수</h3>
-            <h6 class="text p-2" style="font-family: 'gmarket'; color:gray;margin: 0px">오류를 신고하거나, 특별실 신청 등을<br> 잘못한 경우 알려주세요!</h6>
-            <br>
-            <a href="https://forms.gle/eUXwcgzMKLaGveDS9" class="btn btn-outline-primary" style="color:black">접수</a>
         </div>
     </div>
     <div class="col" id style="min-width: 350px; height: 400px; text-align: center; align-content: center; font-family: 'gmarket'">
