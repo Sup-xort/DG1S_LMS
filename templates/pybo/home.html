@@ -80,40 +80,44 @@
                 </div>
             </div>
         </div>
-        <div class="col" style="min-width: 400px; height: 400px; margin-left: auto; margin-right: auto; padding: 5%">
-            <!-- Tabs Navigation -->
-            <ul class="nav nav-tabs" id="myTab" role="tablist">
-                {% for i, j in sub %}
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link {% if j == '3' %}active{% endif %}" id="tab{{ j }}-tab" data-bs-toggle="tab" data-bs-target="#tab{{ j }}" type="button" role="tab" aria-controls="tab{{ j }}" aria-selected="{% if j == '3' %}true{% else %}false{% endif %}">
-                            {{ j }}
-                        </button>
-                    </li>
-                {% endfor %}
-            </ul>
+        <div class="col" style="min-width: 400px; height: 400px; margin-left: auto; margin-right: auto; padding: 5%; text-align: center; justify-content: center">
+            <h3 class="text p-2" style="font-family: 'gmarket';margin: 0px;">방과후 시간표</h3>
+            <br>
+            <div style="width: 70%; min-width: 280px; margin-left: auto; margin-right: auto;">
+                <!-- Tabs Navigation -->
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    {% for i, j in sub %}
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link {% if j == '3' %}active{% endif %}" id="tab{{ j }}-tab" data-bs-toggle="tab" data-bs-target="#tab{{ j }}" type="button" role="tab" aria-controls="tab{{ j }}" aria-selected="{% if j == '3' %}true{% else %}false{% endif %}">
+                                {{ j }}
+                            </button>
+                        </li>
+                    {% endfor %}
+                </ul>
 
-            <!-- Tab Content -->
-            <div class="tab-content" id="myTabContent">
-                {% for i, j in sub %}
-                    <div class="tab-pane {% if j == '3' %}show active{% endif %}" id="tab{{ j }}" role="tabpanel" aria-labelledby="tab{{ j }}-tab" style="padding: 10px">
-                        <table class="table table-bordered" style="margin-left: auto; margin-right: auto; width: 70%; min-width: 280px; text-align: center">
-                            <thead>
-                                <tr>
-                                    <th></th>
-                                    <th>선생님</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {% for s in i %}
+                <!-- Tab Content -->
+                <div class="tab-content" id="myTabContent" style="">
+                    {% for i, j in sub %}
+                        <div class="tab-pane {% if j == '3' %}show active{% endif %}" id="tab{{ j }}" role="tabpanel" aria-labelledby="tab{{ j }}-tab" style="padding: 10px">
+                            <table class="table table-bordered" style="margin-left: auto; margin-right: auto; width: 70%; min-width: 280px; text-align: center">
+                                <thead>
                                     <tr>
-                                        <td>{{ forloop.counter|add:'7' }}</td>
-                                        <td>{{ s }}</td>
+                                        <th></th>
+                                        <th>선생님</th>
                                     </tr>
-                                {% endfor %}
-                            </tbody>
-                        </table>
-                    </div>
-                {% endfor %}
+                                </thead>
+                                <tbody>
+                                    {% for s in i %}
+                                        <tr>
+                                            <td>{{ forloop.counter|add:'7' }}</td>
+                                            <td>{{ s }}</td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    {% endfor %}
+                </div>
             </div>
         </div>
         <div class="col" style="min-width: 350px; height: 400px; text-align: center; align-content: center">
