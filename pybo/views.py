@@ -4,6 +4,7 @@ from django.http import JsonResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
 from datetime import timedelta
+from datetime import datetime, timedelta
 from django.core.paginator import Paginator
 from .models import *
 from .forms import *
@@ -45,6 +46,13 @@ def hhome(request, day):
             (sub['B'], 'B'),
         ]
     }
+
+    if datetime.now().hour >= 14:
+        context['ex'] = '3'
+    elif datetime.now().hour >= 8:
+        context['ex'] = '2'
+    else:
+        context['ex'] = '1'
 
     return render(request, 'pybo/home.html', context)
 
