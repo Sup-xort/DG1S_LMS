@@ -20,13 +20,13 @@ def add_math(request):
     a = [2107, 2113, 2118, 2202, 2207, 2213, 2304, 2306, 2312, 2405, 2409, 2412, 2416, 2419]
     ip_address = get_client_ip(request)
     for i in a:
-        s = Student.objects.get(num=a)
+        s = Student.objects.get(num=i)
         card = Card(stu=s, to='수학A', why='야간방과후', moving_date=timezone.now(), ip=ip_address)
         card.save()
 
     a = [2112, 2114, 2201, 2204, 2214, 2217, 2305, 2308, 2309, 2313, 2406, 2411, 2414, 2417]
     for i in a:
-        s = Student.objects.get(num=a)
+        s = Student.objects.get(num=i)
         card = Card(stu=s, to='수학B', why='야간방과후', moving_date=timezone.now(), ip=ip_address)
         card.save()
 
@@ -34,13 +34,13 @@ def add_science(request):
     a = [2113, 2114, 2201, 2207, 2306, 2308, 2309, 2312, 2409, 2312, 2409, 2411]
     ip_address = get_client_ip(request)
     for i in a:
-        s = Student.objects.get(num=a)
+        s = Student.objects.get(num=i)
         card = Card(stu=s, to='물리학A', why='야간방과후', moving_date=timezone.now(), ip=ip_address)
         card.save()
 
     a = [2112, 2118, 2202, 2213, 2217, 2305, 2313, 2405, 2406, 2414, 2416, 2417, 2419]
     for i in a:
-        s = Student.objects.get(num=a)
+        s = Student.objects.get(num=i)
         card = Card(stu=s, to='화학A', why='야간방과후', moving_date=timezone.now(), ip=ip_address)
         card.save()
 
