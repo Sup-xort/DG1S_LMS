@@ -29,6 +29,7 @@ def add_math(request):
         s = Student.objects.get(num=i)
         card = Card(stu=s, to='수학B', why='야간방과후', moving_date=timezone.now(), ip=ip_address)
         card.save()
+    return redirect('pybo:home')
 
 def add_science(request):
     a = [2113, 2114, 2201, 2207, 2306, 2308, 2309, 2312, 2409, 2312, 2409, 2411]
@@ -50,6 +51,7 @@ def add_science(request):
         card = Card(stu=s, to='생명과학A', why='야간방과후', moving_date=timezone.now(), ip=ip_address)
         card.save()
 
+    return redirect('pybo:home')
 def home(request):
     return hhome(request, 0)
 
