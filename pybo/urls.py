@@ -29,4 +29,6 @@ urlpatterns = [
     path('precard/rewrite/name/', views.name_re, name='name_re'),
     path('precard/rewrite/form/', views.PreCard_create_many_re, name='PreCard_create_many_re'),
     path('meal/set/<int:s>/<int:e>/', views.set_meal, name='set_meal'),
+    path('add/science/', views.add_science, name='set_science'),
+    path('add/math/', views.add_math, name='set_math'),
 ]
