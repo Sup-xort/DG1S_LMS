@@ -17,7 +17,7 @@ import json
 import time
 
 def add_math(request):
-    a = [2107, 2113, 2118, 2202, 2207, 2213, 2304, 2306, 2312, 2405, 2409, 2412, 2416, 2419]
+    a = [2102, 2107, 2113, 2118, 2202, 2207, 2213, 2304, 2306, 2312, 2405, 2409, 2412, 2416, 2419]
     ip_address = get_client_ip(request)
     for i in a:
         s = Student.objects.get(num=i)
@@ -45,7 +45,7 @@ def add_science(request):
         card = Card(stu=s, to='화학A', why='야간방과후', moving_date=timezone.now(), ip=ip_address)
         card.save()
 
-    a = [2107, 2204, 2214, 2304, 2412]
+    a = [2102, 2107, 2204, 2214, 2304, 2412]
     for i in a:
         s = Student.objects.get(num=i)
         card = Card(stu=s, to='생명과학A', why='야간방과후', moving_date=timezone.now(), ip=ip_address)
