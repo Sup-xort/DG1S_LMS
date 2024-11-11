@@ -26,6 +26,20 @@ class StudentAdmin(admin.ModelAdmin):
 
     actions = [set]
 
+    @admin.action(description="조퇴자 제외 이동현황 초기화")
+    def set(self, request, queryset):
+        ip_address = get_client_ip(request)
+        for student in queryset:
+            to = Card.objects.filter(stu=student).order_by('-moving_date').first()
+
+            if to != '조퇴':
+                card = Card(stu=student, to='재실', why='관리자에 의해 초기화되었습니다.', moving_date=timezone.now(), ip=ip_address)
+                card.save()
+
+        self.message_user(request, "초기화 되었습니다.")
+
+    actions = [set]
+
 class CardAdmin(admin.ModelAdmin):
     search_fields = ['stu__num', 'stu__name', 'to', 'why', 'moving_date', 'ip']
     list_display = ['stu', 'to', 'moving_date', 'ip']
