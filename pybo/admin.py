@@ -32,7 +32,7 @@ class StudentAdmin(admin.ModelAdmin):
         for student in queryset:
             to = Card.objects.filter(stu=student).order_by('-moving_date').first()
 
-            if to != '조퇴':
+            if to.to != '조퇴' and to.to != '퇴사':
                 card = Card(stu=student, to='재실', why='관리자에 의해 초기화되었습니다.', moving_date=timezone.now(), ip=ip_address)
                 card.save()
 

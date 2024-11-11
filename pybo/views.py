@@ -185,6 +185,9 @@ def table(request):
                     elif '조퇴' == to.to:
                         color = '#FF350A'
                         to = to.to
+                    elif '퇴사' == to.to:
+                        color = '#1D1F9F'
+                        to = to.to
                     else:
                         color = '#43DC6C'
                         to = to.to
