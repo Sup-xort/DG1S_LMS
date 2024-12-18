@@ -143,13 +143,18 @@ def toQuick(request):
 
 def Quick(request, stu_num):
     stu = Student.objects.filter(num=stu_num).first()
-    page = request.GET.get('page', '1')
-    card = stu.card_set.order_by('-moving_date')
+    to = Card.objects.filter(stu=stu).order_by('-moving_date').first()
+    if to.to != '재실':
+        stu.card_set.create(to='재실', why='', moving_date=timezone.now(), ip=get_client_ip(request))
+        return table(request)
+    else:
+        page = request.GET.get('page', '1')
+        card = stu.card_set.order_by('-moving_date')
 
-    paginator = Paginator(card, 10)
-    page_obj = paginator.get_page(page)
-    context = {'student': stu, 'card': page_obj}
-    return render(request, 'pybo/quick.html', {'student': stu, 'card': page_obj})
+        paginator = Paginator(card, 10)
+        page_obj = paginator.get_page(page)
+        context = {'student': stu, 'card': page_obj}
+        return render(request, 'pybo/quick.html', {'student': stu, 'card': page_obj})
 
 def table(request):
     batch = [[2115, 2114, 2113, 2112, 2111, 2110, 2109, 2108, 2107, 2106, 2105, 2104, 2103, 2102, 2101],
