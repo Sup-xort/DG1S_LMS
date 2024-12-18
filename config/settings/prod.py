@@ -1,6 +1,6 @@
 from .base import *
 
-ALLOWED_HOSTS = ['10.72.120.132', '']
+ALLOWED_HOSTS = ['10.72.120.132', 'dg1s.pythonanywhere.com']
 STATIC_ROOT = BASE_DIR / 'static/'
 STATICFILES_DIRS = []
 DEBUG = False
