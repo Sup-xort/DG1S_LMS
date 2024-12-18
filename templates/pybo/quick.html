@@ -43,15 +43,22 @@
                                 </button>
                             </div>
                             <!-- 아래쪽 버튼 2개 -->
-                            <div style="width: 100%;display: flex; justify-content: center; gap: 10px;">
-                                <button type="submit" name="loc" value="조퇴" class="btn btn-danger"
-                                        style="width: 50%; height: 50px; padding: 1%; margin: 5%;">
-                                    조퇴
+                            <div style="width: 100%; display: flex; flex-wrap: wrap; text-align: center; justify-content: center; align-items: stretch;">
+                                <button type="submit" name="loc" value="재실" class="btn btn-dark"
+                                        style="flex: 1 1 40%; height: 50px; padding: 1%; margin: 3%; min-width: 300px;">
+                                    복귀
                                 </button>
-                                <button type="submit" name="loc" value="퇴사" class="btn btn-secondary"
-                                        style="width: 50%; height: 50px; padding: 1%; margin: 5%;">
-                                    퇴사
-                                </button>
+                                <div class="btn-group"
+                                     style="flex: 1 1 40%; display: flex; margin: 3%; min-width: 300px;">
+                                    <button type="submit" name="loc" value="조퇴" class="btn btn-warning"
+                                            style="flex: 1; height: 50px; padding: 1%;">
+                                        조퇴
+                                    </button>
+                                    <button type="submit" name="loc" value="퇴사" class="btn btn-danger"
+                                            style="flex: 1; height: 50px; padding: 1%;">
+                                        퇴사
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </form>
