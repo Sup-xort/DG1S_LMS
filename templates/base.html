@@ -12,22 +12,24 @@
     <link href="/static/images/mlogo2.png" rel="shortcut icon" type="image/x-icon">
     <link rel="apple-touch-icon" sizes="180x180" href="/static/images/mlogo.png">
     <link rel="manifest" href="{% static 'manifest.json' %}">
-	<meta name="theme-color" content="#f7fafb">
-	<meta name="apple-mobile-web-app-status-bar-style" content="#f7fafb">
+    <meta name="theme-color" content="#f7fafb">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#f7fafb">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
+
     <!-- Bootstrap CSS -->
     <!-- Bootstrap Icons -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.8.1/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/font-kopub@1.0/kopubdotum.min.css">
 
     <style>
         html {
             font-size: 20px;
 
-          @media (min-width: 768px) {
-            font-size: 16px;
-          }
+            @media (min-width: 768px) {
+                font-size: 16px;
+            }
         }
 
 
@@ -45,25 +47,15 @@
             font-style: normal;
         }
 
-        @font-face {
-            font-family: 'KoPub';
-            font-weight: 500;
-            font-style: normal;
-            src: url('https://cdn.jsdelivr.net/gh/webfontworld/kopus/KoPubWorldDotumMedium.eot');
-            src: url('https://cdn.jsdelivr.net/gh/webfontworld/kopus/KoPubWorldDotumMedium.eot?#iefix') format('embedded-opentype'),
-                url('https://cdn.jsdelivr.net/gh/webfontworld/kopus/KoPubWorldDotumMedium.woff2') format('woff2'),
-                url('https://cdn.jsdelivr.net/gh/webfontworld/kopus/KoPubWorldDotumMedium.woff') format('woff'),
-                url('https://cdn.jsdelivr.net/gh/webfontworld/kopus/KoPubWorldDotumMedium.ttf') format("truetype");
-            font-display: swap;
-        }
-
-        .srow{
+        .srow {
             margin: 2%;
         }
-        .middle{
+
+        .middle {
             width: 2%;
         }
-        .seat{
+
+        .seat {
             width: 118px;
             height: 98px;
             padding: 10%;
@@ -72,7 +64,8 @@
             border-radius: 5px;
             font-family: 'Gmarket';
         }
-        .non_seat{
+
+        .non_seat {
             background-color: #6b6868;
             width: 118px;
             height: 98px;
@@ -81,6 +74,7 @@
             cursor: pointer;
             border-radius: 5px;
         }
+
         #ios-add-to-home-screen {
             display: none;
             position: fixed;
@@ -93,48 +87,48 @@
             border: 1px solid #ccc;
             padding: 10px;
             border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             justify-content: center;
             align-items: center;
         }
     </style>
 </head>
 <body>
-    {% include "navbar.html" %}
-    <!-- 기본 템플릿 안에 삽입될 내용 Start -->
-    <!-- Bootstrap JS -->
-    <script src="{% static 'bootstrap.min.js' %}"></script>
-    <script>
-      (function () {
+{% include "navbar.html" %}
+<!-- 기본 템플릿 안에 삽입될 내용 Start -->
+<!-- Bootstrap JS -->
+<script src="{% static 'bootstrap.min.js' %}"></script>
+<script>
+    (function () {
         if ('serviceWorker' in navigator) {
             navigator.serviceWorker.register("{% static 'sw.js' %}")
-            .then(function(registration) {
-                console.log('Service Worker registered with scope:', registration.scope);
-            })
-            .catch(function(error) {
-                console.log('Service Worker registration failed:', error);
-            });
+                .then(function (registration) {
+                    console.log('Service Worker registered with scope:', registration.scope);
+                })
+                .catch(function (error) {
+                    console.log('Service Worker registration failed:', error);
+                });
         }
-      })();
-    </script>
-    {% block content %}
-    {% endblock %}
-    <!-- 기본 템플릿 안에 삽입될 내용 End -->
-    <div style = "text-align:center;margin-top:2px;" class="border-top">
-        <br>
-        <div style="font-size:.7rem;font-family:'Gmarket'">
-            <span> <a href="https://forms.gle/hR6gW2JaZXz6k7Kr5">불편접수</a></span> |
-            <span> <a href="https://github.com/Kor-jiwon">개발자 정보</a></span>
-        </div>
-        <div style="margin:2rem;font-family: 'kopub'">
-            <footer>
-                <h6 style="font-family: 'SUGANG';font-size: 22px;">LIM JIWON</h6>
-                <h6 style="font-family: 'SUGANG';font-size: 19px;margin: 10px">BAEK KYEONG HOON</h6>
-                <h6 style="font-family: 'SUGANG';font-size: 19px;margin: 10px">KWON HOSEUNG | KIM SIHEON</h6>
-                all rights reserved to.
-            </footer>
-        </div>
-
+    })();
+</script>
+{% block content %}
+{% endblock %}
+<!-- 기본 템플릿 안에 삽입될 내용 End -->
+<div style="text-align:center;margin-top:2px;" class="border-top">
+    <br>
+    <div style="font-size:.7rem;font-family:'Gmarket'">
+        <span> <a href="https://forms.gle/hR6gW2JaZXz6k7Kr5">불편접수</a></span> |
+        <span> <a href="https://github.com/Kor-jiwon">개발자 정보</a></span>
     </div>
+    <div style="margin:2rem;font-family: 'kopub'">
+        <footer>
+            <h6 style="font-family: 'SUGANG';font-size: 22px;">LIM JIWON</h6>
+            <h6 style="font-family: 'SUGANG';font-size: 19px;margin: 10px">BAEK KYEONG HOON</h6>
+            <h6 style="font-family: 'SUGANG';font-size: 19px;margin: 10px">KWON HOSEUNG | KIM SIHEON</h6>
+            all rights reserved to.
+        </footer>
+    </div>
+
+</div>
 </body>
 </html>

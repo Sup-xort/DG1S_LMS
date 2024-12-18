@@ -1,109 +1,139 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class="container-sm my-3" style="font-family: 'kopub';height: 100%;">
-    <!-- 질문 -->
-    <h2 class="border-bottom py-2" style="" > {{ student.num }} {{ student.name }}</h2>
-    <div class="card my-3">
-        <div class="card-body">
-            <div class="card-text" style="white-space: pre-line;">
-                {{ student.card_set.last.to }}
-                {{ student.card_set.last.why }}
-            </div>
-            <div class="d-flex justify-content-end">
-                <div class="badge bg-light text-dark p-2">
-                    {{ student.card_set.last.moving_date }}
+
+    <div class="container-sm my-3" style="font-family: 'KoPub Dotum';height: 100%;">
+        <h2 class="border-bottom py-2" style=""> {{ student.num }} {{ student.name }}</h2>
+        <!-- 답변 -->
+        <h5 class="border-bottom my-3 py-2">이동 보고</h5>
+        <div class="container-sm">
+            <div class="container">
+                <div class="row">
+                    <form action="{% url 'pybo:card_create' student.id %}" method="get" id="loc">
+                        {% csrf_token %}
+                        <div style="display: flex; flex-direction: column; align-items: center; font-family: 'gmarket'">
+                            <!-- 위쪽 버튼 5개 -->
+                            <div style="display: flex; justify-content: space-between; flex-wrap: wrap; width: 80%; margin-bottom: 20px;">
+                                <button type="submit" name="loc" value="화장실" class="btn btn-outline-dark"
+                                        style="width: 118px; height: 98px; padding: 1%; margin: 1%;">
+                                    <div>
+                                        <i class="bi bi-person-standing" style="margin-right: 0"></i>
+                                        <i class="bi bi-person-standing-dress" style="margin-left: 0"></i>
+                                    </div>
+                                    <h5>화장실</h5>
+                                </button>
+                                <button type="submit" name="loc" value="장탁이용중" class="btn btn-outline-dark"
+                                        style="width: 118px; height: 98px; padding: 1%; margin: 1%;">
+                                    <i class="bi bi-person-standing"></i>
+                                    <h5>장탁</h5>
+                                </button>
+                                <button type="submit" name="loc" value="교실" class="btn btn-outline-dark"
+                                        style="width: 118px; height: 98px; padding: 1%; margin: 1%;">
+                                    <i class="bi bi-person-workspace"></i>
+                                    <h5>교실</h5>
+                                </button>
+                                <button type="submit" name="loc" value="도서관" class="btn btn-outline-dark"
+                                        style="width: 118px; height: 98px; padding: 1%; margin: 1%;">
+                                    <i class="bi bi-book-half"></i>
+                                    <h5>도서관</h5>
+                                </button>
+                                <button type="submit" name="loc" value="정수기" class="btn btn-outline-dark"
+                                        style="width: 118px; height: 98px; padding: 1%; margin: 1%;">
+                                    <i class="bi bi-cup"></i>
+                                    <h5>정수기</h5>
+                                </button>
+                            </div>
+                            <!-- 아래쪽 버튼 2개 -->
+                            <div style="width: 100%;display: flex; justify-content: center; gap: 10px;">
+                                <button type="submit" name="loc" value="조퇴" class="btn btn-danger"
+                                        style="width: 50%; height: 50px; padding: 1%; margin: 5%;">
+                                    조퇴
+                                </button>
+                                <button type="submit" name="loc" value="퇴사" class="btn btn-secondary"
+                                        style="width: 50%; height: 50px; padding: 1%; margin: 5%;">
+                                    퇴사
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+
                 </div>
             </div>
         </div>
-    </div>
-    <!-- 답변 -->
-    <h5 class="border-bottom my-3 py-2">{{student.card_set.count}}개의 기록이 있습니다.</h5>
-    <div class="card my-3">
-        <table class="table">
-            <thead>
-            <tr class="table-success">
-                <th>번호</th>
-                <th>상태</th>
-                <th>사유</th>
-                <th>등록일시</th>
-            </tr>
-            </thead>
-            <tbody>
-                {% for i in card %}
-                <tr>
-                    <td>{{ forloop.counter }}</td>
-                    <td>{{ i.to }}</td>
-                    <td>{{ i.why }}</td>
-                    <td>{{ i.moving_date }}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-        <!-- 페이징처리 시작 -->
-        <ul class="pagination justify-content-center">
-        <!-- 이전페이지 -->
-        {% if stu_list.has_previous %}
-        <li class="page-item">
-            <a class="page-link" href="?page={{ stu_list.previous_page_number }}">이전</a>
-        </li>
-        {% else %}
-        <li class="page-item disabled">
-            <a class="page-link" tabindex="-1" aria-disabled="true" href="#">이전</a>
-        </li>
-        {% endif %}
-        <!-- 페이지리스트 -->
-        {% for page_number in card.paginator.page_range %}
-        {% if page_number == card.number %}
-        <li class="page-item active" aria-current="page">
-            <a class="page-link" href="?page={{ page_number }}">{{ page_number }}</a>
-        </li>
-        {% else %}
-        <li class="page-item">
-            <a class="page-link" href="?page={{ page_number }}">{{ page_number }}</a>
-        </li>
-        {% endif %}
-        {% endfor %}
-        <!-- 다음페이지 -->
-        {% if card.has_next %}
-        <li class="page-item">
-            <a class="page-link" href="?page={{ card.next_page_number }}">다음</a>
-        </li>
-        {% else %}
-        <li class="page-item disabled">
-            <a class="page-link" tabindex="-1" aria-disabled="true" href="#">다음</a>
-        </li>
-        {% endif %}
-    </ul>
-    <!-- 페이징처리 끝 -->
-    </div>
-
-    <!-- 답변 -->
-    <h5 class="border-bottom my-3 py-2">이동 보고</h5>
-    <div class="container-sm">
-        <div class="container">
-            <div class="row">
-                <form action="{% url 'pybo:card_create' student.id %}" method="get" id="loc">
-                    {% csrf_token %}
-                        <div class="col-sm">
-                            <select name="loc" id="loc" class='form-select' size=7>
-                                <option value="재실" class="list-group-item">복귀</option>
-                                <option value="화장실" class="list-group-item">화장실</option>
-                                <option value="장탁이용중" class="list-group-item">장탁</option>
-                                <option value="교실" class="list-group-item">교실</option>
-                                <option value="도서관" class="list-group-item">도서관</option>
-                                <option value="정수기" class="list-group-item">정수기</option>
-                                <option value="조퇴" class="list-group-item">조퇴</option>
-                                <option value="퇴사" class="list-group-item">퇴사</option>
-                            </select>
-                        </div>
-                        <div class="col-sm">
-                            <input type="submit" value="Sumbit" class = 'btn btn-primary my-1'>
-                        </div>
-                </form>
+        <!-- 질문 -->
+        <div class="card my-3">
+            <div class="card-body">
+                <div class="card-text" style="white-space: pre-line;">
+                    {{ student.card_set.last.to }}
+                    {{ student.card_set.last.why }}
+                </div>
+                <div class="d-flex justify-content-end">
+                    <div class="badge bg-light text-dark p-2">
+                        {{ student.card_set.last.moving_date }}
+                    </div>
+                </div>
             </div>
         </div>
+        <!-- 답변 -->
+        <h5 class="border-bottom my-3 py-2">{{ student.card_set.count }}개의 기록이 있습니다.</h5>
+        <div class="card my-3">
+            <table class="table">
+                <thead>
+                <tr class="table-success">
+                    <th>번호</th>
+                    <th>상태</th>
+                    <th>사유</th>
+                    <th>등록일시</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for i in card %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ i.to }}</td>
+                        <td>{{ i.why }}</td>
+                        <td>{{ i.moving_date }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            <!-- 페이징처리 시작 -->
+            <ul class="pagination justify-content-center">
+                <!-- 이전페이지 -->
+                {% if stu_list.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ stu_list.previous_page_number }}">이전</a>
+                    </li>
+                {% else %}
+                    <li class="page-item disabled">
+                        <a class="page-link" tabindex="-1" aria-disabled="true" href="#">이전</a>
+                    </li>
+                {% endif %}
+                <!-- 페이지리스트 -->
+                {% for page_number in card.paginator.page_range %}
+                    {% if page_number == card.number %}
+                        <li class="page-item active" aria-current="page">
+                            <a class="page-link" href="?page={{ page_number }}">{{ page_number }}</a>
+                        </li>
+                    {% else %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ page_number }}">{{ page_number }}</a>
+                        </li>
+                    {% endif %}
+                {% endfor %}
+                <!-- 다음페이지 -->
+                {% if card.has_next %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ card.next_page_number }}">다음</a>
+                    </li>
+                {% else %}
+                    <li class="page-item disabled">
+                        <a class="page-link" tabindex="-1" aria-disabled="true" href="#">다음</a>
+                    </li>
+                {% endif %}
+            </ul>
+            <!-- 페이징처리 끝 -->
+        </div>
     </div>
-</div>
     <br>
     <br>
     <br>
