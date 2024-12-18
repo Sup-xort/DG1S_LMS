@@ -5,7 +5,7 @@
         {% csrf_token %}
         <div id="input-container">
             <div>
-                <label for="loc-input" class="form-label" style="font-size: 20px">학번 혹은 이름</label>
+                <label for="loc-input" class="form-label" style="font-size: 20px">학번 또는 이름</label>
                 <input class="form-control-lg" style="max-width: 300px" list="datalistOptions" id="loc-input" name="loc" type="search">
                 <datalist id="datalistOptions">
                     {% for i in lib %}
@@ -19,6 +19,9 @@
             <input class="btn btn-outline-secondary" type="submit" value="완료">
             <button type="button" class="btn btn-secondary" onclick="addInput()">+</button>
         </div>
+        <br>
+        <br>
+        <br>
     </form>
 </div>
 <div style="margin:150px"></div>
