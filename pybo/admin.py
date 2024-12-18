@@ -24,10 +24,8 @@ class StudentAdmin(admin.ModelAdmin):
             card.save()
         self.message_user(request, "초기화 되었습니다.")
 
-    actions = [set]
-
     @admin.action(description="조퇴자 제외 이동현황 초기화")
-    def set(self, request, queryset):
+    def noset(self, request, queryset):
         ip_address = get_client_ip(request)
         for student in queryset:
             to = Card.objects.filter(stu=student).order_by('-moving_date').first()
@@ -38,7 +36,7 @@ class StudentAdmin(admin.ModelAdmin):
 
         self.message_user(request, "초기화 되었습니다.")
 
-    actions = [set]
+    actions = [set, noset]
 
 class CardAdmin(admin.ModelAdmin):
     search_fields = ['stu__num', 'stu__name', 'to', 'why', 'moving_date', 'ip']
