@@ -228,7 +228,11 @@ def name(request):
         slib = []
         for val in loc_values:
             if val:
-                slib.append(Student.objects.get(num=int(val[:4])))
+                tmp = str(val)
+                if tmp[:4].isdigit() == True:
+                    slib.append(Student.objects.get(num=int(tmp[:4])))
+                elif tmp[:3].isalpha() == True:
+                    slib.append(Student.objects.get(name=str(tmp[:3])))
 
         request.session['slib'] = [stu.id for stu in slib]  # Student ID 목록을 세션에 저장
         return redirect('pybo:PreCard_create_many')  # URL 패턴 이름으로 리디렉션
