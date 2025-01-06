@@ -146,7 +146,7 @@ def Quick(request, stu_num):
     to = Card.objects.filter(stu=stu).order_by('-moving_date').first()
     if to.to != '재실':
         stu.card_set.create(to='재실', why='', moving_date=timezone.now(), ip=get_client_ip(request))
-        return redirect('pybo:home')
+        return redirect('pybo:table')
     else:
         page = request.GET.get('page', '1')
         card = stu.card_set.order_by('-moving_date')
