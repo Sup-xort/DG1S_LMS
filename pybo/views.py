@@ -16,42 +16,6 @@ import requests
 import json
 import time
 
-def add_math(request):
-    a = [2102, 2107, 2113, 2118, 2202, 2207, 2213, 2304, 2306, 2312, 2405, 2409, 2412, 2416, 2419]
-    ip_address = get_client_ip(request)
-    for i in a:
-        s = Student.objects.get(num=i)
-        card = Card(stu=s, to='수학A', why='야간방과후', moving_date=timezone.now(), ip=ip_address)
-        card.save()
-
-    a = [2112, 2114, 2201, 2204, 2214, 2217, 2305, 2308, 2309, 2313, 2406, 2411, 2414, 2417]
-    for i in a:
-        s = Student.objects.get(num=i)
-        card = Card(stu=s, to='수학B', why='야간방과후', moving_date=timezone.now(), ip=ip_address)
-        card.save()
-    return redirect('pybo:home')
-
-def add_science(request):
-    a = [2113, 2114, 2201, 2207, 2306, 2308, 2309, 2312, 2409, 2312, 2409, 2411]
-    ip_address = get_client_ip(request)
-    for i in a:
-        s = Student.objects.get(num=i)
-        card = Card(stu=s, to='물리학A', why='야간방과후', moving_date=timezone.now(), ip=ip_address)
-        card.save()
-
-    a = [2112, 2118, 2202, 2213, 2217, 2305, 2313, 2405, 2406, 2414, 2416, 2417, 2419]
-    for i in a:
-        s = Student.objects.get(num=i)
-        card = Card(stu=s, to='화학A', why='야간방과후', moving_date=timezone.now(), ip=ip_address)
-        card.save()
-
-    a = [2102, 2107, 2204, 2214, 2304, 2412]
-    for i in a:
-        s = Student.objects.get(num=i)
-        card = Card(stu=s, to='생명과학A', why='야간방과후', moving_date=timezone.now(), ip=ip_address)
-        card.save()
-
-    return redirect('pybo:home')
 def home(request):
     return hhome(request, 0)
 
@@ -465,3 +429,25 @@ def set_meal(request, s, e):
         return HttpResponse("File not found.", content_type="text/plain")
 
     return HttpResponse(file_content, content_type="text/plain;charset=utf-8")
+
+
+def add_students(request):
+    students_data = [
+        ("3414", "황재훈"), ("3413", "함세빈"), ("3412", "최이량"), ("3411", "조우성"),
+        ("3410", "전정민"), ("3409", "이혜안"), ("3408", "신우진"), ("3407", "신동현"),
+        ("3406", "송정현"), ("3405", "노영서"), ("3404", "김정택"), ("3403", "김도건"),
+        ("3402", "권가현"), ("3401", "강정연"), ("3314", "황세하"), ("3313", "허율"),
+        ("3312", "정효림"), ("3311", "이준혁"), ("3310", "이우혁"), ("3309", "이영헌"),
+        ("3308", "윤태현"), ("3307", "오건"), ("3306", "서민준"), ("3305", "박형기"),
+        ("3304", "도성민"), ("3303", "김윤완"), ("3302", "김성윤"), ("3301", "김도연"),
+        ("3214", "홍수현"), ("3213", "조정안"), ("3212", "임준희"), ("3211", "이동빈"),
+        ("3210", "윤수인"), ("3209", "우은서"), ("3208", "신정훈"), ("3207", "박채은"),
+        ("3206", "도수현"), ("3205", "김정운"), ("3204", "김승민"), ("3203", "김민준"),
+        ("3202", "김리원"), ("3201", "김대훈"), ("3113", "황예준"), ("3112", "황소언"),
+        ("3111", "정지후"), ("3110", "정재윤"), ("3109", "장지호"), ("3108", "임지원"),
+        ("3107", "백경훈"), ("3106", "배윤희"), ("3105", "김한음"), ("3104", "김소현"),
+        ("3103", "김도유"), ("3102", "권호승"), ("3101", "강나연")
+    ]
+
+    students = [Student(num=num, name=name) for num, name in students_data]
+    Student.objects.bulk_create(students)  # ✅ 한 번에 삽입
